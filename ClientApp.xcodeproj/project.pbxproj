@@ -41,9 +41,10 @@
 		F23FF2042733A1E100434A49 /* RegistrationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF2032733A1E100434A49 /* RegistrationDTO.swift */; };
 		F23FF2082733A4A400434A49 /* CommonConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF2072733A4A400434A49 /* CommonConstants.swift */; };
 		F23FF20A2733AA9600434A49 /* PhoneRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF2092733AA9600434A49 /* PhoneRegistrationViewModel.swift */; };
+		F280936D273ADED2003D2D24 /* BranchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F280936C273ADED2003D2D24 /* BranchCell.swift */; };
+		F280936F273AE43F003D2D24 /* UICollectionCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F280936E273AE43F003D2D24 /* UICollectionCell+.swift */; };
 		F2E2EA042735B63100584A8B /* AuthorizationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2EA032735B63100584A8B /* AuthorizationDTO.swift */; };
 		F2E2EA062735C9AB00584A8B /* BirthdayDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2EA052735C9AB00584A8B /* BirthdayDTO.swift */; };
-		F2E2EA08273632BC00584A8B /* DoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2EA07273632BC00584A8B /* DoneViewController.swift */; };
 		F2E2EA0C27381F7E00584A8B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2EA0B27381F7E00584A8B /* MainViewController.swift */; };
 		F2E2EA0E27381F8F00584A8B /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2EA0D27381F8F00584A8B /* MainViewModel.swift */; };
 		F2E2EA1127381FD600584A8B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2EA1027381FD600584A8B /* BaseViewController.swift */; };
@@ -116,9 +117,10 @@
 		F23FF2032733A1E100434A49 /* RegistrationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDTO.swift; sourceTree = "<group>"; };
 		F23FF2072733A4A400434A49 /* CommonConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonConstants.swift; sourceTree = "<group>"; };
 		F23FF2092733AA9600434A49 /* PhoneRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRegistrationViewModel.swift; sourceTree = "<group>"; };
+		F280936C273ADED2003D2D24 /* BranchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchCell.swift; sourceTree = "<group>"; };
+		F280936E273AE43F003D2D24 /* UICollectionCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionCell+.swift"; sourceTree = "<group>"; };
 		F2E2EA032735B63100584A8B /* AuthorizationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationDTO.swift; sourceTree = "<group>"; };
 		F2E2EA052735C9AB00584A8B /* BirthdayDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayDTO.swift; sourceTree = "<group>"; };
-		F2E2EA07273632BC00584A8B /* DoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneViewController.swift; sourceTree = "<group>"; };
 		F2E2EA0B27381F7E00584A8B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F2E2EA0D27381F8F00584A8B /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		F2E2EA1027381FD600584A8B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -376,7 +378,6 @@
 			isa = PBXGroup;
 			children = (
 				F23FF1FC2732E07400434A49 /* ConfirmationCodeViewController.swift */,
-				F2E2EA07273632BC00584A8B /* DoneViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -386,6 +387,7 @@
 			children = (
 				F23FF2012732E1B700434A49 /* UITextField+.swift */,
 				F2030FE32734378B00351C52 /* RetryAbility.swift */,
+				F280936E273AE43F003D2D24 /* UICollectionCell+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -463,6 +465,7 @@
 		F2E2EA262738249B00584A8B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F280936C273ADED2003D2D24 /* BranchCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -662,11 +665,12 @@
 			files = (
 				F2E2EA172738242100584A8B /* BasketViewController.swift in Sources */,
 				F23FF1D92732D50000434A49 /* BaseRegistrationViewController.swift in Sources */,
-				F2E2EA08273632BC00584A8B /* DoneViewController.swift in Sources */,
 				F23FF1A22732D03200434A49 /* SplashViewController.swift in Sources */,
+				F280936F273AE43F003D2D24 /* UICollectionCell+.swift in Sources */,
 				F23FF19E2732D03200434A49 /* AppDelegate.swift in Sources */,
 				F23FF1DB2732D54300434A49 /* GeneratedIcons.swift in Sources */,
 				F2E2EA1D2738245F00584A8B /* QRCodeViewController.swift in Sources */,
+				F280936D273ADED2003D2D24 /* BranchCell.swift in Sources */,
 				F23FF1F72732E02400434A49 /* PhoneConfirmationViewController.swift in Sources */,
 				F23FF1F02732DFED00434A49 /* AuthViewController.swift in Sources */,
 				F2030FE227342FB100351C52 /* RegistrationAssembly.swift in Sources */,
@@ -875,6 +879,7 @@
 				DEVELOPMENT_TEAM = 57ZJPHWU8J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ClientApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "QR-Code need camera usage access";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -904,6 +909,7 @@
 				DEVELOPMENT_TEAM = 57ZJPHWU8J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ClientApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "QR-Code need camera usage access";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

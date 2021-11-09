@@ -186,7 +186,7 @@ class ConfirmationCodeViewController: BaseRegistrationViewController {
                 if case .success(let token) = response {
                     print(token)
                     let tabBarVC = BaseTabViewController()
-                    tabBarVC.present(tabBarVC, animated: true)
+                    tabBarVC.modalPresentationStyle = .overFullScreen
                     self?.present(tabBarVC, animated: true)
                 } 
             }

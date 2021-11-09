@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import AVFoundation
 
 class MainViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     private func setUp() {

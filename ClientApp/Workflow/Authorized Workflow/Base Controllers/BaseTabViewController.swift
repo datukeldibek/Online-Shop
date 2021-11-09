@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FittedSheets
 
 enum TabBar: CaseIterable {
     case Home
@@ -21,7 +22,7 @@ enum TabBar: CaseIterable {
         case .Basket:
             return UITabBarItem(title: nil, image: Icons.toteSimple.image, selectedImage: nil)
         case .QRCode:
-            return UITabBarItem(title: nil, image: Icons.qrCode.image, selectedImage: nil)
+            return UITabBarItem(title: nil, image: UIImage(), selectedImage: nil)
         case .Branch:
             return UITabBarItem(title: nil, image: Icons.mapPin.image, selectedImage: nil)
         case .Profile:
@@ -37,7 +38,7 @@ enum TabBar: CaseIterable {
         case .Basket:
             vc = UINavigationController(rootViewController: BasketViewController())
         case .QRCode:
-            vc = UINavigationController(rootViewController: QRCodeViewController())
+            vc = UINavigationController()
         case .Branch:
             vc = UINavigationController(rootViewController: BranchViewController())
         case .Profile:
@@ -55,6 +56,7 @@ class BaseTabViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+        setupMiddleButton()
     }
     
     private func setUp() {
@@ -66,5 +68,31 @@ class BaseTabViewController: UITabBarController {
         tabBar.tintColor = Colors.orange.color
         tabBar.backgroundColor = Colors.background.color
         tabBar.itemWidth = (tabBar.frame.size.width / 5)
+    }
+    
+    func setupMiddleButton() {
+        let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 67, height: 67))
+        var menuButtonFrame = menuButton.frame
+        menuButtonFrame.origin.y = view.bounds.height - menuButtonFrame.height - 30
+        menuButtonFrame.origin.x = view.bounds.width/2 - menuButtonFrame.size.width/2
+        menuButton.frame = menuButtonFrame
+        
+        menuButton.backgroundColor = Colors.orange.color
+        menuButton.layer.cornerRadius = menuButtonFrame.height/2
+        view.addSubview(menuButton)
+        
+        menuButton.setImage(Icons.qrCode.image, for: .normal)
+        menuButton.tintColor = .white
+        menuButton.addTarget(self, action: #selector(menuButtonAction(sender:)), for: .touchUpInside)
+        
+        view.layoutIfNeeded()
+    }
+    
+    // MARK: - Actions
+    
+    @objc private func menuButtonAction(sender: UIButton) {
+        let QRCodeVC = QRCodeViewController()
+        let controller = SheetViewController(controller: QRCodeVC, sizes: [.percent(0.8)])
+        present(controller, animated: true)
     }
 }
