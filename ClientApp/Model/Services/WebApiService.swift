@@ -11,7 +11,7 @@ import Alamofire
 protocol WebApiServiceType {
     // MARK: - Registration
     func registerNewUser(user: RegistrationDTO, completion: @escaping (Result<Void, Error>) -> Void)
-    func sendConfirmation(for phoneNumber: String, confirmationCode: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func sendConfirmation(for phoneNumber: String, confirmationCode: String, completion: @escaping (Result<JwtInfo, Error>) -> Void)
     
     // MARK: - Authorization
     func authorizeUser(phoneNumber number: AuthorizationDTO, completion: @escaping (Result<Void, Error>) -> Void)
@@ -19,6 +19,30 @@ protocol WebApiServiceType {
     
     // MARK: - Person editing
     func setBirthdayToUser(userBDay: BirthdayDTO, completion: @escaping (Result<BirthdayDTO, Error>) -> Void)
+    func editProfile(userName: String, birthDate: String, completion: @escaping(Result<Void, Error>) -> Void)
+    
+    // MARK: - Bonuses
+    func getBonuses(completion: @escaping (Result<Int, Error>) -> Void)
+    func addSubstractBonuses(amount: Int, completion: @escaping (Result<Int, Error>) -> Void)
+    
+    // MARK: - Branches
+    func getBranches(completion: @escaping (Result<[BranchDTO], Error>) -> Void)
+    
+    // MARK: - Orders
+    func addOrders(order: OrderDTO, completion: @escaping (Result<Void, Error>) -> Void)
+    func cancelOrder(orderId: Int, completion: @escaping (Result<Void, Error>) -> Void)
+    func checkTableAvailability(tableId: Int, completion: @escaping (Result<Bool, Error>) -> Void)
+    func getOrdersByStatus(statusId: Int, completion: @escaping (Result<[OrderDTO], Error>) -> Void)
+    func getAllOrders(completion: @escaping (Result<[OrderDTO], Error>) -> Void)
+    func getCompletedOrders(completion: @escaping (Result<Bool, Error>) -> Void)
+    func getCurrentOrders(statusId: Int, completion: @escaping (Result<OrderDTO, Error>) -> Void)
+
+    // MARK: - Category
+    func getAllCategories(completion: @escaping (Result<[CategoryDTO], Error>) -> Void)
+    func getCategoriesDish(categoryId: Int, completion: @escaping (Result<CategoryMenuDTO, Error>) -> Void)
+    func getPopularDishes(completion: @escaping (Result<[FullCategoryDTO], Error>) -> Void)
+    func getDishDetails(id: Int, completion: @escaping (Result<DishDTO, Error>) -> Void)
+    
 }
 
 class WebApiService: WebApiServiceType {
@@ -78,17 +102,17 @@ class WebApiService: WebApiServiceType {
     func registerNewUser(user: RegistrationDTO, completion: @escaping (Result<Void, Error>) -> Void) {
         afSession.request(
             CommonConstants.Registration.registerUser(),
-                method: .post,
-                parameters: RegistrationDTO(firstName: user.firstName, phoneNumber: user.phoneNumber),
-                encoder: JSONParameterEncoder.default
-            )
-        .validate()
-        .response { [weak self] (response) in
-            self?.handleEmptyResponse(response: response, completion: completion)
-        }
+            method: .post,
+            parameters: RegistrationDTO(firstName: user.firstName, phoneNumber: user.phoneNumber),
+            encoder: JSONParameterEncoder.default
+        )
+            .validate()
+            .response { [weak self] (response) in
+                self?.handleEmptyResponse(response: response, completion: completion)
+            }
     }
     
-    func sendConfirmation(for phoneNumber: String, confirmationCode: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func sendConfirmation(for phoneNumber: String, confirmationCode: String, completion: @escaping (Result<JwtInfo, Error>) -> Void) {
         afSession.request(
             CommonConstants.Registration.confirmCode(),
             method: .post,
@@ -99,8 +123,8 @@ class WebApiService: WebApiServiceType {
             encoder: JSONParameterEncoder.default
         )
         .validate()
-        .response { [weak self] (response) in
-            self?.handleEmptyResponse(response: response, completion: completion)
+        .responseDecodable { [weak self] (response) in
+            self?.handleResponse(of: JwtInfo.self, response: response, completion: completion)
         }
     }
     
@@ -140,11 +164,197 @@ class WebApiService: WebApiServiceType {
             CommonConstants.ProfileEditing.setBirthdayToUser(),
             method: .put,
             parameters: userBDay,
-            encoder: JSONParameterEncoder.default
+            encoder: JSONParameterEncoder.default,
+            interceptor: authService
         )
-            .validate()
-            .responseDecodable { [weak self] (response) in
-                self?.handleResponse(of: BirthdayDTO.self, response: response, completion: completion)
-            }
+        .validate()
+        .responseDecodable { [weak self] (response) in
+            self?.handleResponse(of: BirthdayDTO.self, response: response, completion: completion)
+        }
+    }
+    
+    func editProfile(userName: String, birthDate: String, completion: @escaping(Result<Void, Error>) -> Void) {
+        let params = [
+            "firstName": userName,
+            "bdate": "May 31, 2020 at 4:32:27 AM"
+        ]
+        afSession.request(
+            CommonConstants.ProfileEditing.editProfile(),
+            method: .post,
+            parameters: params,
+            encoder: JSONParameterEncoder.default,
+            interceptor: authService
+        )
+        .validate()
+        .response { [weak self] (response) in
+            self?.handleEmptyResponse(response: response, completion: completion)
+        }
+    }
+    
+    // MARK: - Bonuses
+    func getBonuses(completion: @escaping (Result<Int, Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Bonus.getBonuses(),
+            method: .get,
+            parameters: nil,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable { [weak self] response in
+            self?.handleResponse(of: Int.self, response: response, completion: completion)
+        }
+    }
+    
+    func addSubstractBonuses(amount: Int, completion: @escaping (Result<Int, Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Bonus.addOrSubstractBonuses(amount: amount),
+            method: .post,
+            parameters: ["amount": amount],
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable { [weak self] response in
+            self?.handleResponse(of: Int.self, response: response, completion: completion)
+        }
+    }
+    
+    // MARK: - Branches
+    func getBranches(completion: @escaping (Result<[BranchDTO], Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Branches.getBranches(),
+            method: .get,
+            parameters: nil,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable { [weak self] response in
+            self?.handleResponse(of: [BranchDTO].self, response: response, completion: completion)
+        }
+    }
+    
+    // MARK: - Orders
+    func addOrders(order: OrderDTO, completion: @escaping (Result<Void, Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Orders.addNewOrder(),
+            method: .post,
+            parameters: order,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable { [weak self] response in
+            self?.handleEmptyResponse(response: response, completion: completion)
+        }
+    }
+    
+    func cancelOrder(orderId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Orders.cancelOrder(id: orderId),
+            method: .get,
+            parameters: nil,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable { [weak self] response in
+            self?.handleEmptyResponse(response: response, completion: completion)
+        }
+    }
+    
+    func checkTableAvailability(tableId: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Menu.tableAvailability(tableId: tableId),
+            method: .get,
+            parameters: nil,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable { [weak self] response in
+            self?.handleResponse(of: Bool.self, response: response, completion: completion)
+        }
+    }
+    
+    func getOrdersByStatus(statusId: Int, completion: @escaping (Result<[OrderDTO], Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Orders.getOrderByStatus(id: statusId),
+            method: .get,
+            parameters: nil,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable { [weak self] response in
+            self?.handleResponse(of: [OrderDTO].self, response: response, completion: completion)
+        }
+    }
+    
+    func getAllOrders(completion: @escaping (Result<[OrderDTO], Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Orders.getAllOrders(),
+            method: .get,
+            parameters: nil,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable { [weak self] response in
+            self?.handleResponse(of: [OrderDTO].self, response: response, completion: completion)
+        }
+    }
+    
+    func getCompletedOrders(completion: @escaping (Result<Bool, Error>) -> Void) {
+        
+    }
+    
+    func getCurrentOrders(statusId: Int, completion: @escaping (Result<OrderDTO, Error>) -> Void) {
+        
+    }
+    
+    func getAllCategories(completion: @escaping (Result<[CategoryDTO], Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Orders.getAllCategories(),
+            method: .get,
+            parameters: nil,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable { [weak self] response in
+            self?.handleResponse(of: [CategoryDTO].self, response: response, completion: completion)
+        }
+    }
+    
+    func getCategoriesDish(categoryId: Int, completion: @escaping (Result<CategoryMenuDTO, Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Orders.getDishesFromCategory(id: categoryId),
+            method: .get,
+            parameters: nil,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable { [weak self] response in
+            self?.handleResponse(of: CategoryMenuDTO.self, response: response, completion: completion)
+        }
+    }
+    
+    func getPopularDishes(completion: @escaping (Result<[FullCategoryDTO], Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Orders.getPopularDishes(),
+            method: .get,
+            parameters: nil,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable { [weak self] response in
+            self?.handleResponse(of: [FullCategoryDTO].self, response: response, completion: completion)
+        }
+    }
+    
+    func getDishDetails(id: Int, completion: @escaping (Result<DishDTO, Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Orders.getDishesFromCategory(id: id),
+            method: .get,
+            parameters: nil,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable { [weak self] response in
+            self?.handleResponse(of: DishDTO.self, response: response, completion: completion)
+        }
     }
 }

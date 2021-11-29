@@ -16,7 +16,7 @@ protocol AuthServiceType: RequestInterceptor {
     func logout()
     // MARK: - Registration
     func registerViaPhone(user: RegistrationDTO, completion: @escaping (Result<Void, Error>) -> Void)
-    func sendConfirmation(for phoneNumber: String, confirmationCode: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func sendConfirmation(for phoneNumber: String, confirmationCode: String, completion: @escaping (Result<JwtInfo, Error>) -> Void)
     
     // MARK: - Authorization
     func authorizeUser(user: AuthorizationDTO, completion: @escaping (Result<Void, Error>) -> Void)
@@ -73,8 +73,10 @@ class AuthService: AuthServiceType {
         webApi.registerNewUser(user: user, completion: completion)
     }
     
-    func sendConfirmation(for phoneNumber: String, confirmationCode: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        webApi.sendConfirmation(for: phoneNumber, confirmationCode: confirmationCode, completion: completion)
+    func sendConfirmation(for phoneNumber: String, confirmationCode: String, completion: @escaping (Result<JwtInfo, Error>) -> Void) {
+        webApi.sendConfirmation(for: phoneNumber, confirmationCode: confirmationCode) { [weak self] res in
+            self?.handleAuthResult(res, completion: completion)
+        }
     }
     
     // MARK: - Authorization
@@ -142,6 +144,7 @@ class AuthService: AuthServiceType {
     
     private func saveToken(_ t: JwtInfo) throws {
         self.currentToken = t
+        print(currentToken)
         let data = try encoder.encode(t)
         try keychain.set(data, key: tokenKey)
     }

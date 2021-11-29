@@ -109,20 +109,22 @@ class ConfirmationCodeViewController: BaseRegistrationViewController {
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUp()
+        configure()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        textField1.becomeFirstResponder()
     }
     
     private func setUp() {
         setUpSubviews()
         setUpConstaints()
-        configure()
     }
     
     private func configure() {
-//        hideKeyboardWhenTappedAround()
-//        setupBackButton(with: "")
-//        setUpBackButtonImage(with: "chevron.left")
         configureTextField()
+        setUp()
     }
     
     private func setUpSubviews() {
@@ -181,10 +183,11 @@ class ConfirmationCodeViewController: BaseRegistrationViewController {
             let confirmationCodeCompletion = { [unowned self] completion in
                 self.viewModel.confirmAuthCode(for: self.phoneNumber, confirmationCode: self.confirmationCode, completion: completion)
             }
+            logInButton.isLoading = true
+            defer { logInButton.isLoading = false }
             
             withRetry(confirmationCodeCompletion) { [weak self] response in
-                if case .success(let token) = response {
-                    print(token)
+                if case .success = response {
                     let tabBarVC = BaseTabViewController()
                     tabBarVC.modalPresentationStyle = .overFullScreen
                     self?.present(tabBarVC, animated: true)

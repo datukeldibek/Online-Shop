@@ -8,11 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		3D0EB72882937DC528FDECAF /* Pods_ClientApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06368A3AA102C6CDE48F4B7B /* Pods_ClientApp.framework */; };
+		F2009EB9274002CF00E9A03C /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2009EB8274002CF00E9A03C /* OrderCell.swift */; };
+		F2009EBB27400C3700E9A03C /* BasketFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2009EBA27400C3700E9A03C /* BasketFooterView.swift */; };
+		F2009EBD2740219D00E9A03C /* HistoryOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2009EBC2740219D00E9A03C /* HistoryOrderViewController.swift */; };
 		F2030FE227342FB100351C52 /* RegistrationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2030FE127342FB100351C52 /* RegistrationAssembly.swift */; };
 		F2030FE42734378B00351C52 /* RetryAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2030FE32734378B00351C52 /* RetryAbility.swift */; };
 		F2030FE627343AFF00351C52 /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2030FE527343AFF00351C52 /* ServiceAssembly.swift */; };
 		F2030FE82734428200351C52 /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2030FE72734428200351C52 /* JWT.swift */; };
 		F2030FEA2734472900351C52 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2030FE92734472900351C52 /* StorageService.swift */; };
+		F22861052753CA1C009CDCC6 /* OrderDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22861042753CA1C009CDCC6 /* OrderDTO.swift */; };
+		F22861072753CEA5009CDCC6 /* FullDishDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22861062753CEA5009CDCC6 /* FullDishDTO.swift */; };
+		F22861092753CFF1009CDCC6 /* CategoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22861082753CFF1009CDCC6 /* CategoryDTO.swift */; };
 		F23FF19E2732D03200434A49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF19D2732D03200434A49 /* AppDelegate.swift */; };
 		F23FF1A02732D03200434A49 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF19F2732D03200434A49 /* SceneDelegate.swift */; };
 		F23FF1A22732D03200434A49 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF1A12732D03200434A49 /* SplashViewController.swift */; };
@@ -41,8 +47,16 @@
 		F23FF2042733A1E100434A49 /* RegistrationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF2032733A1E100434A49 /* RegistrationDTO.swift */; };
 		F23FF2082733A4A400434A49 /* CommonConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF2072733A4A400434A49 /* CommonConstants.swift */; };
 		F23FF20A2733AA9600434A49 /* PhoneRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF2092733AA9600434A49 /* PhoneRegistrationViewModel.swift */; };
+		F269AF67274D376E0081A835 /* BranchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269AF66274D376E0081A835 /* BranchDTO.swift */; };
+		F269AF6B274D3D6A0081A835 /* CategoryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269AF6A274D3D6A0081A835 /* CategoryItemCell.swift */; };
+		F269AF6D274D3D740081A835 /* PopularItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269AF6C274D3D740081A835 /* PopularItemCell.swift */; };
+		F269AF6F274D3D800081A835 /* HeaderItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269AF6E274D3D800081A835 /* HeaderItemView.swift */; };
+		F269AF71274D3E6E0081A835 /* BonusItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269AF70274D3E6E0081A835 /* BonusItemCell.swift */; };
+		F269AF73274D40440081A835 /* StepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269AF72274D40440081A835 /* StepperView.swift */; };
 		F280936D273ADED2003D2D24 /* BranchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F280936C273ADED2003D2D24 /* BranchCell.swift */; };
 		F280936F273AE43F003D2D24 /* UICollectionCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F280936E273AE43F003D2D24 /* UICollectionCell+.swift */; };
+		F2809371273B910B003D2D24 /* ProfileOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2809370273B910B003D2D24 /* ProfileOrderCell.swift */; };
+		F2809373273C1BCF003D2D24 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2809372273C1BCF003D2D24 /* ProfileEditViewController.swift */; };
 		F2E2EA042735B63100584A8B /* AuthorizationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2EA032735B63100584A8B /* AuthorizationDTO.swift */; };
 		F2E2EA062735C9AB00584A8B /* BirthdayDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2EA052735C9AB00584A8B /* BirthdayDTO.swift */; };
 		F2E2EA0C27381F7E00584A8B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2EA0B27381F7E00584A8B /* MainViewController.swift */; };
@@ -80,11 +94,17 @@
 		06368A3AA102C6CDE48F4B7B /* Pods_ClientApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClientApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		699104AA5F37FD7F66CE64C8 /* Pods-ClientApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClientApp.debug.xcconfig"; path = "Target Support Files/Pods-ClientApp/Pods-ClientApp.debug.xcconfig"; sourceTree = "<group>"; };
 		BB91F2AA1745ADB0B3E4B199 /* Pods-ClientApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClientApp.release.xcconfig"; path = "Target Support Files/Pods-ClientApp/Pods-ClientApp.release.xcconfig"; sourceTree = "<group>"; };
+		F2009EB8274002CF00E9A03C /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
+		F2009EBA27400C3700E9A03C /* BasketFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketFooterView.swift; sourceTree = "<group>"; };
+		F2009EBC2740219D00E9A03C /* HistoryOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryOrderViewController.swift; sourceTree = "<group>"; };
 		F2030FE127342FB100351C52 /* RegistrationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationAssembly.swift; sourceTree = "<group>"; };
 		F2030FE32734378B00351C52 /* RetryAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryAbility.swift; sourceTree = "<group>"; };
 		F2030FE527343AFF00351C52 /* ServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAssembly.swift; sourceTree = "<group>"; };
 		F2030FE72734428200351C52 /* JWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWT.swift; sourceTree = "<group>"; };
 		F2030FE92734472900351C52 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		F22861042753CA1C009CDCC6 /* OrderDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDTO.swift; sourceTree = "<group>"; };
+		F22861062753CEA5009CDCC6 /* FullDishDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullDishDTO.swift; sourceTree = "<group>"; };
+		F22861082753CFF1009CDCC6 /* CategoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDTO.swift; sourceTree = "<group>"; };
 		F23FF19A2732D03200434A49 /* ClientApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClientApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F23FF19D2732D03200434A49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F23FF19F2732D03200434A49 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,8 +137,16 @@
 		F23FF2032733A1E100434A49 /* RegistrationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDTO.swift; sourceTree = "<group>"; };
 		F23FF2072733A4A400434A49 /* CommonConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonConstants.swift; sourceTree = "<group>"; };
 		F23FF2092733AA9600434A49 /* PhoneRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRegistrationViewModel.swift; sourceTree = "<group>"; };
+		F269AF66274D376E0081A835 /* BranchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchDTO.swift; sourceTree = "<group>"; };
+		F269AF6A274D3D6A0081A835 /* CategoryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItemCell.swift; sourceTree = "<group>"; };
+		F269AF6C274D3D740081A835 /* PopularItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularItemCell.swift; sourceTree = "<group>"; };
+		F269AF6E274D3D800081A835 /* HeaderItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderItemView.swift; sourceTree = "<group>"; };
+		F269AF70274D3E6E0081A835 /* BonusItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusItemCell.swift; sourceTree = "<group>"; };
+		F269AF72274D40440081A835 /* StepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperView.swift; sourceTree = "<group>"; };
 		F280936C273ADED2003D2D24 /* BranchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchCell.swift; sourceTree = "<group>"; };
 		F280936E273AE43F003D2D24 /* UICollectionCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionCell+.swift"; sourceTree = "<group>"; };
+		F2809370273B910B003D2D24 /* ProfileOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOrderCell.swift; sourceTree = "<group>"; };
+		F2809372273C1BCF003D2D24 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		F2E2EA032735B63100584A8B /* AuthorizationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationDTO.swift; sourceTree = "<group>"; };
 		F2E2EA052735C9AB00584A8B /* BirthdayDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayDTO.swift; sourceTree = "<group>"; };
 		F2E2EA0B27381F7E00584A8B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +204,14 @@
 				06368A3AA102C6CDE48F4B7B /* Pods_ClientApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F2009EB7274002B700E9A03C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F2009EB8274002CF00E9A03C /* OrderCell.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		F2030FE027342F9800351C52 /* DI */ = {
@@ -275,6 +311,7 @@
 		F23FF1D22732D34400434A49 /* Workflow */ = {
 			isa = PBXGroup;
 			children = (
+				F2009EB7274002B700E9A03C /* Components */,
 				F23FF1D32732D35500434A49 /* Registrtion and Authorization */,
 				F23FF1D42732D35F00434A49 /* Authorized Workflow */,
 			);
@@ -361,6 +398,10 @@
 				F2E2EA032735B63100584A8B /* AuthorizationDTO.swift */,
 				F2E2EA052735C9AB00584A8B /* BirthdayDTO.swift */,
 				F2030FE72734428200351C52 /* JWT.swift */,
+				F269AF66274D376E0081A835 /* BranchDTO.swift */,
+				F22861042753CA1C009CDCC6 /* OrderDTO.swift */,
+				F22861062753CEA5009CDCC6 /* FullDishDTO.swift */,
+				F22861082753CFF1009CDCC6 /* CategoryDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -405,6 +446,10 @@
 		F2E2EA0A27381F6600584A8B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F269AF6A274D3D6A0081A835 /* CategoryItemCell.swift */,
+				F269AF6C274D3D740081A835 /* PopularItemCell.swift */,
+				F269AF6E274D3D800081A835 /* HeaderItemView.swift */,
+				F269AF72274D40440081A835 /* StepperView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -431,6 +476,8 @@
 		F2E2EA1A2738242E00584A8B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F2009EBA27400C3700E9A03C /* BasketFooterView.swift */,
+				F2009EBC2740219D00E9A03C /* HistoryOrderViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -483,6 +530,9 @@
 		F2E2EA2C273824D800584A8B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F2809370273B910B003D2D24 /* ProfileOrderCell.swift */,
+				F2809372273C1BCF003D2D24 /* ProfileEditViewController.swift */,
+				F269AF70274D3E6E0081A835 /* BonusItemCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -668,9 +718,11 @@
 				F23FF1A22732D03200434A49 /* SplashViewController.swift in Sources */,
 				F280936F273AE43F003D2D24 /* UICollectionCell+.swift in Sources */,
 				F23FF19E2732D03200434A49 /* AppDelegate.swift in Sources */,
+				F269AF6D274D3D740081A835 /* PopularItemCell.swift in Sources */,
 				F23FF1DB2732D54300434A49 /* GeneratedIcons.swift in Sources */,
 				F2E2EA1D2738245F00584A8B /* QRCodeViewController.swift in Sources */,
 				F280936D273ADED2003D2D24 /* BranchCell.swift in Sources */,
+				F269AF6F274D3D800081A835 /* HeaderItemView.swift in Sources */,
 				F23FF1F72732E02400434A49 /* PhoneConfirmationViewController.swift in Sources */,
 				F23FF1F02732DFED00434A49 /* AuthViewController.swift in Sources */,
 				F2030FE227342FB100351C52 /* RegistrationAssembly.swift in Sources */,
@@ -678,28 +730,40 @@
 				F2E2EA0C27381F7E00584A8B /* MainViewController.swift in Sources */,
 				F23FF2082733A4A400434A49 /* CommonConstants.swift in Sources */,
 				F23FF20A2733AA9600434A49 /* PhoneRegistrationViewModel.swift in Sources */,
+				F22861092753CFF1009CDCC6 /* CategoryDTO.swift in Sources */,
+				F269AF67274D376E0081A835 /* BranchDTO.swift in Sources */,
 				F2030FE627343AFF00351C52 /* ServiceAssembly.swift in Sources */,
 				F2E2EA192738242A00584A8B /* BasketViewModel.swift in Sources */,
 				F2E2EA1127381FD600584A8B /* BaseViewController.swift in Sources */,
+				F269AF73274D40440081A835 /* StepperView.swift in Sources */,
 				F2E2EA1F2738246D00584A8B /* QRCodeViewModel.swift in Sources */,
 				F23FF1F52732E01A00434A49 /* PhoneRegistrationViewController.swift in Sources */,
+				F22861052753CA1C009CDCC6 /* OrderDTO.swift in Sources */,
 				F23FF1E72732DEF100434A49 /* WebApiService.swift in Sources */,
 				F23FF1DE2732D63A00434A49 /* RegistrationButton.swift in Sources */,
+				F2009EB9274002CF00E9A03C /* OrderCell.swift in Sources */,
 				F23FF2022732E1B700434A49 /* UITextField+.swift in Sources */,
 				F2E2EA29273824CA00584A8B /* ProfileViewController.swift in Sources */,
 				F2E2EA2B273824D500584A8B /* ProfileViewModel.swift in Sources */,
+				F269AF71274D3E6E0081A835 /* BonusItemCell.swift in Sources */,
+				F22861072753CEA5009CDCC6 /* FullDishDTO.swift in Sources */,
 				F23FF1FD2732E07400434A49 /* ConfirmationCodeViewController.swift in Sources */,
 				F23FF1E22732D76A00434A49 /* GeneratedColors.swift in Sources */,
+				F269AF6B274D3D6A0081A835 /* CategoryItemCell.swift in Sources */,
 				F23FF1E92732DEFA00434A49 /* AuthService.swift in Sources */,
 				F23FF1A02732D03200434A49 /* SceneDelegate.swift in Sources */,
+				F2809371273B910B003D2D24 /* ProfileOrderCell.swift in Sources */,
 				F23FF1FF2732E15100434A49 /* RegistrationTextField.swift in Sources */,
 				F23FF1FA2732E05300434A49 /* BirthdayViewController.swift in Sources */,
+				F2809373273C1BCF003D2D24 /* ProfileEditViewController.swift in Sources */,
 				F2030FE82734428200351C52 /* JWT.swift in Sources */,
 				F2E2EA252738249800584A8B /* BranchViewModel.swift in Sources */,
 				F2030FE42734378B00351C52 /* RetryAbility.swift in Sources */,
+				F2009EBB27400C3700E9A03C /* BasketFooterView.swift in Sources */,
 				F2E2EA232738248C00584A8B /* BranchViewController.swift in Sources */,
 				F23FF1F22732DFF500434A49 /* AuthViewModel.swift in Sources */,
 				F2E2EA132738221E00584A8B /* BaseTabViewController.swift in Sources */,
+				F2009EBD2740219D00E9A03C /* HistoryOrderViewController.swift in Sources */,
 				F23FF2042733A1E100434A49 /* RegistrationDTO.swift in Sources */,
 				F23FF1E42732DECB00434A49 /* SplashViewModel.swift in Sources */,
 				F2E2EA062735C9AB00584A8B /* BirthdayDTO.swift in Sources */,

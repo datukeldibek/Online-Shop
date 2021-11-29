@@ -19,6 +19,10 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Icons {
+  internal enum Basket {
+    internal static let animal = ImageAsset(name: "Animal")
+  }
+  internal static let bonusImage = ImageAsset(name: "BonusImage")
   internal static let caretLeft = ImageAsset(name: "CaretLeft")
   internal static let caretRight = ImageAsset(name: "CaretRight")
   internal static let compass = ImageAsset(name: "Compass")
@@ -26,6 +30,9 @@ internal enum Icons {
   internal static let mapPin = ImageAsset(name: "MapPin")
   internal static let paperPlaneTilt = ImageAsset(name: "PaperPlaneTilt")
   internal static let pencil = ImageAsset(name: "Pencil")
+  internal enum Profile {
+    internal static let signOut = ImageAsset(name: "SignOut")
+  }
   internal enum QRCode {
     internal static let qrCodeBorder = ImageAsset(name: "qrCodeBorder")
   }

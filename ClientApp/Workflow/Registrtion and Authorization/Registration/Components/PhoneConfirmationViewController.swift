@@ -79,6 +79,8 @@ class PhoneConfirmationViewController: BaseRegistrationViewController {
         let button = RegistrationButton()
         button.setTitle("Войти")
         button.addTarget(self, action: #selector(getCodeTapped(_:)), for: .touchUpInside)
+        button.isEnabled = false
+        button.alpha = 0.6
         return button
     }()
     
@@ -105,13 +107,13 @@ class PhoneConfirmationViewController: BaseRegistrationViewController {
     }
     
     init(vm: PhoneRegistrationViewModelType) {
-          viewModel = vm
-          super.init(nibName: nil, bundle: nil)
-      }
-      
-      required init?(coder: NSCoder) {
-          fatalError("init(coder:) has not been implemented")
-      }
+        viewModel = vm
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private func setUp() {
         setUpSubviews()
@@ -157,6 +159,7 @@ class PhoneConfirmationViewController: BaseRegistrationViewController {
     }
     
     private func configureTextField() {
+        textField1.resignFirstResponder()
         textField1.delegate = self
         textField2.delegate = self
         textField3.delegate = self
@@ -179,10 +182,11 @@ class PhoneConfirmationViewController: BaseRegistrationViewController {
             let confirmationCodeCompletion = { [unowned self] completion in
                 self.viewModel.sendConfirmation(for: fullPhone, confirmationCode: self.confirmationCode, completion: completion)
             }
-            
+            logInButton.isLoading = true
+            defer { logInButton.isLoading = false }
             withRetry(confirmationCodeCompletion) { [weak self] res in
                 if case .success = res {
-                    let birthdayVC = BirthdayViewController()
+                    let birthdayVC = BirthdayViewController(vm: PhoneRegistrationViewModel())
                     self?.navigationController?.pushViewController(birthdayVC, animated: true)
                 }
             }
@@ -193,6 +197,10 @@ class PhoneConfirmationViewController: BaseRegistrationViewController {
 // MARK: - Textfield Delegate
 extension PhoneConfirmationViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if confirmationCode.count == 3 {
+             logInButton.isEnabled = true
+             logInButton.alpha = 1
+        }
         if textField.text?.count ?? 0 < 1,
            string.count > 0 {
             switch textField {
@@ -207,7 +215,7 @@ extension PhoneConfirmationViewController: UITextFieldDelegate {
             default:
                 break
             }
-
+            
             textField.text = string
             confirmationCode += string
             return false
@@ -230,7 +238,7 @@ extension PhoneConfirmationViewController: UITextFieldDelegate {
             
             textField.text = ""
             return false
-        
+            
         } else if textField.text?.count ?? 0 >= 1 {
             textField.text = string
             return false

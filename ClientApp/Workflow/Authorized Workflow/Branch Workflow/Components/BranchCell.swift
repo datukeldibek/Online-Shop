@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol BranchCellDelegate: AnyObject {
+    func resendTo2Gis(with link: String)
+}
+
 class BranchCell: UICollectionViewCell {
     
     private lazy var branchImageView: UIImageView = {
@@ -53,6 +57,7 @@ class BranchCell: UICollectionViewCell {
         let button = UIButton()
         button.setImage(Icons.paperPlaneTilt.image, for: .normal)
         button.tintColor = .white
+        button.addTarget(self, action: #selector(resendTapped), for: .touchUpInside)
         return button
     }()
     
@@ -69,6 +74,11 @@ class BranchCell: UICollectionViewCell {
         view.tintColor = Colors.orange.color
         return view
     }()
+    
+    private var branch: BranchDTO?
+    
+    // MARK: - Properties
+    weak var delegate: BranchCellDelegate?
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -88,7 +98,7 @@ class BranchCell: UICollectionViewCell {
         branchImageView.addSubview(phoneImage)
         branchImageView.addSubview(adressImage)
         branchImageView.addSubview(adressLabel)
-        branchImageView.addSubview(resendTo2Gis)
+        addSubview(resendTo2Gis)
         branchImageView.addSubview(adressLabel)
 
     }
@@ -136,8 +146,21 @@ class BranchCell: UICollectionViewCell {
         }
         resendTo2Gis.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
+            make.trailing.equalToSuperview().offset(-32)
             make.height.width.equalTo(35)
         }
+    }
+    
+    func display(branch: BranchDTO) {
+        self.branch = branch
+        branchLabel.text = branch.name
+        phoneLabel.text = branch.phoneNumber
+        adressLabel.text = branch.address
+    }
+    
+    @objc
+    private func resendTapped(with link: String) {
+        guard let branch = branch else { return }
+        delegate?.resendTo2Gis(with: branch.link2gis)
     }
 }

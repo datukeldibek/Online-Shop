@@ -66,6 +66,7 @@ class QRCodeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         scanQRCode()
+        createScanningIndicator()
     }
     
     private func setUp() {
@@ -127,6 +128,38 @@ class QRCodeViewController: BaseViewController {
         QRCodeScanner.layer.addSublayer(video)
         video.frame = QRCodeScanner.layer.bounds
         session.startRunning()
+    }
+    
+    func createScanningIndicator() {
+        let height: CGFloat = 15
+        let opacity: Float = 0.4
+        let topColor = Colors.orange.color.withAlphaComponent(0)
+        let bottomColor = Colors.orange.color
+
+        let layer = CAGradientLayer()
+        layer.colors = [topColor.cgColor, bottomColor.cgColor]
+        layer.opacity = opacity
+        
+        let squareWidth = view.frame.width * 0.6
+        layer.frame = CGRect(x: QRCodeScanner.bounds.origin.x - 20,
+                             y: QRCodeScanner.bounds.origin.y,
+                             width: QRCodeScanner.frame.width + 40,
+                             height: 5)
+        
+        self.QRCodeScanner.layer.insertSublayer(layer, at: 3)
+
+        let initialYPosition = layer.position.y
+        let finalYPosition = initialYPosition + squareWidth - height - 10
+        let duration: CFTimeInterval = 3
+
+        let animation = CABasicAnimation(keyPath: "position.y")
+        animation.fromValue = initialYPosition as NSNumber
+        animation.toValue = finalYPosition as NSNumber
+        animation.duration = duration
+        animation.repeatCount = .infinity
+        animation.isRemovedOnCompletion = false
+        
+        layer.add(animation, forKey: nil)
     }
 }
 

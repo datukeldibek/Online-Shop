@@ -23,6 +23,7 @@ class AuthViewController: BaseRegistrationViewController {
         field.setBorderColor(with: .clear)
         field.setBackgroundColor(with: Colors.gray.color)
         field.setKeyboardType(with: .numberPad)
+        field.tintColor = .darkGray
         field.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return field
     }()
@@ -102,7 +103,8 @@ class AuthViewController: BaseRegistrationViewController {
         guard let phone = phoneTextField.text,
               phone.count > 8  else { return }
         phoneTextField.resignFirstResponder()
-        isLoading = true
+        getCodeButton.isLoading = true
+        defer { getCodeButton.isLoading = false }
         
         let fullPhone = countryCode + phone
         let authPayload = AuthorizationDTO(phoneNumber: fullPhone)
@@ -111,7 +113,6 @@ class AuthViewController: BaseRegistrationViewController {
         }
         
         withRetry(requestCode) { [weak self] (res) in
-            self?.isLoading = false
             if case .success = res {
                 let confirmationCodeVC = ConfirmationCodeViewController(vm: AuthViewModel())
                 confirmationCodeVC.phoneNumber = fullPhone

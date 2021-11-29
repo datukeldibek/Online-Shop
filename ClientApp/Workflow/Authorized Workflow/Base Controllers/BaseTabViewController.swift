@@ -34,18 +34,18 @@ enum TabBar: CaseIterable {
         var vc = UINavigationController()
         switch self {
         case .Home:
-            vc = UINavigationController(rootViewController: MainViewController())
+            vc = UINavigationController(rootViewController: MainViewController(vm: MainViewModel()))
         case .Basket:
             vc = UINavigationController(rootViewController: BasketViewController())
         case .QRCode:
             vc = UINavigationController()
         case .Branch:
-            vc = UINavigationController(rootViewController: BranchViewController())
+            vc = UINavigationController(rootViewController: BranchViewController(vm: BranchViewModel()))
         case .Profile:
-            vc = UINavigationController(rootViewController: ProfileViewController())
+            vc = UINavigationController(rootViewController: ProfileViewController(vm: ProfileViewModel()))
         }
         
-        vc.setNavigationBarHidden(true, animated: false)
+        vc.setNavigationBarHidden(false, animated: false)
         vc.tabBarItem = tabBarItem
         return vc
     }
@@ -93,6 +93,7 @@ class BaseTabViewController: UITabBarController {
     @objc private func menuButtonAction(sender: UIButton) {
         let QRCodeVC = QRCodeViewController()
         let controller = SheetViewController(controller: QRCodeVC, sizes: [.percent(0.8)])
+        controller.cornerRadius = 20
         present(controller, animated: true)
     }
 }

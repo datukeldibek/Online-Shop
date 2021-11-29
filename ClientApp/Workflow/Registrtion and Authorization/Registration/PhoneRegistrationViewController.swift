@@ -68,6 +68,7 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
     }
     
     private func setUp() {
+        nameTextField.resignFirstResponder()
         setUpSubviews()
         setUpConstaints()
     }
@@ -123,8 +124,8 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
               let name = nameTextField.text,
               name.count > 2 else { return }
         phoneTextField.resignFirstResponder()
-        isLoading = true
-        
+        getCodeButton.isLoading = true
+        defer { getCodeButton.isLoading = false }
         let fullPhone = countryCode + phone
         let userInfo = RegistrationDTO(firstName: name, phoneNumber: fullPhone)
         let requestCode = { [unowned self] completion in
@@ -132,7 +133,6 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
         }
         
         withRetry(requestCode) { (res) in
-            self.isLoading = false
             if case .success = res {
                 let confirmationCodeVC = PhoneConfirmationViewController(vm: PhoneRegistrationViewModel())
                 confirmationCodeVC.phoneNumber = phone

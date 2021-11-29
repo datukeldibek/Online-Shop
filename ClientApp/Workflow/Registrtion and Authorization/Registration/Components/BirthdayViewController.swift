@@ -26,13 +26,13 @@ class BirthdayViewController: BaseRegistrationViewController {
         return label
     }()
     
-    private lazy var phoneTextField: RegistrationTextField = {
+    private lazy var birthDateField: RegistrationTextField = {
         let field = RegistrationTextField()
         field.setPlaceholder(with: "01.01.1991", color: .gray)
-        field.setImage(with: Icons.Registration.phone.name)
+        field.setImage(with: Icons.Registration.calendar.name)
         field.setBorderColor(with: .clear)
         field.setBackgroundColor(with: Colors.gray.color)
-        field.setKeyboardType(with: .numberPad)
+        field.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
         field.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return field
     }()
@@ -44,9 +44,23 @@ class BirthdayViewController: BaseRegistrationViewController {
         return button
     }()
     
+    // MARK: - Injection
+    var viewModel: PhoneRegistrationViewModelType!
+    
+    private var bDayDate: Date?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+    }
+    
+    init(vm: PhoneRegistrationViewModelType) {
+        viewModel = vm
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setUp() {
@@ -57,7 +71,7 @@ class BirthdayViewController: BaseRegistrationViewController {
     private func setUpSubviews() {
         view.addSubview(registrationLabel)
         view.addSubview(textLabel)
-        view.addSubview(phoneTextField)
+        view.addSubview(birthDateField)
         view.addSubview(getCodeButton)
     }
     
@@ -74,14 +88,14 @@ class BirthdayViewController: BaseRegistrationViewController {
             make.trailing.equalToSuperview().inset(16)
             make.height.equalTo(60)
         }
-        phoneTextField.snp.makeConstraints { make in
+        birthDateField.snp.makeConstraints { make in
             make.top.equalTo(textLabel.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().inset(16)
             make.height.equalTo(60)
         }
         getCodeButton.snp.makeConstraints { make in
-            make.top.equalTo(phoneTextField.snp.bottom).offset(16)
+            make.top.equalTo(birthDateField.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().inset(16)
             make.height.equalTo(56)
@@ -90,13 +104,42 @@ class BirthdayViewController: BaseRegistrationViewController {
     
     @objc
     private func getCodeButtonTapped() {
-        navigationController?.popToRootViewController(animated: true)
-//       let confirmationCodeVC = ConfirmationCodeViewController(vm: AuthViewModel())
-//        navigationController?.pushViewController(confirmationCodeVC, animated: true)
+//        guard let bDay = bDayDate else { return }
+//        let formatter1 = DateFormatter()
+//        formatter1.dateStyle = .full
+//        formatter1.string(from: bDay)
+//        let birthday = BirthdayDTO(bdate: "\(bDay)")
+//        setBirthdayToUser(bDate: birthday)
+        let baseVC = BaseTabViewController()
+        baseVC.modalPresentationStyle = .overFullScreen
+        present(baseVC, animated: true)
     }
     
     @objc
     private func textFieldDidChange(_ textField: UITextField) {
         
+    }
+    
+    @objc
+    private func doneButtonPressed() {
+        if let datePicker = birthDateField.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            birthDateField.text = dateFormatter.string(from: datePicker.date)
+            bDayDate = datePicker.date
+        }
+        birthDateField.resignFirstResponder()
+     }
+    
+    private func setBirthdayToUser(bDate: BirthdayDTO) {
+        let birthdayCompletion = { [unowned self] completion in
+            viewModel.setBirthdayToUser(userBDay: bDate, completion: completion)
+        }
+        let baseVC = BaseTabViewController()
+        withRetry(birthdayCompletion) { [weak self] res in
+            if case .success = res {
+                self?.present(baseVC, animated: true)
+            }
+        }
     }
 }

@@ -27,9 +27,32 @@ class BranchViewController: BaseViewController {
         return view
     }()
     
+    private var branches: [BranchDTO] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
+    // MARK: - Injection
+    private let viewModel: BranchViewModelType
+    
+    init(vm: BranchViewModelType) {
+        viewModel = vm
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadDetails()
     }
     
     private func setUp() {
@@ -54,6 +77,18 @@ class BranchViewController: BaseViewController {
             make.bottom.trailing.leading.equalToSuperview()
         }
     }
+    
+    private func loadDetails() {
+        withRetry(viewModel.getBranches) { [weak self] res in
+            if case .success(let result) = res {
+                self?.branches = result
+            }
+        }
+    }
+    
+    private func resendTapped(with link: String) {
+        print(link)
+    }
 }
 
 // MARK: - Delegate Datasource
@@ -63,12 +98,14 @@ extension BranchViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(collectionView.frame)
-        return 5
+        return branches.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        collectionView.dequeueIdentifiableCell(BranchCell.self, for: indexPath)
+        let cell = collectionView.dequeueIdentifiableCell(BranchCell.self, for: indexPath)
+        cell.delegate = self
+        cell.display(branch: branches[indexPath.row])
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -77,5 +114,19 @@ extension BranchViewController: UICollectionViewDelegateFlowLayout, UICollection
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         CGSize(width: screenWidth, height: 40)
+    }
+}
+
+extension BranchViewController: BranchCellDelegate {
+    func resendTo2Gis(with link: String) {
+        let alert = UIAlertController(title: "Мы переведем вас в 2ГИС",
+                                      message: "Вы сможете быстро сориентироваться и найти быстрый маршрут к нам! Ждем вас!",
+                                      preferredStyle: .alert)
+        let resendAction = UIAlertAction(title: "Перейти", style: .default) { [weak self] _ in
+            self?.resendTapped(with: link)
+        }
+        alert.addAction(resendAction)
+        alert.addAction(UIAlertAction(title: "Остаться", style: .cancel))
+        present(alert, animated: true)
     }
 }

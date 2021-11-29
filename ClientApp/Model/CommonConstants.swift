@@ -17,6 +17,7 @@ enum CommonConstants {
         static func registerUser() -> URL {
             baseUrl.appendingPathComponent("client/registration")
         }
+        
         static func confirmCode() -> URL {
             baseUrl.appendingPathComponent("client/activate")
         }
@@ -27,6 +28,7 @@ enum CommonConstants {
         static func authorizeUser() -> URL {
             baseUrl.appendingPathComponent("client/auth")
         }
+        
         static func confirmAuthorizationCode() -> URL {
             baseUrl.appendingPathComponent("client/login")
         }
@@ -36,6 +38,108 @@ enum CommonConstants {
     enum ProfileEditing {
         static func setBirthdayToUser() -> URL {
             baseUrl.appendingPathComponent("/client/add-bDate")
+        }
+        
+        static func editProfile() -> URL {
+            baseUrl.appendingPathComponent("/client/edit-profile")
+        }
+    }
+    
+    // MARK: - Categories
+    enum Menu {
+        static func getCategories() -> URL {
+            baseUrl.appendingPathComponent("/categories/all")
+        }
+        
+        static func getDish(id: Int) -> URL {
+            baseUrl.appendingPathComponent("/client/menu/one/get-by-id/\(id)")
+        }
+        
+        static func getMenu(id: Int) -> URL {
+            baseUrl.appendingPathComponent("/menu/get-all/\(id)")
+        }
+        
+        static func tableAvailability(tableId: Int) -> URL {
+            baseUrl.appendingPathComponent("/table/is-free/\(tableId)")
+        }
+    }
+    
+    // MARK: - Orders
+    enum Orders {
+        static func orderHistory() -> URL {
+            baseUrl.appendingPathComponent("/client/orders/history")
+        }
+        
+        static func getPopular() -> URL {
+            baseUrl.appendingPathComponent("/client/menu/get-popular")
+        }
+        
+        static func getCategory(id: Int) -> URL {
+            baseUrl.appendingPathComponent("/client/menu/all/by-category/\(id)")
+        }
+        
+        static func addNewOrder() -> URL {
+            baseUrl.appendingPathComponent("/Orders/add")
+        }
+        
+        static func cancelOrder(id: Int) -> URL {
+            baseUrl.appendingPathComponent("/Orders/change-status-cancel/\(id)")
+        }
+        
+        static func closeOrder(id: Int) -> URL {
+            baseUrl.appendingPathComponent("/Orders/change-status-close/\(id)")
+        }
+        
+        static func getOrderByStatus(id: Int) -> URL {
+            baseUrl.appendingPathComponent("/Orders/get-all-orders-byCurrentUserAndStatus/\(id)")
+        }
+        
+        static func changeOrderStatus(id: Int) -> URL {
+            baseUrl.appendingPathComponent("/Orders/change-status-in-progress/\(id)")
+        }
+        
+        static func getAllOrders() -> URL {
+            baseUrl.appendingPathComponent("/Orders/get-all-orders-currentUser")
+        }
+        
+        static func getClosedOeders() -> URL {
+            baseUrl.appendingPathComponent("/Orders/get-completed-order")
+        }
+        
+        static func getCurrentOeders() -> URL {
+            baseUrl.appendingPathComponent("/Orders/get-curr-order")
+        }
+        
+        static func getAllCategories() -> URL {
+            baseUrl.appendingPathComponent("/client/category/all")
+        }
+        
+        static func getDishesFromCategory(id: Int) -> URL {
+            baseUrl.appendingPathComponent("/client/menu/one/get-by-id/\(id)")
+        }
+        
+        static func getPopularDishes() -> URL {
+            baseUrl.appendingPathComponent("/client/menu/get-popular")
+        }
+        
+        
+    }
+    
+    // MARK: - Bonuses
+    enum Bonus {
+        static func getBonuses() -> URL {
+            baseUrl.appendingPathComponent("/bonuses/get-amount")
+        }
+        
+        static func addOrSubstractBonuses(amount: Int) -> URL {
+            baseUrl.appendingPathComponent("/bonuses/subtract/\(amount)")
+        }
+    }
+    
+    // MARK: - Branches
+    enum Branches {
+        static func getBranches() -> URL {
+            baseUrl.appendingPathComponent("/branches/get-all-up-to-date-info")
         }
     }
 }
