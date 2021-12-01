@@ -14,7 +14,7 @@ protocol PhoneRegistrationViewModelType {
     func registerNewUser(user: RegistrationDTO, completion: @escaping (Result<Void, Error>) -> Void)
     func sendConfirmation(for phoneNumber: String, confirmationCode: String, completion: @escaping (Result<JwtInfo, Error>) -> Void)
     
-    func setBirthdayToUser(userBDay: BirthdayDTO, completion: @escaping (Result<BirthdayDTO, Error>) -> Void)
+    func setBirthdayToUser(userBDay: BirthdayDTO, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 class PhoneRegistrationViewModel: PhoneRegistrationViewModelType {
@@ -39,7 +39,7 @@ class PhoneRegistrationViewModel: PhoneRegistrationViewModelType {
         authService.sendConfirmation(for: phoneNumber, confirmationCode: confirmationCode, completion: completion)
     }
     
-    func setBirthdayToUser(userBDay: BirthdayDTO, completion: @escaping (Result<BirthdayDTO, Error>) -> Void) {
+    func setBirthdayToUser(userBDay: BirthdayDTO, completion: @escaping (Result<Void, Error>) -> Void) {
         webApi.setBirthdayToUser(userBDay: userBDay, completion: completion)
     }
 }

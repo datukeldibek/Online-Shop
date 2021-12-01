@@ -24,18 +24,18 @@ class ProfileEditViewController: BaseViewController {
         field.setBorderColor(with: .clear)
         field.setBackgroundColor(with: Colors.gray.color)
         field.setKeyboardType(with: .default)
-        field.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return field
     }()
     
     private lazy var phoneTextField: RegistrationTextField = {
         let field = RegistrationTextField()
+        field.isUserInteractionEnabled = false
         field.setPlaceholder(with: "5555555", color: .gray)
         field.setImage(with: Icons.Registration.phone.name)
         field.setBorderColor(with: .clear)
         field.setBackgroundColor(with: Colors.gray.color)
         field.setKeyboardType(with: .numberPad)
-        field.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        field.tintColor = .darkGray
         return field
     }()
     
@@ -45,8 +45,7 @@ class ProfileEditViewController: BaseViewController {
         field.setImage(with: Icons.Registration.calendar.name)
         field.setBorderColor(with: .clear)
         field.setBackgroundColor(with: Colors.gray.color)
-        field.setKeyboardType(with: .numberPad)
-        field.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        field.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
         return field
     }()
     
@@ -72,6 +71,7 @@ class ProfileEditViewController: BaseViewController {
     
     private var isLoading = false {
         didSet {
+            activityIndicator.isHidden = !isLoading
             if isLoading {
                 activityIndicator.startAnimating()
                 saveButton.alpha = 0.5
@@ -83,8 +83,11 @@ class ProfileEditViewController: BaseViewController {
         }
     }
     
+    private var bDayDate: Date?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        getUserInfo()
         setUp()
     }
     
@@ -148,49 +151,86 @@ class ProfileEditViewController: BaseViewController {
     }
     
     @objc
-    private func textFieldDidChange(_ textField: UITextField) {
-        
+    private func saveProfileInfo() {
+        suggestChanges()
     }
     
     @objc
-    private func saveProfileInfo() {
-        isLoading = true
-//        editProfile()
-        guard let nameText = nameTextField.text else { return }
-        viewModel.editProfile(userName: nameText, birthDate: "f") { [weak self] res in
-            if case .success() = res {
-                self?.changesDone()
-            } else if case .failure(let err) = res {
-                print(err.localizedDescription)
+    private func doneButtonPressed() {
+        if let datePicker = birthdayTextField.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            birthdayTextField.text = dateFormatter.string(from: datePicker.date)
+            bDayDate = datePicker.date
+        }
+        birthdayTextField.resignFirstResponder()
+     }
+    
+    private func getUserInfo() {
+        withRetry(viewModel.getUserInfo) { [weak self] res in
+            if case .success(let info) = res {
+                self?.setUserInfo(user: info)
             }
         }
     }
     
     private func editProfile() {
-        guard let nameText = nameTextField.text
-//              let birthDatText = birthdayTextField.text
+        guard let birthDay = bDayDate,
+              let name = nameTextField.text
         else { return }
+        isLoading = true
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        let formattedDate = formatter.string(from: birthDay)
         
         let editProfileCompletion = { [unowned self] completion in
-            viewModel.editProfile(userName: nameText, birthDate: "f", completion: completion)
+            viewModel.editProfile(name: name, birthDate: formattedDate, completion: completion)
         }
         
         withRetry(editProfileCompletion) { [weak self] res in
             if case .success() = res {
-                self?.changesDone()
+                self?.isLoading = false
+                self?.changesSucceeded()
+                self?.getUserInfo()
             } else if case .failure(let err) = res {
                 print(err.localizedDescription)
             }
         }
     }
     
-    private func changesDone() {
+    private func setUserInfo(user: UserProfileDTO) {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "MM/dd/yyyy"
+        let resultString = inputFormatter.string(from: user.bdate.toDate())
+
+        nameTextField.text = user.name
+        birthdayTextField.text = resultString
+        phoneTextField.text = user.phoneNumber
+    }
+    
+    private func changesSucceeded() {
+        let alert = UIAlertController(
+            title: "Изменения сохранены",
+            message: "Хотите покинуть страницу редактирования?",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Дa", style: .default, handler: { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Нет", style: .cancel))
+        present(alert, animated: true)
+    }
+    
+    private func suggestChanges() {
         let alert = UIAlertController(
             title: "Изменения не сохранены",
             message: "Хотите покинуть страницу редактирования?",
             preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Да", style: .default))
-        alert.addAction(UIAlertAction(title: "Нет", style: .default))
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { [weak self] action in
+            self?.editProfile()
+        }))
+        alert.addAction(UIAlertAction(title: "Нет", style: .cancel))
         present(alert, animated: true)
     }
 }

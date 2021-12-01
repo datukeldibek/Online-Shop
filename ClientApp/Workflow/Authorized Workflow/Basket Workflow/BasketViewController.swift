@@ -31,32 +31,17 @@ class BasketViewController: BaseViewController {
         return button
     }()
     
-    private lazy var takeawayButton: RegistrationButton = {
-        let button = RegistrationButton()
-        button.setTitle("Возьму с собой")
-        button.isInvert()
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .lightGray
-        button.addTarget(self, action: #selector(TakeawayTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var inTheCafeButton: RegistrationButton = {
-        let button = RegistrationButton()
-        button.setTitle("В заведении")
-        button.addTarget(self, action: #selector(inTheCafeTapped), for: .touchUpInside)
-        return button
-    }()
-    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: screenWidth, height: 90)
         layout.minimumLineSpacing = 10
+        layout.headerReferenceSize = CGSize(width: screenWidth, height: 130)
         layout.footerReferenceSize = CGSize(width: screenWidth, height: 230)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.delegate = self
         view.dataSource = self
         view.registerReusable(CellType: OrderCell.self)
+        view.registerReusableView(ViewType: BasketHeaderView.self, type: .UICollectionElementKindSectionHeader)
         view.registerReusableView(ViewType: BasketFooterView.self, type: .UICollectionElementKindSectionFooter)
         view.backgroundColor = Colors.background.color
 //        view.backgroundView = emptyView
@@ -70,17 +55,16 @@ class BasketViewController: BaseViewController {
         return view
     }()
     
-    private var type: TypeSelected = .takeaway {
-        didSet {
-            switch type {
-            case .takeaway:
-                takeawayButton.alpha = 1
-                inTheCafeButton.alpha = 0.6
-            case .intheCafe:
-                takeawayButton.alpha = 0.6
-                inTheCafeButton.alpha = 1
-            }
-        }
+    // MARK: - injection
+    private var viewModel: BasketViewModelType
+    
+    init(vm: BasketViewModelType) {
+        viewModel = vm
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private var sum = 0
@@ -98,15 +82,12 @@ class BasketViewController: BaseViewController {
     private func setUpSubviews() {
         view.addSubview(titleLabel)
         view.addSubview(historyOfOrdersButton)
-        view.addSubview(takeawayButton)
-        view.addSubview(inTheCafeButton)
         view.addSubview(collectionView)
-
     }
     
     private func setUpConstaints () {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(15)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(5)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(35)
@@ -117,39 +98,16 @@ class BasketViewController: BaseViewController {
             make.height.equalTo(20)
             make.width.equalTo(85)
         }
-        takeawayButton.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(25)
-            make.height.equalTo(50)
-            make.width.equalTo(152)
-            make.leading.equalToSuperview().offset(24)
-        }
-        inTheCafeButton.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(25)
-            make.height.equalTo(50)
-            make.width.equalTo(152)
-            make.trailing.equalToSuperview().offset(-24)
-        }
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(inTheCafeButton.snp.bottom).offset(20)
+            make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.bottom.trailing.leading.equalToSuperview()
         }
     }
     
     // MARK: - OBJC functions
-   
-    @objc
-    private func TakeawayTapped() {
-        type = .takeaway
-    }
-    
-    @objc
-    private func inTheCafeTapped() {
-        type = .intheCafe
-    }
-    
     @objc
     private func historyTapped() {
-        let historyVC = HistoryOrderViewController()
+        let historyVC = HistoryOrderViewController(vm: BasketViewModel())
         navigationController?.pushViewController(historyVC, animated: true)
     }
     
@@ -160,7 +118,6 @@ class BasketViewController: BaseViewController {
 
 // MARK: - Datasource Delegate
 extension BasketViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         3
     }
@@ -172,8 +129,17 @@ extension BasketViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let view = collectionView.dequeuReusableView(ViewType: BasketFooterView.self, type: .UICollectionElementKindSectionFooter, for: indexPath)
-        return view
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            let view = collectionView.dequeuReusableView(ViewType: BasketHeaderView.self, type: .UICollectionElementKindSectionHeader, for: indexPath)
+            return view
+        case UICollectionView.elementKindSectionFooter:
+            let view = collectionView.dequeuReusableView(ViewType: BasketFooterView.self, type: .UICollectionElementKindSectionFooter, for: indexPath)
+            return view
+        default:
+            let view = collectionView.dequeuReusableView(ViewType: BasketFooterView.self, type: .UICollectionElementKindSectionFooter, for: indexPath)
+            return view
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

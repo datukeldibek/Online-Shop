@@ -160,7 +160,7 @@ class BranchCell: UICollectionViewCell {
     
     @objc
     private func resendTapped(with link: String) {
-        guard let branch = branch else { return }
-        delegate?.resendTo2Gis(with: branch.link2gis)
+        guard let link = branch?.link2gis else { return }
+        delegate?.resendTo2Gis(with: link)
     }
 }

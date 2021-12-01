@@ -25,39 +25,14 @@ class ProfileViewController: BaseViewController {
         return button
     }()
     
-    private lazy var bonusView: UIImageView = {
-        let view = UIImageView()
-        view.image = Icons.bonusImage.image
-        let tap = UITapGestureRecognizer(target: self, action: #selector(bonusViewTapped))
-        view.addGestureRecognizer(tap)
-        view.isUserInteractionEnabled = true
-        return view
-    }()
-    
-    private lazy var bonusLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
-        label.textColor = .white
-        label.text = "Бонусы"
-        return label
-    }()
-    
-    private lazy var bonusAccountLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 40, weight: .bold)
-        label.textColor = .white
-        label.text = "100"
-        return label
-    }()
-    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: view.frame.width, height: 105)
-        layout.headerReferenceSize = CGSize(width: 170, height: 60)
         layout.minimumLineSpacing = 10
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.delegate = self
         view.dataSource = self
+        view.registerReusableView(ViewType: BonusItemCell.self,  type: .UICollectionElementKindSectionHeader)
         view.registerReusable(CellType: ProfileOrderCell.self)
         view.registerReusableView(ViewType: Header.self, type: .UICollectionElementKindSectionHeader)
         view.backgroundColor = Colors.background.color
@@ -67,21 +42,29 @@ class ProfileViewController: BaseViewController {
     // MARK: - Injection
     var viewModel: ProfileViewModelType!
     
-    private var bonus = 0 {
+    private var bonus = 0
+    private var currentOrders: [HistoryDTO] = [] {
         didSet {
-            bonusAccountLabel.text = "\(bonus)"
+            collectionView.reloadData()
+        }
+    }
+    private var completedOrders: [HistoryDTO] = []{
+        didSet {
+            collectionView.reloadData()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-        getBonuses()
+        configureNavBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureNavBar()
+        getCurrentOrders()
+        getComletedOrders()
+        getBonuses()
     }
     
     init(vm: ProfileViewModelType) {
@@ -100,16 +83,13 @@ class ProfileViewController: BaseViewController {
     
     private func setUpSubviews() {
         view.addSubview(titleLabel)
-        view.addSubview(bonusView)
         view.addSubview(editButton)
-        bonusView.addSubview(bonusLabel)
-        bonusView.addSubview(bonusAccountLabel)
         view.addSubview(collectionView)
     }
     
     private func setUpConstaints () {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(15)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(5)
             make.leading.equalToSuperview().offset(16)
             make.width.greaterThanOrEqualTo(30)
             make.height.equalTo(35)
@@ -119,25 +99,8 @@ class ProfileViewController: BaseViewController {
             make.leading.equalTo(titleLabel.snp.trailing).offset(10)
             make.width.height.equalTo(25)
         }
-        bonusView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.height.equalTo(130)
-        }
-        bonusLabel.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview().offset(24)
-            make.height.equalTo(25)
-            make.width.greaterThanOrEqualTo(85)
-        }
-        bonusAccountLabel.snp.makeConstraints { make in
-            make.top.equalTo(bonusLabel.snp.bottom).offset(15)
-            make.leading.equalToSuperview().offset(24)
-            make.height.equalTo(35)
-            make.width.greaterThanOrEqualTo(85)
-        }
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(bonusView.snp.bottom).offset(20)
+            make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.bottom.trailing.leading.equalToSuperview()
         }
     }
@@ -172,6 +135,22 @@ class ProfileViewController: BaseViewController {
         }
     }
     
+    private func getCurrentOrders() {
+        withRetry(viewModel.getCurrentOrders) { [weak self] res in
+            if case .success(let items) = res {
+                self?.currentOrders = items
+            }
+        }
+    }
+    
+    private func getComletedOrders() {
+        withRetry(viewModel.getCompletedOrders) { [weak self] res in
+            if case .success(let items) = res {
+                self?.completedOrders = items
+            }
+        }
+    }
+    
     // MARK: - OBJC functions
     @objc
     private func logOutTapped() {
@@ -198,22 +177,66 @@ class ProfileViewController: BaseViewController {
 // MARK: - Collection delegate datasource
 extension ProfileViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+        3
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        2
+        if section == 0 {
+            return 0
+        } else if section == 1 {
+            return currentOrders.count
+        }
+        return completedOrders.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        collectionView.dequeueIdentifiableCell(ProfileOrderCell.self, for: indexPath)
+        let cell = collectionView.dequeueIdentifiableCell(ProfileOrderCell.self, for: indexPath)
+        if indexPath.section == 0 {
+            let cell = UICollectionViewCell()
+            return cell
+        } else if indexPath.section == 1 {
+//            cell.display(currentOrders[indexPath.row])
+            return cell
+        } else {
+//            cell.display(completedOrders[indexPath.row])
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        collectionView.dequeuReusableView(ViewType: Header.self, type: .UICollectionElementKindSectionHeader, for: indexPath)
+        let header = collectionView.dequeuReusableView(ViewType: Header.self, type: .UICollectionElementKindSectionHeader, for: indexPath)
+        if indexPath.section == 0 {
+            let headerView = collectionView.dequeuReusableView(ViewType: BonusItemCell.self, type: .UICollectionElementKindSectionHeader, for: indexPath)
+            headerView.delegate = self
+            headerView.display(bonus: bonus)
+            return headerView
+        } else if indexPath.section == 1 {
+            header.display(with: .current)
+            return header
+        }
+        header.display(with: .closed)
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 0 {
+            return CGSize(width: 170, height: 130)
+        }
+        return CGSize(width: 170, height: 60)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         addSubstractBonuses(amount: 10)
+    }
+}
+
+extension ProfileViewController: BonusItemCellDelegate {
+    func openView() {
+        let alert = UIAlertController(
+            title: "Бонусы",
+            message: "Накапливайте бонусы и совершайте выгодные для Вас заказы! \n 1 бонус = 1 сом",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Хорошо", style: .default))
+        present(alert, animated: true)
     }
 }

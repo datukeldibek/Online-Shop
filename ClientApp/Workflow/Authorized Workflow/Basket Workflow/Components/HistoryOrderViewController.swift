@@ -32,21 +32,22 @@ class HistoryOrderViewController: BaseViewController {
     }()
     
     // MARK: - Injection
+    private var viewModel: BasketViewModelType
     
+    init(vm: BasketViewModelType) {
+        viewModel = vm
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+        getUserInfo()
     }
-
-//    init(vm: ProfileViewModelType) {
-//        viewModel = vm
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
     
     private func setUp() {
         setUpSubviews()
@@ -70,6 +71,18 @@ class HistoryOrderViewController: BaseViewController {
             make.bottom.trailing.leading.equalToSuperview()
         }
     }
+    
+    private func getUserInfo() {
+        withRetry(viewModel.getUserInfo) { [weak self] res in
+            if case .success(let info) = res {
+                self?.setUserInfo(user: info)
+            }
+        }
+    }
+    
+    private func setUserInfo(user: UserProfileDTO) {
+        titleLabel.text = user.name
+    }
 }
 
 extension HistoryOrderViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -87,6 +100,12 @@ extension HistoryOrderViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        collectionView.dequeuReusableView(ViewType: ProfileViewController.Header.self, type: .UICollectionElementKindSectionHeader, for: indexPath)
+        let headerView = collectionView.dequeuReusableView(ViewType: ProfileViewController.Header.self, type: .UICollectionElementKindSectionHeader, for: indexPath)
+        if indexPath.section == 0 {
+            headerView.display(with: .current)
+        } else {
+            headerView.display(with: .closed)
+        }
+        return headerView
     }
 }

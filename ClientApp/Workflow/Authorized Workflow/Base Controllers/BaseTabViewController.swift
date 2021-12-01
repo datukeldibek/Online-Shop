@@ -36,7 +36,7 @@ enum TabBar: CaseIterable {
         case .Home:
             vc = UINavigationController(rootViewController: MainViewController(vm: MainViewModel()))
         case .Basket:
-            vc = UINavigationController(rootViewController: BasketViewController())
+            vc = UINavigationController(rootViewController: BasketViewController(vm: BasketViewModel()))
         case .QRCode:
             vc = UINavigationController()
         case .Branch:

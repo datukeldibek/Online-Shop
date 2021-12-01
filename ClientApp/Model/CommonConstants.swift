@@ -36,12 +36,16 @@ enum CommonConstants {
     
     // MARK: - Profile Editing
     enum ProfileEditing {
+        static func getUserInfo() -> URL {
+            baseUrl.appendingPathComponent("/client/profile/info")
+        }
+        
         static func setBirthdayToUser() -> URL {
             baseUrl.appendingPathComponent("/client/add-bDate")
         }
         
         static func editProfile() -> URL {
-            baseUrl.appendingPathComponent("/client/edit-profile")
+            baseUrl.appendingPathComponent("/client/profile/edit")
         }
     }
     
@@ -99,15 +103,15 @@ enum CommonConstants {
         }
         
         static func getAllOrders() -> URL {
-            baseUrl.appendingPathComponent("/Orders/get-all-orders-currentUser")
+            baseUrl.appendingPathComponent("client/orders/get-all-orders-currentUser")
         }
         
-        static func getClosedOeders() -> URL {
-            baseUrl.appendingPathComponent("/Orders/get-completed-order")
+        static func getClosedOrders() -> URL {
+            baseUrl.appendingPathComponent("/client/orders/get-completed-orders")
         }
         
-        static func getCurrentOeders() -> URL {
-            baseUrl.appendingPathComponent("/Orders/get-curr-order")
+        static func getCurrentOrders() -> URL {
+            baseUrl.appendingPathComponent("/client/orders/get-curr-order")
         }
         
         static func getAllCategories() -> URL {
@@ -139,7 +143,7 @@ enum CommonConstants {
     // MARK: - Branches
     enum Branches {
         static func getBranches() -> URL {
-            baseUrl.appendingPathComponent("/branches/get-all-up-to-date-info")
+            baseUrl.appendingPathComponent("/client/branches/get-all-up-to-date-info")
         }
     }
 }

@@ -18,8 +18,9 @@ protocol WebApiServiceType {
     func confirmAuthCode(for phoneNumber: String, confirmationCode: String, completion: @escaping (Result<JwtInfo, Error>) -> Void)
     
     // MARK: - Person editing
-    func setBirthdayToUser(userBDay: BirthdayDTO, completion: @escaping (Result<BirthdayDTO, Error>) -> Void)
-    func editProfile(userName: String, birthDate: String, completion: @escaping(Result<Void, Error>) -> Void)
+    func getUserInfo(completion: @escaping (Result<UserProfileDTO, Error>) -> Void)
+    func setBirthdayToUser(userBDay: BirthdayDTO, completion: @escaping (Result<Void, Error>) -> Void)
+    func editProfile(name: String, birthDate: String, completion: @escaping(Result<Void, Error>) -> Void)
     
     // MARK: - Bonuses
     func getBonuses(completion: @escaping (Result<Int, Error>) -> Void)
@@ -34,8 +35,8 @@ protocol WebApiServiceType {
     func checkTableAvailability(tableId: Int, completion: @escaping (Result<Bool, Error>) -> Void)
     func getOrdersByStatus(statusId: Int, completion: @escaping (Result<[OrderDTO], Error>) -> Void)
     func getAllOrders(completion: @escaping (Result<[OrderDTO], Error>) -> Void)
-    func getCompletedOrders(completion: @escaping (Result<Bool, Error>) -> Void)
-    func getCurrentOrders(statusId: Int, completion: @escaping (Result<OrderDTO, Error>) -> Void)
+    func getCompletedOrders(completion: @escaping (Result<[HistoryDTO], Error>) -> Void)
+    func getCurrentOrders(completion: @escaping (Result<[HistoryDTO], Error>) -> Void)
 
     // MARK: - Category
     func getAllCategories(completion: @escaping (Result<[CategoryDTO], Error>) -> Void)
@@ -45,7 +46,7 @@ protocol WebApiServiceType {
     
 }
 
-class WebApiService: WebApiServiceType {
+class WebApiService: NSObject, WebApiServiceType {
     
     private static func urlSessionConfig() -> URLSessionConfiguration {
         let configuration = URLSessionConfiguration.default
@@ -66,7 +67,7 @@ class WebApiService: WebApiServiceType {
     
     static let shared = WebApiService()
     
-    private  init() {}
+    private override init() {}
     
     // MARK: - Handler
     func handleResponse<T: Decodable>(of type: T.Type, response: DataResponse<T, AFError>, completion: @escaping (Result<T, Error>) -> Void) {
@@ -159,7 +160,18 @@ class WebApiService: WebApiServiceType {
     }
     
     // MARK: - Profile Editing
-    func setBirthdayToUser(userBDay: BirthdayDTO, completion: @escaping (Result<BirthdayDTO, Error>) -> Void) {
+    func getUserInfo(completion: @escaping (Result<UserProfileDTO, Error>) -> Void) {
+        afSession.request(
+            CommonConstants.ProfileEditing.getUserInfo(),
+            method: .get,
+            interceptor: authService
+        )
+        .responseDecodable(of: UserProfileDTO.self, decoder: decoder) { [weak self] (response) in
+            self?.handleResponse(of: UserProfileDTO.self, response: response, completion: completion)
+        }
+    }
+    
+    func setBirthdayToUser(userBDay: BirthdayDTO, completion: @escaping (Result<Void, Error>) -> Void) {
         afSession.request(
             CommonConstants.ProfileEditing.setBirthdayToUser(),
             method: .put,
@@ -168,24 +180,22 @@ class WebApiService: WebApiServiceType {
             interceptor: authService
         )
         .validate()
-        .responseDecodable { [weak self] (response) in
-            self?.handleResponse(of: BirthdayDTO.self, response: response, completion: completion)
+        .response { [weak self] (response) in
+            self?.handleEmptyResponse(response: response, completion: completion)
         }
     }
     
-    func editProfile(userName: String, birthDate: String, completion: @escaping(Result<Void, Error>) -> Void) {
-        let params = [
-            "firstName": userName,
-            "bdate": "May 31, 2020 at 4:32:27 AM"
-        ]
+    func editProfile(name: String, birthDate: String, completion: @escaping(Result<Void, Error>) -> Void) {
         afSession.request(
             CommonConstants.ProfileEditing.editProfile(),
             method: .post,
-            parameters: params,
+            parameters: [
+                "firstName": name,
+                "bdate": birthDate
+            ],
             encoder: JSONParameterEncoder.default,
             interceptor: authService
         )
-        .validate()
         .response { [weak self] (response) in
             self?.handleEmptyResponse(response: response, completion: completion)
         }
@@ -196,7 +206,6 @@ class WebApiService: WebApiServiceType {
         afSession.request(
             CommonConstants.Bonus.getBonuses(),
             method: .get,
-            parameters: nil,
             interceptor: authService
         )
         .validate()
@@ -223,13 +232,11 @@ class WebApiService: WebApiServiceType {
         afSession.request(
             CommonConstants.Branches.getBranches(),
             method: .get,
-            parameters: nil,
             interceptor: authService
         )
-        .validate()
-        .responseDecodable { [weak self] response in
-            self?.handleResponse(of: [BranchDTO].self, response: response, completion: completion)
-        }
+       .responseDecodable(of: [BranchDTO].self, decoder: decoder) { [weak self] (response) in
+        self?.handleResponse(of: [BranchDTO].self, response: response, completion: completion)
+       }
     }
     
     // MARK: - Orders
@@ -298,12 +305,28 @@ class WebApiService: WebApiServiceType {
         }
     }
     
-    func getCompletedOrders(completion: @escaping (Result<Bool, Error>) -> Void) {
-        
+    func getCompletedOrders(completion: @escaping (Result<[HistoryDTO], Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Orders.getClosedOrders(),
+            method: .get,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable(of: [HistoryDTO].self, decoder: decoder) { [weak self] (response) in
+            self?.handleResponse(of: [HistoryDTO].self, response: response, completion: completion)
+        }
     }
     
-    func getCurrentOrders(statusId: Int, completion: @escaping (Result<OrderDTO, Error>) -> Void) {
-        
+    func getCurrentOrders(completion: @escaping (Result<[HistoryDTO], Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Orders.getCurrentOrders(),
+            method: .get,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable(of: [HistoryDTO].self, decoder: decoder) { [weak self] (response) in
+            self?.handleResponse(of: [HistoryDTO].self, response: response, completion: completion)
+        }
     }
     
     func getAllCategories(completion: @escaping (Result<[CategoryDTO], Error>) -> Void) {
@@ -349,7 +372,6 @@ class WebApiService: WebApiServiceType {
         afSession.request(
             CommonConstants.Orders.getDishesFromCategory(id: id),
             method: .get,
-            parameters: nil,
             interceptor: authService
         )
         .validate()

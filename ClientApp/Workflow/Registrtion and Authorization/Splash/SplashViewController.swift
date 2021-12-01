@@ -37,8 +37,8 @@ class SplashViewController: BaseRegistrationViewController {
         super.viewDidAppear(animated)
         if viewModel.isAuthorized {
             let controller = BaseTabViewController()
-            controller.modalPresentationStyle = .overFullScreen
-            present(controller, animated: false)
+            controller.modalPresentationStyle = .fullScreen
+            present(controller, animated: true)
         }
     }
     

@@ -9,14 +9,16 @@ import Foundation
 
 protocol ProfileViewModelType {
     func logOut()
-    func editProfile(userName: String, birthDate: String, completion: @escaping(Result<Void, Error>) -> Void)
+    func getUserInfo(completion: @escaping (Result<UserProfileDTO, Error>) -> Void)
+    func editProfile(name: String, birthDate: String, completion: @escaping(Result<Void, Error>) -> Void)
     
     // MARK: - Bonuses
     func getBonuses(completion: @escaping(Result<Int, Error>) -> Void)
     func addSubstractBonuses(amount: Int, completion: @escaping (Result<Int, Error>) -> Void)
     
     // MARK: - Get orders history
-    
+    func getCurrentOrders(completion: @escaping (Result<[HistoryDTO], Error>) -> Void)
+    func getCompletedOrders(completion: @escaping (Result<[HistoryDTO], Error>) -> Void)
 }
 
 class ProfileViewModel: ProfileViewModelType {
@@ -28,8 +30,12 @@ class ProfileViewModel: ProfileViewModelType {
         authService.logout()
     }
     
-    func editProfile(userName: String, birthDate: String, completion: @escaping(Result<Void, Error>) -> Void) {
-        webApi.editProfile(userName: userName, birthDate: birthDate, completion: completion)
+    func getUserInfo(completion: @escaping (Result<UserProfileDTO, Error>) -> Void) {
+        webApi.getUserInfo(completion: completion)
+    }
+    
+    func editProfile(name: String, birthDate: String, completion: @escaping(Result<Void, Error>) -> Void) {
+        webApi.editProfile(name: name, birthDate: birthDate, completion: completion)
     }
     
     func getBonuses(completion: @escaping(Result<Int, Error>) -> Void) {
@@ -38,5 +44,13 @@ class ProfileViewModel: ProfileViewModelType {
     
     func addSubstractBonuses(amount: Int, completion: @escaping (Result<Int, Error>) -> Void) {
         webApi.addSubstractBonuses(amount: amount, completion: completion)
+    }
+    
+    func getCurrentOrders(completion: @escaping (Result<[HistoryDTO], Error>) -> Void) {
+        webApi.getCurrentOrders(completion: completion)
+    }
+    
+    func getCompletedOrders(completion: @escaping (Result<[HistoryDTO], Error>) -> Void) {
+        webApi.getCompletedOrders(completion: completion)
     }
 }

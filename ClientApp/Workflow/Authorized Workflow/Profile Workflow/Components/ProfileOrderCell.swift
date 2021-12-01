@@ -85,9 +85,24 @@ class ProfileOrderCell: UICollectionViewCell {
             make.trailing.equalToSuperview().offset(-16)
         }
     }
+    
+    func display(_ item: HistoryDTO) {
+        var product = ""
+        item.listOrderDetailsDto.forEach { dish in
+            product += dish.name
+        }
+        branchLabel.text = item.branchName
+        productsLabel.text = product
+        dateLabel.text = item.orderTime
+    }
 }
 
 extension ProfileViewController {
+    enum HeaderType: String {
+        case current = "Актуальные"
+        case closed = "Завершенные"
+    }
+    
     class Header: UICollectionReusableView {
         private lazy var titleLabel: UILabel = {
             let label = UILabel()
@@ -100,6 +115,10 @@ extension ProfileViewController {
         override func layoutSubviews() {
             super.layoutSubviews()
             setUp()
+        }
+        
+        func display(with text: HeaderType) {
+            titleLabel.text = text.rawValue
         }
         
         private func setUp() {

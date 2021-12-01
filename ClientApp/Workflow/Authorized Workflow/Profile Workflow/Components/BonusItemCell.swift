@@ -7,17 +7,23 @@
 
 import UIKit
 
-class BonusItemCell: UICollectionViewCell {
+protocol BonusItemCellDelegate: AnyObject {
+    func openView()
+}
+
+class BonusItemCell: UICollectionReusableView {
     
     public lazy var view: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 25
+        let tap = UITapGestureRecognizer(target: self, action: #selector(openView))
+        view.addGestureRecognizer(tap)
         return view
     }()
     
     public lazy var image: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "bonus")
+        image.image = Icons.bonusImage.image
         image.layer.cornerRadius = 25
         return image
     }()
@@ -40,6 +46,8 @@ class BonusItemCell: UICollectionViewCell {
         return label
     }()
     
+    weak var delegate: BonusItemCellDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
@@ -50,6 +58,7 @@ class BonusItemCell: UICollectionViewCell {
     }
     
     private func setUp() {
+        backgroundColor = Colors.background.color
         layer.cornerRadius = 25
         setUpSubviews()
         setUpConstaints()
@@ -65,7 +74,9 @@ class BonusItemCell: UICollectionViewCell {
     
     private func setUpConstaints () {
         image.snp.makeConstraints { make in
-            make.top.leading.bottom.trailing.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-16)
+            make.leading.equalToSuperview().offset(16)
         }
         view.snp.makeConstraints { make in
             make.height.equalTo(image.snp.height).multipliedBy(0.73)
@@ -80,5 +91,14 @@ class BonusItemCell: UICollectionViewCell {
             make.leading.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+    }
+    
+    func display(bonus: Int) {
+        bonusNumberLabel.text = "\(bonus) c"
+    }
+    
+    @objc
+    private func openView() {
+        delegate?.openView()
     }
 }

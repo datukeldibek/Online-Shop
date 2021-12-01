@@ -53,6 +53,9 @@
 		F269AF6F274D3D800081A835 /* HeaderItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269AF6E274D3D800081A835 /* HeaderItemView.swift */; };
 		F269AF71274D3E6E0081A835 /* BonusItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269AF70274D3E6E0081A835 /* BonusItemCell.swift */; };
 		F269AF73274D40440081A835 /* StepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269AF72274D40440081A835 /* StepperView.swift */; };
+		F274A9882757AB780086B06E /* HistoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F274A9872757AB780086B06E /* HistoryDTO.swift */; };
+		F274A98A2757E1110086B06E /* UserProfileInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F274A9892757E1110086B06E /* UserProfileInfoDTO.swift */; };
+		F274A98C2757EA9F0086B06E /* BasketHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F274A98B2757EA9F0086B06E /* BasketHeaderView.swift */; };
 		F280936D273ADED2003D2D24 /* BranchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F280936C273ADED2003D2D24 /* BranchCell.swift */; };
 		F280936F273AE43F003D2D24 /* UICollectionCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F280936E273AE43F003D2D24 /* UICollectionCell+.swift */; };
 		F2809371273B910B003D2D24 /* ProfileOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2809370273B910B003D2D24 /* ProfileOrderCell.swift */; };
@@ -143,6 +146,9 @@
 		F269AF6E274D3D800081A835 /* HeaderItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderItemView.swift; sourceTree = "<group>"; };
 		F269AF70274D3E6E0081A835 /* BonusItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusItemCell.swift; sourceTree = "<group>"; };
 		F269AF72274D40440081A835 /* StepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperView.swift; sourceTree = "<group>"; };
+		F274A9872757AB780086B06E /* HistoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDTO.swift; sourceTree = "<group>"; };
+		F274A9892757E1110086B06E /* UserProfileInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInfoDTO.swift; sourceTree = "<group>"; };
+		F274A98B2757EA9F0086B06E /* BasketHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketHeaderView.swift; sourceTree = "<group>"; };
 		F280936C273ADED2003D2D24 /* BranchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchCell.swift; sourceTree = "<group>"; };
 		F280936E273AE43F003D2D24 /* UICollectionCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionCell+.swift"; sourceTree = "<group>"; };
 		F2809370273B910B003D2D24 /* ProfileOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOrderCell.swift; sourceTree = "<group>"; };
@@ -402,6 +408,8 @@
 				F22861042753CA1C009CDCC6 /* OrderDTO.swift */,
 				F22861062753CEA5009CDCC6 /* FullDishDTO.swift */,
 				F22861082753CFF1009CDCC6 /* CategoryDTO.swift */,
+				F274A9872757AB780086B06E /* HistoryDTO.swift */,
+				F274A9892757E1110086B06E /* UserProfileInfoDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -476,6 +484,7 @@
 		F2E2EA1A2738242E00584A8B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F274A98B2757EA9F0086B06E /* BasketHeaderView.swift */,
 				F2009EBA27400C3700E9A03C /* BasketFooterView.swift */,
 				F2009EBC2740219D00E9A03C /* HistoryOrderViewController.swift */,
 			);
@@ -717,7 +726,9 @@
 				F23FF1D92732D50000434A49 /* BaseRegistrationViewController.swift in Sources */,
 				F23FF1A22732D03200434A49 /* SplashViewController.swift in Sources */,
 				F280936F273AE43F003D2D24 /* UICollectionCell+.swift in Sources */,
+				F274A9882757AB780086B06E /* HistoryDTO.swift in Sources */,
 				F23FF19E2732D03200434A49 /* AppDelegate.swift in Sources */,
+				F274A98C2757EA9F0086B06E /* BasketHeaderView.swift in Sources */,
 				F269AF6D274D3D740081A835 /* PopularItemCell.swift in Sources */,
 				F23FF1DB2732D54300434A49 /* GeneratedIcons.swift in Sources */,
 				F2E2EA1D2738245F00584A8B /* QRCodeViewController.swift in Sources */,
@@ -740,6 +751,7 @@
 				F23FF1F52732E01A00434A49 /* PhoneRegistrationViewController.swift in Sources */,
 				F22861052753CA1C009CDCC6 /* OrderDTO.swift in Sources */,
 				F23FF1E72732DEF100434A49 /* WebApiService.swift in Sources */,
+				F274A98A2757E1110086B06E /* UserProfileInfoDTO.swift in Sources */,
 				F23FF1DE2732D63A00434A49 /* RegistrationButton.swift in Sources */,
 				F2009EB9274002CF00E9A03C /* OrderCell.swift in Sources */,
 				F23FF2022732E1B700434A49 /* UITextField+.swift in Sources */,

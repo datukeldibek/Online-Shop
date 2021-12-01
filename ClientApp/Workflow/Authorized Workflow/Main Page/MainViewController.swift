@@ -21,24 +21,24 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
             return true
         }
         
-        case bonus
-        case popular([FullCategoryDTO])
-        case category([CategoryDTO])
+        case popular(FullCategoryDTO)
+        case category(CategoryDTO)
     }
     
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: generateLayout())
+        collectionView.registerReusableView(ViewType: BonusItemCell.self, type: .UICollectionElementKindSectionHeader)
+        collectionView.registerReusable(CellType: CategoryItemCell.self)
+        collectionView.registerReusable(CellType: PopularItemCell.self)
+        collectionView.registerReusableView(ViewType: HeaderItemView.self, type: .UICollectionElementKindSectionHeader)
+        collectionView.backgroundColor = Colors.background.color
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         collectionView.backgroundColor = .white
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.registerReusable(CellType: BonusItemCell.self)
-        collectionView.registerReusable(CellType: CategoryItemCell.self)
-        collectionView.registerReusable(CellType: PopularItemCell.self)
-        collectionView.registerReusableView(ViewType: HeaderItemView.self, type: .UICollectionElementKindSectionHeader)
         return collectionView
     }()
     
@@ -49,23 +49,25 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     
     private var popularDishes: [FullCategoryDTO] = [] {
         didSet {
-            if !popularDishes.isEmpty {
-                configureDataSource()
-            }
+            buildPopularDishes()
         }
     }
     private var categories: [CategoryDTO] = [] {
         didSet {
-            if !categories.isEmpty {
-                configureDataSource()
-            }
+            buildCategory()
         }
     }
     private var bonus: Int = 0 {
         didSet {
-            configureDataSource()
+//            buildBonusView()
         }
     }
+    
+    private var snapShot: Snapshot = {
+        var snp = Snapshot()
+        snp.appendSections([.header, .category, .popular])
+        return snp
+    }()
     
     init(vm: MainViewModelType) {
         viewModel = vm
@@ -78,10 +80,18 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getcategories()
-        getPopularDishes()
+//        getBonuses()
+//        getCategories()
+//        getPopularDishes()
         setUp()
      }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getCategories()
+        getBonuses()
+        getPopularDishes()
+    }
     
     private func setUp() {
         setUpSubviews()
@@ -100,7 +110,7 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         }
     }
     
-    private func getcategories() {
+    private func getCategories() {
         withRetry(viewModel.getCategoriesDish) { [weak self] result in
             if case .success(let res) = result {
                 self?.categories = res
@@ -120,22 +130,35 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
 // MARK: - Collection Datasource
 extension MainViewController {
     
+    func buildPopularDishes() {
+        self.snapShot.appendItems(self.popularDishes.map { Item.popular($0) }, toSection: .popular)
+        self.configureDataSource()
+    }
+    
+    func buildCategory() {
+//        DispatchQueue.main.async {
+//            self.snapShot.appendItems(self.categories.map { Item.category($0) }, toSection: .category)
+//            self.configureDataSource()
+//        }
+    }
+    
+//    func buildBonusView() {
+//        self.snapShot.appendItems([Item.bonus(self.bonus)], toSection: .header)
+//        self.configureDataSource()
+//    }
+    
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Item> (collectionView: collectionView) { [weak self]
             (collectionView: UICollectionView, indexPath: IndexPath, item: Item) -> UICollectionViewCell? in
             guard let `self` = self else { return nil }
              switch item {
-                case .bonus:
-                 let cell = collectionView.dequeueIdentifiableCell(BonusItemCell.self, for: indexPath)
-                 
-                 return cell
                 case .category:
                  let cell = collectionView.dequeueIdentifiableCell(CategoryItemCell.self, for: indexPath)
                  cell.display(cell: self.categories[indexPath.row])
                  return cell
                 case .popular:
                  let cell = collectionView.dequeueIdentifiableCell(PopularItemCell.self, for: indexPath)
-//                 cell.display(cell: self.popularDishes[indexPath.row])
+                 cell.display(cell: self.popularDishes[indexPath.row])
                  return cell
              }
         }
@@ -145,11 +168,16 @@ extension MainViewController {
             kind: String,
             indexPath: IndexPath) -> UICollectionReusableView? in
             
+            if indexPath.section == 0 {
+                let headerView = collectionView.dequeuReusableView(ViewType: BonusItemCell.self, type: .UICollectionElementKindSectionHeader, for: indexPath)
+                headerView.display(bonus: self.bonus)
+                return headerView
+            }
             let supplementaryView = collectionView.dequeuReusableView(ViewType: HeaderItemView.self, type: .UICollectionElementKindSectionHeader, for: indexPath)
             supplementaryView.label.text = Section.allCases[indexPath.section].rawValue
             return supplementaryView
         }
-        let snapshot = snapshot()
+        let snapshot = snapShot
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
@@ -305,14 +333,5 @@ extension MainViewController {
         section.orthogonalScrollingBehavior = .none
         
         return section
-    }
-
-    func snapshot() -> Snapshot {
-        var snapshot = Snapshot()
-        snapshot.appendSections([.header, .category, .popular])
-//        snapshot.appendItems([Item.bonus(bonus)], toSection: .header)
-        snapshot.appendItems([Item.popular(popularDishes)], toSection: .popular)
-        snapshot.appendItems([Item.category(categories)], toSection: .category)
-        return snapshot
     }
 }

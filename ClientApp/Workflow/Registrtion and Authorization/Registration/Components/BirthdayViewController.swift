@@ -8,6 +8,7 @@
 import UIKit
 
 class BirthdayViewController: BaseRegistrationViewController {
+    
     private lazy var registrationLabel: UILabel = {
         let label = UILabel()
         label.text = "Регистрация"
@@ -33,7 +34,6 @@ class BirthdayViewController: BaseRegistrationViewController {
         field.setBorderColor(with: .clear)
         field.setBackgroundColor(with: Colors.gray.color)
         field.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
-        field.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return field
     }()
     
@@ -104,20 +104,14 @@ class BirthdayViewController: BaseRegistrationViewController {
     
     @objc
     private func getCodeButtonTapped() {
-//        guard let bDay = bDayDate else { return }
-//        let formatter1 = DateFormatter()
-//        formatter1.dateStyle = .full
-//        formatter1.string(from: bDay)
-//        let birthday = BirthdayDTO(bdate: "\(bDay)")
-//        setBirthdayToUser(bDate: birthday)
-        let baseVC = BaseTabViewController()
-        baseVC.modalPresentationStyle = .overFullScreen
-        present(baseVC, animated: true)
-    }
-    
-    @objc
-    private func textFieldDidChange(_ textField: UITextField) {
-        
+        guard let birthDay = bDayDate else { return }
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        let formattedDate = formatter.string(from: birthDay)
+        let birthday = BirthdayDTO(bdate: "\(formattedDate)")
+        setBirthdayToUser(bDate: birthday)
     }
     
     @objc
@@ -129,7 +123,7 @@ class BirthdayViewController: BaseRegistrationViewController {
             bDayDate = datePicker.date
         }
         birthDateField.resignFirstResponder()
-     }
+    }
     
     private func setBirthdayToUser(bDate: BirthdayDTO) {
         let birthdayCompletion = { [unowned self] completion in
