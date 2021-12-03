@@ -207,7 +207,7 @@ class ProfileEditViewController: BaseViewController {
 
         nameTextField.text = user.name
         birthdayTextField.text = resultString
-        phoneTextField.text = user.phoneNumber
+        phoneTextField.text = user.phoneNumber.replacingOccurrences(of: "+996", with: "")
     }
     
     private func changesSucceeded() {

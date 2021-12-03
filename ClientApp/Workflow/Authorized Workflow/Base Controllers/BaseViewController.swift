@@ -15,6 +15,10 @@ class BaseViewController: UIViewController {
     }
  
     private func setUp() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.backgroundColor = Colors.background.color
+        navigationController?.navigationBar.barTintColor = Colors.background.color
+        navigationController?.navigationBar.isTranslucent = false
         view.backgroundColor = Colors.background.color
         setUpSubviews()
         setUpConstaints()

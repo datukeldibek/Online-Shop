@@ -27,6 +27,13 @@ internal enum Icons {
   internal static let caretRight = ImageAsset(name: "CaretRight")
   internal static let compass = ImageAsset(name: "Compass")
   internal static let house = ImageAsset(name: "House")
+  internal enum MainMenu {
+    internal static let bakery = ImageAsset(name: "Bakery")
+    internal static let cocktails = ImageAsset(name: "Cocktails")
+    internal static let coffee = ImageAsset(name: "Coffee")
+    internal static let desserts = ImageAsset(name: "Desserts")
+    internal static let tea = ImageAsset(name: "Tea")
+  }
   internal static let mapPin = ImageAsset(name: "MapPin")
   internal static let paperPlaneTilt = ImageAsset(name: "PaperPlaneTilt")
   internal static let pencil = ImageAsset(name: "Pencil")

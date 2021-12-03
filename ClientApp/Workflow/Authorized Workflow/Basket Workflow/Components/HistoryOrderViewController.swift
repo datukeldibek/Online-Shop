@@ -31,10 +31,21 @@ class HistoryOrderViewController: BaseViewController {
         return view
     }()
     
-    // MARK: - Injection
-    private var viewModel: BasketViewModelType
+    private var currentOrders: [HistoryDTO] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    private var completedOrders: [HistoryDTO] = []{
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
-    init(vm: BasketViewModelType) {
+    // MARK: - Injection
+    private var viewModel: HistoryOrderViewModelType
+    
+    init(vm: HistoryOrderViewModelType) {
         viewModel = vm
         super.init(nibName: nil, bundle: nil)
     }
@@ -80,6 +91,22 @@ class HistoryOrderViewController: BaseViewController {
         }
     }
     
+    private func getCurrentOrders() {
+        withRetry(viewModel.getCurrentOrders) { [weak self] res in
+            if case .success(let items) = res {
+                self?.currentOrders = items
+            }
+        }
+    }
+    
+    private func getComletedOrders() {
+        withRetry(viewModel.getCompletedOrders) { [weak self] res in
+            if case .success(let items) = res {
+                self?.completedOrders = items
+            }
+        }
+    }
+    
     private func setUserInfo(user: UserProfileDTO) {
         titleLabel.text = user.name
     }
@@ -92,11 +119,20 @@ extension HistoryOrderViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        4
+        if section == 0 {
+            return currentOrders.count
+        }
+        return completedOrders.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        collectionView.dequeueIdentifiableCell(ProfileOrderCell.self, for: indexPath)
+        let cell = collectionView.dequeueIdentifiableCell(ProfileOrderCell.self, for: indexPath)
+        if indexPath.section == 0 {
+            cell.display(currentOrders[indexPath.row])
+        } else {
+            cell.display(completedOrders[indexPath.row])
+        }
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

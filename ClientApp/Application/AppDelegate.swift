@@ -12,11 +12,6 @@ import Swinject
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-//    let assembler = Assembler([
-//        ServiceAssembly(),
-//        RegistrationAssembly()
-//    ], container: SwinjectStoryboard.defaultContainer)
-    
     var window: UIWindow?
     
     func application(_ application: UIApplication,

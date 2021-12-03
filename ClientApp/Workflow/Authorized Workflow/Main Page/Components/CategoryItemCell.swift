@@ -84,5 +84,20 @@ class CategoryItemCell: UICollectionViewCell {
     
     func display(cell: CategoryDTO) {
         titleLabel.text = cell.name
+        
+        switch cell.name {
+        case "Кофе":
+            featuredPhotoView.image = Icons.MainMenu.coffee.image
+        case "Десерты":
+            featuredPhotoView.image = Icons.MainMenu.desserts.image
+        case "Коктейли":
+            featuredPhotoView.image = Icons.MainMenu.cocktails.image
+        case "Выпечка":
+            featuredPhotoView.image = Icons.MainMenu.bakery.image
+        case "Чай":
+            featuredPhotoView.image = Icons.MainMenu.tea.image
+        default:
+            featuredPhotoView.image = Icons.MainMenu.coffee.image
+        }
     }
 }

@@ -9,10 +9,12 @@ import Foundation
 
 struct DishDTO: Codable {
     let description: String
-    let generalAdditionals: [GeneralAdditionals]
+    let generalAdditionals: [GeneralAdditionals]?
     let id: Int
     let imageUrl: URL?
     let name: String
+    let price: Int
+    let count: Int?
 }
 
 struct GeneralAdditionals: Codable {

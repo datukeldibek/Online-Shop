@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-class MainViewController: BaseViewController, UICollectionViewDelegate {
+class MainViewController: BaseViewController {
     
     enum Section: String, CaseIterable {
         case header = ""
@@ -16,58 +16,39 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
         case popular = "Популярное"
     }
     
-    enum Item: Hashable {
-        static func == (lhs: MainViewController.Item, rhs: MainViewController.Item) -> Bool {
-            return true
-        }
-        
-        case popular(FullCategoryDTO)
-        case category(CategoryDTO)
-    }
-    
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
-    
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: generateLayout())
         collectionView.registerReusableView(ViewType: BonusItemCell.self, type: .UICollectionElementKindSectionHeader)
         collectionView.registerReusable(CellType: CategoryItemCell.self)
         collectionView.registerReusable(CellType: PopularItemCell.self)
         collectionView.registerReusableView(ViewType: HeaderItemView.self, type: .UICollectionElementKindSectionHeader)
+        collectionView.registerReusableView(ViewType: FooterView.self, type: .UICollectionElementKindSectionFooter)
         collectionView.backgroundColor = Colors.background.color
-        collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        collectionView.backgroundColor = .white
-        collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
         return collectionView
     }()
-    
-    var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
     
     // MARK: - Injection
     var viewModel: MainViewModelType
     
     private var popularDishes: [FullCategoryDTO] = [] {
         didSet {
-            buildPopularDishes()
+            collectionView.reloadData()
         }
     }
     private var categories: [CategoryDTO] = [] {
         didSet {
-            buildCategory()
+            collectionView.reloadData()
         }
     }
     private var bonus: Int = 0 {
         didSet {
-//            buildBonusView()
+            collectionView.reloadData()
         }
     }
-    
-    private var snapShot: Snapshot = {
-        var snp = Snapshot()
-        snp.appendSections([.header, .category, .popular])
-        return snp
-    }()
     
     init(vm: MainViewModelType) {
         viewModel = vm
@@ -80,11 +61,11 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        getBonuses()
-//        getCategories()
-//        getPopularDishes()
+        getBonuses()
+        getCategories()
+        getPopularDishes()
         setUp()
-     }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -127,47 +108,42 @@ class MainViewController: BaseViewController, UICollectionViewDelegate {
     }
 }
 
-// MARK: - Collection Datasource
-extension MainViewController {
+// MARK: - Delegate Datasource
+extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    func buildPopularDishes() {
-        self.snapShot.appendItems(self.popularDishes.map { Item.popular($0) }, toSection: .popular)
-        self.configureDataSource()
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return Section.allCases.count
     }
     
-    func buildCategory() {
-//        DispatchQueue.main.async {
-//            self.snapShot.appendItems(self.categories.map { Item.category($0) }, toSection: .category)
-//            self.configureDataSource()
-//        }
-    }
-    
-//    func buildBonusView() {
-//        self.snapShot.appendItems([Item.bonus(self.bonus)], toSection: .header)
-//        self.configureDataSource()
-//    }
-    
-    func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Item> (collectionView: collectionView) { [weak self]
-            (collectionView: UICollectionView, indexPath: IndexPath, item: Item) -> UICollectionViewCell? in
-            guard let `self` = self else { return nil }
-             switch item {
-                case .category:
-                 let cell = collectionView.dequeueIdentifiableCell(CategoryItemCell.self, for: indexPath)
-                 cell.display(cell: self.categories[indexPath.row])
-                 return cell
-                case .popular:
-                 let cell = collectionView.dequeueIdentifiableCell(PopularItemCell.self, for: indexPath)
-                 cell.display(cell: self.popularDishes[indexPath.row])
-                 return cell
-             }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return 0
+        } else if section == 1 {
+            return categories.count
+        } else {
+            return popularDishes.count > 3 ? 3 : popularDishes.count
         }
-        
-        dataSource.supplementaryViewProvider = { (
-            collectionView: UICollectionView,
-            kind: String,
-            indexPath: IndexPath) -> UICollectionReusableView? in
-            
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.section == 0 {
+            let cell = UICollectionViewCell()
+            return cell
+        } else if indexPath.section == 1 {
+            let cell = collectionView.dequeueIdentifiableCell(CategoryItemCell.self, for: indexPath)
+            cell.display(cell: self.categories[indexPath.row])
+            return cell
+        } else {
+            let cell = collectionView.dequeueIdentifiableCell(PopularItemCell.self, for: indexPath)
+            cell.display(cell: self.popularDishes[indexPath.row])
+            cell.delegate = self
+            return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
             if indexPath.section == 0 {
                 let headerView = collectionView.dequeuReusableView(ViewType: BonusItemCell.self, type: .UICollectionElementKindSectionHeader, for: indexPath)
                 headerView.display(bonus: self.bonus)
@@ -176,22 +152,51 @@ extension MainViewController {
             let supplementaryView = collectionView.dequeuReusableView(ViewType: HeaderItemView.self, type: .UICollectionElementKindSectionHeader, for: indexPath)
             supplementaryView.label.text = Section.allCases[indexPath.section].rawValue
             return supplementaryView
+        case UICollectionView.elementKindSectionFooter:
+            let footer = collectionView.dequeuReusableView(ViewType: FooterView.self, type: .UICollectionElementKindSectionFooter, for: indexPath)
+            return footer
+        default:
+            let footer = collectionView.dequeuReusableView(ViewType: FooterView.self, type: .UICollectionElementKindSectionFooter, for: indexPath)
+            return footer
         }
-        let snapshot = snapShot
-        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            let controller = CategoryPageMenuController()
+            switch categories[indexPath.row].name {
+            case "Кофе":
+                controller.categoryIndex = 2
+            case "Десерты":
+                controller.categoryIndex = 4
+            case "Коктейли":
+                controller.categoryIndex = 5
+            case "Выпечка":
+                controller.categoryIndex = 3
+            case "Чай":
+                controller.categoryIndex = 1
+            default:
+                controller.categoryIndex = 1
+            }
+            navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+}
+
+
+// MARK: - Collection Layout
+extension MainViewController {
     func generateLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             
             let sectionLayoutKind = Section.allCases[sectionIndex]
             switch sectionLayoutKind {
-                case .header:
-                    return self.generateHeaderLayout()
-                case .popular:
-                    return self.generatePopularItemsLayout()
-                case .category:
-                    return self.generateCategoryItemsLayout()
+            case .header:
+                return self.generateHeaderLayout()
+            case .popular:
+                return self.generatePopularItemsLayout()
+            case .category:
+                return self.generateCategoryItemsLayout()
             }
         }
         return layout
@@ -199,14 +204,14 @@ extension MainViewController {
     
     func generateHeaderLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(130))
+            widthDimension: .absolute(1),
+            heightDimension: .absolute(1))
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(1/2.4)
+            widthDimension: .absolute(1),
+            heightDimension: .absolute(1)
         )
         
         let group = NSCollectionLayoutGroup.horizontal(
@@ -217,9 +222,21 @@ extension MainViewController {
         
         group.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 16, trailing: 16)
         
+        let headerSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(130)
+        )
+        
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        sectionHeader.pinToVisibleBounds = true
+        sectionHeader.zIndex = 2
+        
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .none
-        section.contentInsets = NSDirectionalEdgeInsets(top: 24, leading: 0, bottom: 0, trailing: 0)
+        section.boundarySupplementaryItems = [sectionHeader]
         return section
     }
     
@@ -296,7 +313,7 @@ extension MainViewController {
         )
         sectionHeader.pinToVisibleBounds = true
         sectionHeader.zIndex = 2
-       
+        
         let section = NSCollectionLayoutSection(group: nestedGroup)
         section.boundarySupplementaryItems = [sectionHeader]
         return section
@@ -328,10 +345,28 @@ extension MainViewController {
         )
         sectionHeader.pinToVisibleBounds = true
         sectionHeader.zIndex = 2
+        
+        let footerSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .absolute(100)
+        )
+        
+        let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: footerSize,
+            elementKind: UICollectionView.elementKindSectionFooter,
+            alignment: .bottom
+        )
+        
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [sectionHeader]
+        section.boundarySupplementaryItems = [sectionHeader, sectionFooter]
         section.orthogonalScrollingBehavior = .none
         
         return section
+    }
+}
+
+extension MainViewController: PopularItemDelegate {
+    func updateItems(with items: OrderDTO) {
+        viewModel.dishesInBasket.append(items)
     }
 }

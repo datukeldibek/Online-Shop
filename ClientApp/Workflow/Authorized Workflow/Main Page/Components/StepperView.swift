@@ -10,6 +10,7 @@ import UIKit
 protocol HidableStepperDelegate: AnyObject {
     func stepperWillHideDecreaseButton()
     func stepperWillRevealDecreaseButton()
+    func updateValue(with count: Int)
 }
 
 class StepperView: UIControl {
@@ -27,6 +28,7 @@ class StepperView: UIControl {
     
     var quantityOfItems: Int = 0 {
         didSet {
+            delegate?.updateValue(with: quantityOfItems)
             quantityOfItemsLabel.text = "\(quantityOfItems) \(quantityOfItemsUnityOfMeasure)"
         }
     }

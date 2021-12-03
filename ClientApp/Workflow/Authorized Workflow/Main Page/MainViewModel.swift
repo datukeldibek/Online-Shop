@@ -8,15 +8,25 @@
 import Foundation
 
 protocol MainViewModelType {
+    var dishesInBasket: [OrderDTO] { get set }
+    
     func getPopularDishes(completion: @escaping (Result<[FullCategoryDTO], Error>) -> Void)
     func getCategoriesDish(completion: @escaping (Result<[CategoryDTO], Error>) -> Void)
     func getBonuses(completion: @escaping(Result<Int, Error>) -> Void)
+    func getDishesByCategory(categoryId: Int, completion: @escaping(Result<[DishDTO], Error>) -> Void)
 }
 
 class MainViewModel: MainViewModelType {
     
     let authService: AuthServiceType = AuthService.shared
     let webApi: WebApiServiceType = WebApiService.shared
+    var basketManager: BasketManagerType = BasketManager.shared
+    
+    var dishesInBasket: [OrderDTO] = [] {
+        didSet {
+            basketManager.dishes = dishesInBasket
+        }
+    }
     
     func getPopularDishes(completion: @escaping (Result<[FullCategoryDTO], Error>) -> Void) {
         webApi.getPopularDishes(completion: completion)
@@ -28,5 +38,9 @@ class MainViewModel: MainViewModelType {
     
     func getBonuses(completion: @escaping(Result<Int, Error>) -> Void) {
         webApi.getBonuses(completion: completion)
+    }
+    
+    func getDishesByCategory(categoryId: Int, completion: @escaping(Result<[DishDTO], Error>) -> Void) {
+        webApi.getDishesBy(categoryId: categoryId, completion: completion)
     }
 }

@@ -36,7 +36,7 @@ class BasketViewController: BaseViewController {
         layout.itemSize = CGSize(width: screenWidth, height: 90)
         layout.minimumLineSpacing = 10
         layout.headerReferenceSize = CGSize(width: screenWidth, height: 130)
-        layout.footerReferenceSize = CGSize(width: screenWidth, height: 230)
+        layout.footerReferenceSize = CGSize(width: screenWidth, height: 240)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.delegate = self
         view.dataSource = self
@@ -44,7 +44,6 @@ class BasketViewController: BaseViewController {
         view.registerReusableView(ViewType: BasketHeaderView.self, type: .UICollectionElementKindSectionHeader)
         view.registerReusableView(ViewType: BasketFooterView.self, type: .UICollectionElementKindSectionFooter)
         view.backgroundColor = Colors.background.color
-//        view.backgroundView = emptyView
         return view
     }()
     
@@ -72,6 +71,11 @@ class BasketViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
     }
     
     private func setUp() {
@@ -104,10 +108,13 @@ class BasketViewController: BaseViewController {
         }
     }
     
+    // MARK: - Requests
+    
+    
     // MARK: - OBJC functions
     @objc
     private func historyTapped() {
-        let historyVC = HistoryOrderViewController(vm: BasketViewModel())
+        let historyVC = HistoryOrderViewController(vm: HistoryOrderViewModel())
         navigationController?.pushViewController(historyVC, animated: true)
     }
     
@@ -119,12 +126,13 @@ class BasketViewController: BaseViewController {
 // MARK: - Datasource Delegate
 extension BasketViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3
+        return viewModel.dishes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueIdentifiableCell(OrderCell.self, for: indexPath)
         cell.orderCount = orderInfo
+        
         return cell
     }
     
@@ -135,6 +143,7 @@ extension BasketViewController: UICollectionViewDelegateFlowLayout, UICollection
             return view
         case UICollectionView.elementKindSectionFooter:
             let view = collectionView.dequeuReusableView(ViewType: BasketFooterView.self, type: .UICollectionElementKindSectionFooter, for: indexPath)
+            view.delegate = self
             return view
         default:
             let view = collectionView.dequeuReusableView(ViewType: BasketFooterView.self, type: .UICollectionElementKindSectionFooter, for: indexPath)
@@ -144,5 +153,16 @@ extension BasketViewController: UICollectionViewDelegateFlowLayout, UICollection
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+    }
+}
+
+extension BasketViewController: BasketFooterViewDelegate {
+    func addMoreTap() {
+        let tabbar = BaseTabViewController()
+        tabbar.selectedIndex = 1
+    }
+    
+    func orderTap() {
+        print("tap")
     }
 }

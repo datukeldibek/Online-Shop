@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol BasketFooterViewDelegate: AnyObject {
+    func addMoreTap()
+    func orderTap()
+}
+
 class BasketFooterView: UICollectionReusableView {
     private lazy var sumLabel: UILabel = {
         let label = UILabel()
@@ -23,6 +28,7 @@ class BasketFooterView: UICollectionReusableView {
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 10
         button.setTitle("Добавить еще", for: .normal)
+        button.addTarget(self, action: #selector(addMoreTapped), for: .touchUpInside)
         return button
     }()
     
@@ -32,6 +38,7 @@ class BasketFooterView: UICollectionReusableView {
         button.backgroundColor = Colors.orange.color
         button.layer.cornerRadius = 10
         button.setTitle("Заказать", for: .normal)
+        button.addTarget(self, action: #selector(orderTapped), for: .touchUpInside)
         return button
     }()
     
@@ -40,6 +47,8 @@ class BasketFooterView: UICollectionReusableView {
             sumLabel.attributedText = buildSumLabelAttributeText("\(sum) c")
         }
     }
+    
+    weak var delegate: BasketFooterViewDelegate?
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -96,5 +105,13 @@ class BasketFooterView: UICollectionReusableView {
         attributedString1.append(attributedString2)
         
         return attributedString1
+    }
+    
+    @objc private func addMoreTapped() {
+        delegate?.addMoreTap()
+    }
+    
+    @objc private func orderTapped() {
+        delegate?.orderTap()
     }
 }

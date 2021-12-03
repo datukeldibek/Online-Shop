@@ -41,6 +41,7 @@ protocol WebApiServiceType {
     // MARK: - Category
     func getAllCategories(completion: @escaping (Result<[CategoryDTO], Error>) -> Void)
     func getCategoriesDish(categoryId: Int, completion: @escaping (Result<CategoryMenuDTO, Error>) -> Void)
+    func getDishesBy(categoryId: Int, completion: @escaping (Result<[DishDTO], Error>) -> Void)
     func getPopularDishes(completion: @escaping (Result<[FullCategoryDTO], Error>) -> Void)
     func getDishDetails(id: Int, completion: @escaping (Result<DishDTO, Error>) -> Void)
     
@@ -234,7 +235,7 @@ class WebApiService: NSObject, WebApiServiceType {
             method: .get,
             interceptor: authService
         )
-       .responseDecodable(of: [BranchDTO].self, decoder: decoder) { [weak self] (response) in
+       .responseDecodable(of: [BranchDTO].self, decoder: decoder) { [weak self] response in
         self?.handleResponse(of: [BranchDTO].self, response: response, completion: completion)
        }
     }
@@ -352,6 +353,18 @@ class WebApiService: NSObject, WebApiServiceType {
         .validate()
         .responseDecodable { [weak self] response in
             self?.handleResponse(of: CategoryMenuDTO.self, response: response, completion: completion)
+        }
+    }
+    
+    func getDishesBy(categoryId: Int, completion: @escaping (Result<[DishDTO], Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Orders.getCategory(id: categoryId),
+            method: .get,
+            parameters: nil,
+            interceptor: authService
+        )
+        .responseDecodable(of: [DishDTO].self, decoder: decoder) { [weak self] response in
+            self?.handleResponse(of: [DishDTO].self, response: response, completion: completion)
         }
     }
     

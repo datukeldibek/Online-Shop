@@ -8,14 +8,15 @@
 import Foundation
 
 protocol BasketViewModelType {
-    func getUserInfo(completion: @escaping (Result<UserProfileDTO, Error>) -> Void)
+    var dishes: [OrderDTO] { get }
 }
 
 class BasketViewModel: BasketViewModelType {
  
     private let webApi: WebApiServiceType = WebApiService.shared
-    
-    func getUserInfo(completion: @escaping (Result<UserProfileDTO, Error>) -> Void) {
-        webApi.getUserInfo(completion: completion)
+    private let basketManager: BasketManagerType = BasketManager.shared
+
+    var dishes: [OrderDTO] {
+        basketManager.dishes
     }
 }

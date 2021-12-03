@@ -15,5 +15,6 @@ pod 'SwinjectStoryboard'
 pod 'SwinjectAutoregistration', '~> 2.6.1'
 pod 'KeychainAccess'
 pod 'SDWebImage'
+pod 'XLPagerTabStrip'
 
 end

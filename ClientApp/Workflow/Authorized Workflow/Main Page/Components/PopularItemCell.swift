@@ -8,6 +8,10 @@
 import UIKit
 import SDWebImage
 
+protocol PopularItemDelegate: AnyObject {
+    func updateItems(with items: OrderDTO)
+}
+
 class PopularItemCell: UICollectionViewCell {
     
     public lazy var imageView: UIImageView = {
@@ -27,7 +31,7 @@ class PopularItemCell: UICollectionViewCell {
         label.textAlignment = .center
         label.text = "Капучино"
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        label.textColor = Colors.background.color
+        label.textColor = .black
         
         return label
     }()
@@ -36,7 +40,7 @@ class PopularItemCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.textColor = Colors.gray.color
+        label.textColor = .darkGray
         label.text = "Кофейный напиток"
         return label
     }()
@@ -59,6 +63,10 @@ class PopularItemCell: UICollectionViewCell {
         return stepper
     }()
     
+    var dish: DishDTO?
+    
+    weak var delegate: PopularItemDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
@@ -69,7 +77,7 @@ class PopularItemCell: UICollectionViewCell {
     }
     
     private func setUp() {
-        contentView.backgroundColor = Colors.background.color
+        contentView.backgroundColor = .clear
         setUpSubviews()
         setUpConstaints()
     }
@@ -95,7 +103,8 @@ class PopularItemCell: UICollectionViewCell {
         }
         descriptionLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-16)
         }
         nameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -118,7 +127,19 @@ class PopularItemCell: UICollectionViewCell {
         priceLabel.text = "\(cell.price) c"
         imageView.sd_setImage(
             with: cell.imagesUrl,
-            placeholderImage: Icons.house.image
+            placeholderImage: Icons.house.image,
+            options: []
+        )
+    }
+    
+    func display(cell: DishDTO) {
+        dish = cell
+        nameLabel.text = cell.name
+        priceLabel.text = "\(cell.price) c"
+        imageView.sd_setImage(
+            with: cell.imageUrl,
+            placeholderImage: Icons.house.image,
+            options: [.fromLoaderOnly, .transformVectorImage]
         )
     }
 }
@@ -130,5 +151,19 @@ extension PopularItemCell: HidableStepperDelegate {
     
     func stepperWillRevealDecreaseButton() {
         
+    }
+    
+    func updateValue(with count: Int) {
+        let dish = dish?.id ?? 0
+        let date = Date()
+        let listDetails = ListOrderDetails(generalAdditionalId: [0], quantity: count, stockId: dish)
+        let order = OrderDTO(branchId: 0,
+                             listOrderDetailsDto: [listDetails],
+                             orderTime: date,
+                             orderType: "IN",
+                             tableId: 0
+                            )
+       
+        delegate?.updateItems(with: order)
     }
 }

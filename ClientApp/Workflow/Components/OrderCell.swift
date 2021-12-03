@@ -140,6 +140,11 @@ class OrderCell: UICollectionViewCell {
         }
     }
     
+    func display(dish: OrderDTO) {
+//        orderLabel.text = dish
+        
+    }
+    
     @objc
     private func addSubstractItemTapped(_ sender: UIButton) {
         switch sender.tag {

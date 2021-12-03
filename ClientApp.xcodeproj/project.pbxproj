@@ -56,10 +56,16 @@
 		F274A9882757AB780086B06E /* HistoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F274A9872757AB780086B06E /* HistoryDTO.swift */; };
 		F274A98A2757E1110086B06E /* UserProfileInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F274A9892757E1110086B06E /* UserProfileInfoDTO.swift */; };
 		F274A98C2757EA9F0086B06E /* BasketHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F274A98B2757EA9F0086B06E /* BasketHeaderView.swift */; };
+		F274A98E275914C40086B06E /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F274A98D275914C30086B06E /* RegistrationViewController.swift */; };
+		F274A990275918D50086B06E /* HistoryOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F274A98F275918D50086B06E /* HistoryOrderViewModel.swift */; };
+		F274A99227591AFB0086B06E /* BasketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F274A99127591AFB0086B06E /* BasketManager.swift */; };
+		F274A994275930610086B06E /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F274A993275930610086B06E /* CategoryViewController.swift */; };
+		F274A996275931380086B06E /* CategoryPageMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F274A995275931380086B06E /* CategoryPageMenuController.swift */; };
 		F280936D273ADED2003D2D24 /* BranchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F280936C273ADED2003D2D24 /* BranchCell.swift */; };
 		F280936F273AE43F003D2D24 /* UICollectionCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F280936E273AE43F003D2D24 /* UICollectionCell+.swift */; };
 		F2809371273B910B003D2D24 /* ProfileOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2809370273B910B003D2D24 /* ProfileOrderCell.swift */; };
 		F2809373273C1BCF003D2D24 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2809372273C1BCF003D2D24 /* ProfileEditViewController.swift */; };
+		F2C004E42759F801009C2DFA /* DetailsDishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C004E32759F801009C2DFA /* DetailsDishViewController.swift */; };
 		F2E2EA042735B63100584A8B /* AuthorizationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2EA032735B63100584A8B /* AuthorizationDTO.swift */; };
 		F2E2EA062735C9AB00584A8B /* BirthdayDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2EA052735C9AB00584A8B /* BirthdayDTO.swift */; };
 		F2E2EA0C27381F7E00584A8B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2EA0B27381F7E00584A8B /* MainViewController.swift */; };
@@ -149,10 +155,16 @@
 		F274A9872757AB780086B06E /* HistoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDTO.swift; sourceTree = "<group>"; };
 		F274A9892757E1110086B06E /* UserProfileInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileInfoDTO.swift; sourceTree = "<group>"; };
 		F274A98B2757EA9F0086B06E /* BasketHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketHeaderView.swift; sourceTree = "<group>"; };
+		F274A98D275914C30086B06E /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		F274A98F275918D50086B06E /* HistoryOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryOrderViewModel.swift; sourceTree = "<group>"; };
+		F274A99127591AFB0086B06E /* BasketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketManager.swift; sourceTree = "<group>"; };
+		F274A993275930610086B06E /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		F274A995275931380086B06E /* CategoryPageMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPageMenuController.swift; sourceTree = "<group>"; };
 		F280936C273ADED2003D2D24 /* BranchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchCell.swift; sourceTree = "<group>"; };
 		F280936E273AE43F003D2D24 /* UICollectionCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionCell+.swift"; sourceTree = "<group>"; };
 		F2809370273B910B003D2D24 /* ProfileOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOrderCell.swift; sourceTree = "<group>"; };
 		F2809372273C1BCF003D2D24 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		F2C004E32759F801009C2DFA /* DetailsDishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsDishViewController.swift; sourceTree = "<group>"; };
 		F2E2EA032735B63100584A8B /* AuthorizationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationDTO.swift; sourceTree = "<group>"; };
 		F2E2EA052735C9AB00584A8B /* BirthdayDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayDTO.swift; sourceTree = "<group>"; };
 		F2E2EA0B27381F7E00584A8B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -328,6 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				F23FF1D82732D50000434A49 /* BaseRegistrationViewController.swift */,
+				F274A98D275914C30086B06E /* RegistrationViewController.swift */,
 				F23FF1D72732D3DB00434A49 /* Splash */,
 				F23FF1D62732D3D400434A49 /* Authorization */,
 				F23FF1D52732D37900434A49 /* Registration */,
@@ -454,10 +467,13 @@
 		F2E2EA0A27381F6600584A8B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F274A995275931380086B06E /* CategoryPageMenuController.swift */,
+				F274A993275930610086B06E /* CategoryViewController.swift */,
 				F269AF6A274D3D6A0081A835 /* CategoryItemCell.swift */,
 				F269AF6C274D3D740081A835 /* PopularItemCell.swift */,
 				F269AF6E274D3D800081A835 /* HeaderItemView.swift */,
 				F269AF72274D40440081A835 /* StepperView.swift */,
+				F2C004E32759F801009C2DFA /* DetailsDishViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -474,6 +490,7 @@
 		F2E2EA15273823E000584A8B /* Basket Workflow */ = {
 			isa = PBXGroup;
 			children = (
+				F274A99127591AFB0086B06E /* BasketManager.swift */,
 				F2E2EA162738242100584A8B /* BasketViewController.swift */,
 				F2E2EA182738242A00584A8B /* BasketViewModel.swift */,
 				F2E2EA1A2738242E00584A8B /* Components */,
@@ -487,6 +504,7 @@
 				F274A98B2757EA9F0086B06E /* BasketHeaderView.swift */,
 				F2009EBA27400C3700E9A03C /* BasketFooterView.swift */,
 				F2009EBC2740219D00E9A03C /* HistoryOrderViewController.swift */,
+				F274A98F275918D50086B06E /* HistoryOrderViewModel.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -738,6 +756,7 @@
 				F23FF1F02732DFED00434A49 /* AuthViewController.swift in Sources */,
 				F2030FE227342FB100351C52 /* RegistrationAssembly.swift in Sources */,
 				F2030FEA2734472900351C52 /* StorageService.swift in Sources */,
+				F274A994275930610086B06E /* CategoryViewController.swift in Sources */,
 				F2E2EA0C27381F7E00584A8B /* MainViewController.swift in Sources */,
 				F23FF2082733A4A400434A49 /* CommonConstants.swift in Sources */,
 				F23FF20A2733AA9600434A49 /* PhoneRegistrationViewModel.swift in Sources */,
@@ -748,8 +767,10 @@
 				F2E2EA1127381FD600584A8B /* BaseViewController.swift in Sources */,
 				F269AF73274D40440081A835 /* StepperView.swift in Sources */,
 				F2E2EA1F2738246D00584A8B /* QRCodeViewModel.swift in Sources */,
+				F274A990275918D50086B06E /* HistoryOrderViewModel.swift in Sources */,
 				F23FF1F52732E01A00434A49 /* PhoneRegistrationViewController.swift in Sources */,
 				F22861052753CA1C009CDCC6 /* OrderDTO.swift in Sources */,
+				F274A996275931380086B06E /* CategoryPageMenuController.swift in Sources */,
 				F23FF1E72732DEF100434A49 /* WebApiService.swift in Sources */,
 				F274A98A2757E1110086B06E /* UserProfileInfoDTO.swift in Sources */,
 				F23FF1DE2732D63A00434A49 /* RegistrationButton.swift in Sources */,
@@ -767,6 +788,7 @@
 				F2809371273B910B003D2D24 /* ProfileOrderCell.swift in Sources */,
 				F23FF1FF2732E15100434A49 /* RegistrationTextField.swift in Sources */,
 				F23FF1FA2732E05300434A49 /* BirthdayViewController.swift in Sources */,
+				F2C004E42759F801009C2DFA /* DetailsDishViewController.swift in Sources */,
 				F2809373273C1BCF003D2D24 /* ProfileEditViewController.swift in Sources */,
 				F2030FE82734428200351C52 /* JWT.swift in Sources */,
 				F2E2EA252738249800584A8B /* BranchViewModel.swift in Sources */,
@@ -776,11 +798,13 @@
 				F23FF1F22732DFF500434A49 /* AuthViewModel.swift in Sources */,
 				F2E2EA132738221E00584A8B /* BaseTabViewController.swift in Sources */,
 				F2009EBD2740219D00E9A03C /* HistoryOrderViewController.swift in Sources */,
+				F274A98E275914C40086B06E /* RegistrationViewController.swift in Sources */,
 				F23FF2042733A1E100434A49 /* RegistrationDTO.swift in Sources */,
 				F23FF1E42732DECB00434A49 /* SplashViewModel.swift in Sources */,
 				F2E2EA062735C9AB00584A8B /* BirthdayDTO.swift in Sources */,
 				F2E2EA042735B63100584A8B /* AuthorizationDTO.swift in Sources */,
 				F2E2EA0E27381F8F00584A8B /* MainViewModel.swift in Sources */,
+				F274A99227591AFB0086B06E /* BasketManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

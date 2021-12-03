@@ -56,4 +56,15 @@ class HeaderItemView: UICollectionReusableView {
     }
 }
 
-
+class FooterView: UICollectionReusableView {
+    let view = UIView()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        addSubview(view)
+        view.snp.makeConstraints { make in
+            make.height.equalTo(40)
+            make.top.trailing.leading.equalToSuperview()
+        }
+    }
+}
