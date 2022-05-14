@@ -11,7 +11,9 @@ class RegistrationButton: UIButton {
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
-        indicator.backgroundColor = Colors.orange.color
+        indicator.hidesWhenStopped = true
+        indicator.style = .medium
+        indicator.color = Asset.clientGray.color
         return indicator
     }()
     
@@ -31,7 +33,7 @@ class RegistrationButton: UIButton {
         super.init(frame: frame)
         self.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         self.layer.cornerRadius = 25
-        self.backgroundColor = Colors.orange.color
+        self.backgroundColor = Asset.clientOrange.color
         setUp()
     }
     
@@ -49,11 +51,11 @@ class RegistrationButton: UIButton {
     private var isInvertButton = false {
         didSet {
             if isInvertButton {
-                self.titleLabel?.textColor = Colors.gray.color
-                self.backgroundColor = Colors.background.color
+                self.titleLabel?.textColor = Asset.clientGray.color
+                self.backgroundColor = Asset.clientBackround.color
             } else {
                 self.titleLabel?.textColor = .white
-                self.backgroundColor = Colors.orange.color
+                self.backgroundColor = Asset.clientBackround.color
             }
         }
     }

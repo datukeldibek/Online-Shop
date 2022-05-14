@@ -8,7 +8,6 @@
 import UIKit
 
 class ProfileEditViewController: BaseViewController {
-
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -20,9 +19,9 @@ class ProfileEditViewController: BaseViewController {
     private lazy var nameTextField: RegistrationTextField = {
         let field = RegistrationTextField()
         field.setPlaceholder(with: "Ramazan", color: .gray)
-        field.setImage(with: Icons.Registration.user.name)
+        field.setImage(with: Asset.user.name)
         field.setBorderColor(with: .clear)
-        field.setBackgroundColor(with: Colors.gray.color)
+        field.setBackgroundColor(with: Asset.clientGray.color)
         field.setKeyboardType(with: .default)
         return field
     }()
@@ -31,9 +30,9 @@ class ProfileEditViewController: BaseViewController {
         let field = RegistrationTextField()
         field.isUserInteractionEnabled = false
         field.setPlaceholder(with: "5555555", color: .gray)
-        field.setImage(with: Icons.Registration.phone.name)
+        field.setImage(with: Asset.phone.name)
         field.setBorderColor(with: .clear)
-        field.setBackgroundColor(with: Colors.gray.color)
+        field.setBackgroundColor(with: Asset.clientGray.color)
         field.setKeyboardType(with: .numberPad)
         field.tintColor = .darkGray
         return field
@@ -42,9 +41,9 @@ class ProfileEditViewController: BaseViewController {
     private lazy var birthdayTextField: RegistrationTextField = {
         let field = RegistrationTextField()
         field.setPlaceholder(with: "21.12.12", color: .gray)
-        field.setImage(with: Icons.Registration.calendar.name)
+        field.setImage(with: Asset.calendar.name)
         field.setBorderColor(with: .clear)
-        field.setBackgroundColor(with: Colors.gray.color)
+        field.setBackgroundColor(with: Asset.clientGray.color)
         field.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
         return field
     }()
@@ -52,7 +51,7 @@ class ProfileEditViewController: BaseViewController {
     private lazy var saveButton: UIButton = {
         let button = UIButton()
         button.setTitle("Сохранить", for: .normal)
-        button.backgroundColor = Colors.orange.color
+        button.backgroundColor = Asset.clientOrange.color
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(saveProfileInfo), for: .touchUpInside)

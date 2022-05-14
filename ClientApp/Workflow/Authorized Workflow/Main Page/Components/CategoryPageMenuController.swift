@@ -13,7 +13,7 @@ class CategoryPageMenuController: ButtonBarPagerTabStripViewController {
     private lazy var buttonBar: ButtonBarView = {
         let layout = UICollectionViewFlowLayout()
         let button = ButtonBarView(frame: .zero, collectionViewLayout: layout)
-        button.backgroundColor = Colors.background.color
+        button.backgroundColor = Asset.clientBackround.color
         return button
     }()
     
@@ -21,7 +21,7 @@ class CategoryPageMenuController: ButtonBarPagerTabStripViewController {
         let view = UIScrollView()
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false
-        view.backgroundColor = Colors.background.color
+        view.backgroundColor = Asset.clientBackround.color
         return view
     }()
     
@@ -52,10 +52,10 @@ class CategoryPageMenuController: ButtonBarPagerTabStripViewController {
     
     private func configurePageController() {
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.backgroundColor = Colors.background.color
+        navigationController?.navigationBar.backgroundColor = Asset.clientBackround.color
         settings.style.buttonBarItemBackgroundColor = .clear
-        settings.style.buttonBarBackgroundColor = Colors.background.color
-        settings.style.selectedBarBackgroundColor = Colors.darkBackground.color
+        settings.style.buttonBarBackgroundColor = Asset.clientBackround.color
+        settings.style.selectedBarBackgroundColor = Asset.clientDarkBackround.color
         settings.style.buttonBarItemFont = UIFont.systemFont(ofSize: 16, weight: .medium)
         settings.style.selectedBarHeight = 2
         settings.style.buttonBarItemTitleColor = .darkGray
@@ -65,16 +65,15 @@ class CategoryPageMenuController: ButtonBarPagerTabStripViewController {
     }
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        let vm = MainViewModel()
-        let teaController = CategoryViewController(vm: vm)
+        let teaController = DIService.shared.getVc(CategoryViewController.self)
         teaController.categoryIndex = 1
-        let сoffeeController = CategoryViewController(vm: vm)
+        let сoffeeController = DIService.shared.getVc(CategoryViewController.self)
         сoffeeController.categoryIndex = 2
-        let bakeryController = CategoryViewController(vm: vm)
+        let bakeryController = DIService.shared.getVc(CategoryViewController.self)
         bakeryController.categoryIndex = 3
-        let desertsController = CategoryViewController(vm: vm)
+        let desertsController = DIService.shared.getVc(CategoryViewController.self)
         desertsController.categoryIndex = 4
-        let cocktailsController = CategoryViewController(vm: vm)
+        let cocktailsController = DIService.shared.getVc(CategoryViewController.self)
         cocktailsController.categoryIndex = 5
         return [teaController, сoffeeController, bakeryController, desertsController, cocktailsController]
     }

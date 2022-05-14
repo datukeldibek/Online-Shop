@@ -17,15 +17,18 @@ protocol MainViewModelType {
 }
 
 class MainViewModel: MainViewModelType {
-    
-    let authService: AuthServiceType = AuthService.shared
-    let webApi: WebApiServiceType = WebApiService.shared
-    var basketManager: BasketManagerType = BasketManager.shared
+    var webApi: WebApiServiceType
+    var basketManager: BasketManagerType
     
     var dishesInBasket: [OrderDTO] = [] {
         didSet {
             basketManager.dishes = dishesInBasket
         }
+    }
+    
+    init(webApi: WebApiServiceType, basketManager: BasketManagerType ) {
+        self.webApi = webApi
+        self.basketManager = basketManager
     }
     
     func getPopularDishes(completion: @escaping (Result<[FullCategoryDTO], Error>) -> Void) {

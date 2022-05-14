@@ -77,9 +77,7 @@ extension UserDefaults: KeyValueStoreType {
 
 class TransientStorageService: KeyValueStoreType {
     
-    static let shared = TransientStorageService()
-    
-    private init() {}
+    init() {}
     
     private var store = [StorageKey: Any]()
     

@@ -23,7 +23,7 @@ protocol AuthServiceType: RequestInterceptor {
     func confirmAuthCode(for phoneNumber: String, confirmationCode: String, completion: @escaping (Result<JwtInfo, Error>) -> Void)
 }
 
-class AuthService: AuthServiceType {
+class AuthService: NSObject, AuthServiceType {
 
     enum SignInResult: Hashable {
         case authorized
@@ -33,10 +33,10 @@ class AuthService: AuthServiceType {
         case tokenExpired
     }
     
-    private lazy var webApi: WebApiServiceType = WebApiService.shared
+    private var webApi: WebApiServiceType!
     private var currentToken: JwtInfo?
     private let keychain: Keychain = Keychain()
-    private let keyValueStore: KeyValueStoreType = TransientStorageService.shared
+    private var keyValueStore: KeyValueStoreType
     
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
@@ -52,11 +52,16 @@ class AuthService: AuthServiceType {
     }
     
     private(set) var isAuthorizing: Bool = false
-
-    static let shared = AuthService()
     
-    private init() {
+    init(keyValueStore: KeyValueStoreType) {
+        self.keyValueStore = keyValueStore
+        super.init()
         self.configure()
+        
+    }
+    
+    func setWebService(_ webApi: WebApiServiceType) {
+        self.webApi = webApi
     }
     
     func configure() {
@@ -144,7 +149,6 @@ class AuthService: AuthServiceType {
     
     private func saveToken(_ t: JwtInfo) throws {
         self.currentToken = t
-        print(currentToken)
         let data = try encoder.encode(t)
         try keychain.set(data, key: tokenKey)
     }

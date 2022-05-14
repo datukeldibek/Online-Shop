@@ -8,7 +8,6 @@
 import UIKit
 
 class HeaderItemView: UICollectionReusableView {
-    
     let label: UILabel = {
         let text = UILabel()
         text.textColor = .black
@@ -34,7 +33,7 @@ class HeaderItemView: UICollectionReusableView {
     }
     
     private func setUp() {
-        backgroundColor = Colors.background.color
+        backgroundColor = Asset.clientBackround.color
         setUpSubviews()
         setUpConstaints()
     }

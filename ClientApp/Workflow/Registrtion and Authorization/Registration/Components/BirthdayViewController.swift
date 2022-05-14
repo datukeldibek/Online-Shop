@@ -30,9 +30,9 @@ class BirthdayViewController: BaseRegistrationViewController {
     private lazy var birthDateField: RegistrationTextField = {
         let field = RegistrationTextField()
         field.setPlaceholder(with: "01.01.1991", color: .gray)
-        field.setImage(with: Icons.Registration.calendar.name)
+        field.setImage(with: Asset.calendar.name)
         field.setBorderColor(with: .clear)
-        field.setBackgroundColor(with: Colors.gray.color)
+        field.setBackgroundColor(with: Asset.clientGray.color)
         field.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
         return field
     }()

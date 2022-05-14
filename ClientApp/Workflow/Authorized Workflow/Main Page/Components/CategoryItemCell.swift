@@ -87,17 +87,17 @@ class CategoryItemCell: UICollectionViewCell {
         
         switch cell.name {
         case "Кофе":
-            featuredPhotoView.image = Icons.MainMenu.coffee.image
+            featuredPhotoView.image = Asset.coffee.image
         case "Десерты":
-            featuredPhotoView.image = Icons.MainMenu.desserts.image
+            featuredPhotoView.image = Asset.desserts.image
         case "Коктейли":
-            featuredPhotoView.image = Icons.MainMenu.cocktails.image
+            featuredPhotoView.image = Asset.cocktails.image
         case "Выпечка":
-            featuredPhotoView.image = Icons.MainMenu.bakery.image
+            featuredPhotoView.image = Asset.bakery.image
         case "Чай":
-            featuredPhotoView.image = Icons.MainMenu.tea.image
+            featuredPhotoView.image = Asset.tea.image
         default:
-            featuredPhotoView.image = Icons.MainMenu.coffee.image
+            featuredPhotoView.image = Asset.coffee.image
         }
     }
 }

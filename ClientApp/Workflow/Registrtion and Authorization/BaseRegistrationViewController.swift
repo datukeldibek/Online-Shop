@@ -13,7 +13,7 @@ class BaseRegistrationViewController: UIViewController {
 
     private let registrationIcon: UIImageView = {
         let view = UIImageView()
-        view.image = Icons.Registration.registrationIcon.image
+        view.image = Asset.registrationIcon.image
         view.contentMode = .scaleAspectFill
         return view
     }()
@@ -29,7 +29,7 @@ class BaseRegistrationViewController: UIViewController {
         let backItem = UIBarButtonItem()
         backItem.title = " "
         navigationItem.backBarButtonItem = backItem
-        view.backgroundColor = Colors.background.color
+        view.backgroundColor = Asset.clientBackround.color
         setUpSubviews()
         setUpConstaints()
     }

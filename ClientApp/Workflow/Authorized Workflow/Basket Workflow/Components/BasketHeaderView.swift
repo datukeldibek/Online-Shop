@@ -18,8 +18,8 @@ class BasketHeaderView: UICollectionReusableView {
         button.setTitle("Возьму с собой")
         button.isInvert()
         button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .lightGray
-        button.addTarget(self, action: #selector(TakeawayTapped), for: .touchUpInside)
+        button.backgroundColor = Asset.clientBackround.color
+        button.addTarget(self, action: #selector(takeawayTapped), for: .touchUpInside)
         return button
     }()
 
@@ -67,7 +67,7 @@ class BasketHeaderView: UICollectionReusableView {
     }
     
     @objc
-    private func TakeawayTapped() {
+    private func takeawayTapped() {
        
     }
     

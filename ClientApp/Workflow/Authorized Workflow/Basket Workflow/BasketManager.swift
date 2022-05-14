@@ -11,16 +11,15 @@ protocol BasketManagerType {
     var dishes: [OrderDTO] { get set }
 }
 
-class BasketManager: BasketManagerType {
-    private init() {}
+class BasketManager: BasketManagerType {    
+    var authService: AuthServiceType
+    var webApi: WebApiServiceType
     
-    static let shared = BasketManager()
-    
-    let authService: AuthServiceType = AuthService.shared
-    let webApi: WebApiServiceType = WebApiService.shared
+    init(webApi: WebApiServiceType, authService: AuthServiceType) {
+        self.webApi = webApi
+        self.authService = authService
+    }
 
     var dishes: [OrderDTO] = []
-    
-    
 }
 

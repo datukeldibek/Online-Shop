@@ -23,7 +23,7 @@ class CategoryViewController: BaseViewController {
         let coll = UICollectionView(frame: .zero, collectionViewLayout: layout)
         coll.delegate = self
         coll.dataSource = self
-        coll.backgroundColor = Colors.background.color
+        coll.backgroundColor =  Asset.clientBackround.color
         coll.registerReusableView(ViewType: HeaderView.self, type: .UICollectionElementKindSectionHeader)
         coll.registerReusable(CellType: PopularItemCell.self)
         coll.registerReusableView(ViewType: FooterView.self, type: .UICollectionElementKindSectionFooter)
@@ -174,8 +174,7 @@ extension CategoryViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let controller = DetailsDishViewController(vm: MainViewModel())
-        
+        let controller = DIService.shared.getVc(DetailsDishViewController.self)
         navigationController?.pushViewController(controller, animated: true)
     }
 }
@@ -193,7 +192,7 @@ extension CategoryViewController {
         private lazy var headerTitle: UILabel = {
             let label = UILabel()
             label.font = UIFont.systemFont(ofSize: 28, weight: .semibold)
-            label.textColor = Colors.darkBackground.color
+            label.textColor =  Asset.clientDarkBackround.color
             return label
         }()
         

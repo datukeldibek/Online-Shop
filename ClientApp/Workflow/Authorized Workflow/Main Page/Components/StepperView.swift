@@ -76,13 +76,13 @@ class StepperView: UIControl {
         return label
     }()
     
-    var additionButtonColor: UIColor = Colors.orange.color {
+    var additionButtonColor: UIColor = Asset.clientOrange.color {
         didSet {
             additionButton.backgroundColor = additionButtonColor
         }
     }
     
-    var decreaseButtonColor: UIColor = Colors.orange.color {
+    var decreaseButtonColor: UIColor = Asset.clientOrange.color {
         didSet {
             decreaseButton.backgroundColor = decreaseButtonColor
         }

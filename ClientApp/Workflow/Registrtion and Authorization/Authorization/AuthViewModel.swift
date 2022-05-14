@@ -13,7 +13,11 @@ protocol AuthViewModelType {
 }
 
 class AuthViewModel: AuthViewModelType {
-    private let authService: AuthServiceType = AuthService.shared
+    private let authService: AuthServiceType
+    
+    init(authService: AuthServiceType) {
+        self.authService = authService
+    }
     
     func authorizeUser(user: AuthorizationDTO, completion: @escaping (Result<Void, Error>) -> Void) {
         authService.authorizeUser(user: user, completion: completion)

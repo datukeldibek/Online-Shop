@@ -11,10 +11,14 @@ protocol BranchViewModelType {
     func getBranches(completion: @escaping (Result<[BranchDTO], Error>) -> Void)
 }
 
-class BranchViewModel: BranchViewModelType {
+class BranchViewModel: NSObject, BranchViewModelType {
+    var authService: AuthServiceType
+    var webApi: WebApiServiceType
     
-    let authService: AuthServiceType = AuthService.shared
-    let webApi: WebApiServiceType = WebApiService.shared
+    init(webApi: WebApiServiceType, authService: AuthServiceType) {
+        self.webApi = webApi
+        self.authService = authService
+    }
     
     func getBranches(completion: @escaping (Result<[BranchDTO], Error>) -> Void) {
         webApi.getBranches(completion: completion)

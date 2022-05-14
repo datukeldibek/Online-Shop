@@ -8,11 +8,10 @@
 import UIKit
 
 protocol BranchCellDelegate: AnyObject {
-    func resendTo2Gis(with link: String)
+    func resendTo2Gis(with data: BranchDTO)
 }
 
 class BranchCell: UICollectionViewCell {
-    
     private lazy var branchImageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .black
@@ -55,7 +54,7 @@ class BranchCell: UICollectionViewCell {
     
     private lazy var resendTo2Gis: UIButton = {
         let button = UIButton()
-        button.setImage(Icons.paperPlaneTilt.image, for: .normal)
+        button.setImage(Asset.paperPlaneTilt.image, for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(resendTapped), for: .touchUpInside)
         return button
@@ -63,15 +62,15 @@ class BranchCell: UICollectionViewCell {
     
     private let phoneImage: UIImageView = {
         let view = UIImageView()
-        view.image = Icons.Registration.phone.image
-        view.tintColor = Colors.orange.color
+        view.image = Asset.phone.image
+        view.tintColor = Asset.clientOrange.color
         return view
     }()
     
     private let adressImage: UIImageView = {
         let view = UIImageView()
-        view.image = Icons.mapPin.image
-        view.tintColor = Colors.orange.color
+        view.image = Asset.mapPin.image
+        view.tintColor = Asset.clientOrange.color
         return view
     }()
     
@@ -160,7 +159,7 @@ class BranchCell: UICollectionViewCell {
     
     @objc
     private func resendTapped(with link: String) {
-        guard let link = branch?.link2gis else { return }
-        delegate?.resendTo2Gis(with: link)
+        guard let branch = branch else { return }
+        delegate?.resendTo2Gis(with: branch)
     }
 }

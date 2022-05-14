@@ -45,7 +45,7 @@ extension UIViewController {
         let errorMessage = error.localizedDescription
 
         let alert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
-        alert.view.tintColor = Colors.background.color
+        alert.view.tintColor = Asset.clientBackround.color
         
         let retryAction = UIAlertAction(
             title: "Retry",

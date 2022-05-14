@@ -27,7 +27,7 @@ class HistoryOrderViewController: BaseViewController {
         view.dataSource = self
         view.registerReusable(CellType: ProfileOrderCell.self)
         view.registerReusableView(ViewType: ProfileViewController.Header.self, type: .UICollectionElementKindSectionHeader)
-        view.backgroundColor = Colors.background.color
+        view.backgroundColor = Asset.clientBackround.color
         return view
     }()
     

@@ -8,7 +8,6 @@
 import UIKit
 
 class ProfileOrderCell: UICollectionViewCell {
-    
     private lazy var branchImage: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .black
@@ -47,7 +46,7 @@ class ProfileOrderCell: UICollectionViewCell {
     }
     
     private func setUp() {
-        backgroundColor = Colors.background.color
+        backgroundColor = Asset.clientBackround.color
         setUpSubviews()
         setUpConstaints()
     }
@@ -122,7 +121,7 @@ extension ProfileViewController {
         }
         
         private func setUp() {
-            backgroundColor = Colors.background.color
+            backgroundColor = Asset.clientBackround.color
             setUpSubviews()
             setUpConstaints()
         }

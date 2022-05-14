@@ -18,7 +18,7 @@ class RegistrationViewController: BaseRegistrationViewController {
             controller.modalPresentationStyle = .overFullScreen
             present(controller, animated: true)
         } else {
-            let controller = SplashViewController(viewModel: SplashViewModel())
+            let controller = DIService.shared.getVc(SplashViewController.self)
             controller.modalPresentationStyle = .overFullScreen
             present(controller, animated: true)
         }

@@ -12,7 +12,6 @@ protocol BonusItemCellDelegate: AnyObject {
 }
 
 class BonusItemCell: UICollectionReusableView {
-    
     public lazy var view: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 25
@@ -23,7 +22,7 @@ class BonusItemCell: UICollectionReusableView {
     
     public lazy var image: UIImageView = {
         let image = UIImageView()
-        image.image = Icons.bonusImage.image
+        image.image = Asset.bonusImage.image
         image.layer.cornerRadius = 25
         return image
     }()
@@ -58,7 +57,7 @@ class BonusItemCell: UICollectionReusableView {
     }
     
     private func setUp() {
-        backgroundColor = Colors.background.color
+        backgroundColor = Asset.clientBackround.color
         layer.cornerRadius = 25
         setUpSubviews()
         setUpConstaints()

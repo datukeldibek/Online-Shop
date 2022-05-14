@@ -189,7 +189,7 @@ class ConfirmationCodeViewController: BaseRegistrationViewController {
             withRetry(confirmationCodeCompletion) { [weak self] response in
                 if case .success = response {
                     let tabBarVC = BaseTabViewController()
-                    tabBarVC.modalPresentationStyle = .overFullScreen
+                    tabBarVC.modalPresentationStyle = .fullScreen
                     self?.present(tabBarVC, animated: true)
                 } 
             }

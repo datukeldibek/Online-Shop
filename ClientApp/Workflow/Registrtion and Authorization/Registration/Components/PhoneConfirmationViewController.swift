@@ -25,7 +25,7 @@ class PhoneConfirmationViewController: BaseRegistrationViewController {
         field.textAlignment = .center
         field.keyboardType = .numberPad
         field.textContentType = .oneTimeCode
-        field.backgroundColor = Colors.background.color
+        field.backgroundColor = Asset.clientBackround.color
         return field
     }()
     
@@ -36,7 +36,7 @@ class PhoneConfirmationViewController: BaseRegistrationViewController {
         field.textAlignment = .center
         field.keyboardType = .numberPad
         field.textContentType = .oneTimeCode
-        field.backgroundColor = Colors.background.color
+        field.backgroundColor = Asset.clientBackround.color
         return field
     }()
     
@@ -47,7 +47,7 @@ class PhoneConfirmationViewController: BaseRegistrationViewController {
         field.textAlignment = .center
         field.keyboardType = .numberPad
         field.textContentType = .oneTimeCode
-        field.backgroundColor = Colors.background.color
+        field.backgroundColor = Asset.clientBackround.color
         return field
     }()
     
@@ -58,7 +58,7 @@ class PhoneConfirmationViewController: BaseRegistrationViewController {
         field.textAlignment = .center
         field.keyboardType = .numberPad
         field.textContentType = .oneTimeCode
-        field.backgroundColor = Colors.background.color
+        field.backgroundColor = Asset.clientBackround.color
         return field
     }()
     
@@ -186,7 +186,7 @@ class PhoneConfirmationViewController: BaseRegistrationViewController {
             defer { logInButton.isLoading = false }
             withRetry(confirmationCodeCompletion) { [weak self] res in
                 if case .success = res {
-                    let birthdayVC = BirthdayViewController(vm: PhoneRegistrationViewModel())
+                    let birthdayVC = DIService.shared.getVc(BirthdayViewController.self)
                     self?.navigationController?.pushViewController(birthdayVC, animated: true)
                 }
             }

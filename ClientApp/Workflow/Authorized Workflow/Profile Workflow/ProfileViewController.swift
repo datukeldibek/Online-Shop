@@ -8,7 +8,6 @@
 import UIKit
 
 class ProfileViewController: BaseViewController {
-
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -19,7 +18,7 @@ class ProfileViewController: BaseViewController {
     
     private lazy var editButton: UIButton = {
         let button = UIButton()
-        button.setImage(Icons.pencil.image, for: .normal)
+        button.setImage(Asset.pencil.image, for: .normal)
         button.tintColor = .darkGray
         button.addTarget(self, action: #selector(editProfileTapped), for: .touchUpInside)
         return button
@@ -35,7 +34,7 @@ class ProfileViewController: BaseViewController {
         view.registerReusableView(ViewType: BonusItemCell.self,  type: .UICollectionElementKindSectionHeader)
         view.registerReusable(CellType: ProfileOrderCell.self)
         view.registerReusableView(ViewType: Header.self, type: .UICollectionElementKindSectionHeader)
-        view.backgroundColor = Colors.background.color
+        view.backgroundColor = Asset.clientBackround.color
         return view
     }()
     
@@ -107,10 +106,10 @@ class ProfileViewController: BaseViewController {
     
     private func configureNavBar() {
         navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.barTintColor = Colors.background.color
+        navigationController?.navigationBar.barTintColor = Asset.clientBackround.color
         navigationItem.title = "Профиль"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: Icons.Profile.signOut.image,
+            image: Asset.signOut.image,
             style: .done,
             target: self,
             action: #selector(logOutTapped)
@@ -160,8 +159,8 @@ class ProfileViewController: BaseViewController {
     
     @objc
     private func editProfileTapped() {
-        let ProfileEditVC = ProfileEditViewController(vm: ProfileViewModel())
-        navigationController?.pushViewController(ProfileEditVC, animated: true)
+        let profileEditVC = DIService.shared.getVc(ProfileViewController.self)
+        navigationController?.pushViewController(profileEditVC, animated: true)
     }
     
     @objc private func bonusViewTapped() {
@@ -195,10 +194,10 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout, UICollectio
             let cell = UICollectionViewCell()
             return cell
         } else if indexPath.section == 1 {
-//            cell.display(currentOrders[indexPath.row])
+            cell.display(currentOrders[indexPath.row])
             return cell
         } else {
-//            cell.display(completedOrders[indexPath.row])
+            cell.display(completedOrders[indexPath.row])
             return cell
         }
     }

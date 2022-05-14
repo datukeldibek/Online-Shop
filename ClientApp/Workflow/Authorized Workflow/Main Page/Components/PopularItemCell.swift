@@ -13,7 +13,6 @@ protocol PopularItemDelegate: AnyObject {
 }
 
 class PopularItemCell: UICollectionViewCell {
-    
     public lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 25
@@ -50,15 +49,15 @@ class PopularItemCell: UICollectionViewCell {
         label.textAlignment = .center
         label.text = "190 с"
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        label.textColor = Colors.orange.color
+        label.textColor = Asset.clientOrange.color
         return label
     }()
     
     private lazy var stepperControl: StepperView = {
         var stepper = StepperView()
         stepper.minimumNumberOfItems = 0
-        stepper.additionButtonColor = Colors.orange.color
-        stepper.decreaseButtonColor = Colors.gray.color
+        stepper.additionButtonColor = Asset.clientOrange.color
+        stepper.decreaseButtonColor = Asset.clientGray.color
         stepper.delegate = self
         return stepper
     }()
@@ -127,7 +126,7 @@ class PopularItemCell: UICollectionViewCell {
         priceLabel.text = "\(cell.price) c"
         imageView.sd_setImage(
             with: cell.imagesUrl,
-            placeholderImage: Icons.house.image,
+            placeholderImage: Asset.house.image,
             options: []
         )
     }
@@ -138,7 +137,7 @@ class PopularItemCell: UICollectionViewCell {
         priceLabel.text = "\(cell.price) c"
         imageView.sd_setImage(
             with: cell.imageUrl,
-            placeholderImage: Icons.house.image,
+            placeholderImage: Asset.house.image,
             options: [.fromLoaderOnly, .transformVectorImage]
         )
     }

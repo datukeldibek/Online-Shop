@@ -9,7 +9,6 @@ import UIKit
 import Swinject
 
 class SplashViewController: BaseRegistrationViewController {
-
     private lazy var registrationButton: UIButton = {
         let button = UIButton()
         button.setTitle("Регистрация", for: .normal)
@@ -78,13 +77,13 @@ class SplashViewController: BaseRegistrationViewController {
     
     @objc
     private func registrationTapped() {
-        let registrationVC = PhoneRegistrationViewController(viewModel: PhoneRegistrationViewModel())
+        let registrationVC = DIService.shared.getVc(PhoneRegistrationViewController.self)
         navigationController?.pushViewController(registrationVC, animated: true)
     }
     
     @objc
     private func authorizationTapped() {
-        let authVC = AuthViewController(viewModel: AuthViewModel())
+        let authVC = DIService.shared.getVc(AuthViewController.self)
         navigationController?.pushViewController(authVC, animated: true)
     }
 }

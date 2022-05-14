@@ -23,8 +23,14 @@ protocol ProfileViewModelType {
 
 class ProfileViewModel: ProfileViewModelType {
     
-    let authService: AuthServiceType = AuthService.shared
-    let webApi: WebApiServiceType = WebApiService.shared
+    var authService: AuthServiceType
+    var webApi: WebApiServiceType
+    
+    
+    init(webApi: WebApiServiceType, authService: AuthServiceType) {
+        self.webApi = webApi
+        self.authService = authService
+    }
     
     func logOut() {
         authService.logout()

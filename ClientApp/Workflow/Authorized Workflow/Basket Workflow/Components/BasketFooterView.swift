@@ -22,9 +22,9 @@ class BasketFooterView: UICollectionReusableView {
     
     private lazy var addMoreButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(Colors.orange.color, for: .normal)
-        button.backgroundColor = Colors.background.color
-        button.layer.borderColor = Colors.orange.color.cgColor
+        button.setTitleColor(Asset.clientOrange.color, for: .normal)
+        button.backgroundColor = Asset.clientBackround.color
+        button.layer.borderColor = Asset.clientOrange.color.cgColor
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 10
         button.setTitle("Добавить еще", for: .normal)
@@ -35,7 +35,7 @@ class BasketFooterView: UICollectionReusableView {
     private lazy var orderButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = Colors.orange.color
+        button.backgroundColor = Asset.clientOrange.color
         button.layer.cornerRadius = 10
         button.setTitle("Заказать", for: .normal)
         button.addTarget(self, action: #selector(orderTapped), for: .touchUpInside)
@@ -90,7 +90,7 @@ class BasketFooterView: UICollectionReusableView {
     private func buildSumLabelAttributeText(_ item: String) -> NSMutableAttributedString {
         let attrs1 = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: .semibold),
-            NSAttributedString.Key.foregroundColor: Colors.orange.color
+            NSAttributedString.Key.foregroundColor: Asset.clientOrange.color
         ]
 
         let attrs2 = [

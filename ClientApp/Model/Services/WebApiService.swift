@@ -64,11 +64,12 @@ class WebApiService: NSObject, WebApiServiceType {
     internal let decoder: JSONDecoder = JSONDecoder()
     internal let dateFormatter: DateFormatter = DateFormatter()
     internal let afSession: Session = Session(configuration: WebApiService.urlSessionConfig())
-    internal let authService: AuthServiceType = AuthService.shared
+    internal let authService: AuthServiceType
     
-    static let shared = WebApiService()
-    
-    private override init() {}
+    init(authService as: AuthServiceType) {
+        self.authService = `as`
+        
+    }
     
     // MARK: - Handler
     func handleResponse<T: Decodable>(of type: T.Type, response: DataResponse<T, AFError>, completion: @escaping (Result<T, Error>) -> Void) {

@@ -19,9 +19,15 @@ protocol PhoneRegistrationViewModelType {
 
 class PhoneRegistrationViewModel: PhoneRegistrationViewModelType {
     
-    private let authService: AuthServiceType = AuthService.shared
-    private let keyValueStore: KeyValueStoreType = TransientStorageService.shared
-    private let webApi: WebApiServiceType = WebApiService.shared
+    var keyValueStore: KeyValueStoreType
+    var authService: AuthServiceType
+    var webApi: WebApiServiceType
+    
+    init(webApi: WebApiServiceType, authService: AuthServiceType, keyValueStore: KeyValueStoreType) {
+        self.webApi = webApi
+        self.authService = authService
+        self.keyValueStore = keyValueStore
+    }
 
     var isAuthorized: Bool {
         return authService.isAuthorized

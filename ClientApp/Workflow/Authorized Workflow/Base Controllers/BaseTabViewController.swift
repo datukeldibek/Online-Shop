@@ -17,32 +17,22 @@ enum TabBar: CaseIterable {
     
     var tabBarItem: UITabBarItem {
         switch self {
-        case .Home:
-            return UITabBarItem(title: nil, image: Icons.house.image, selectedImage: nil)
-        case .Basket:
-            return UITabBarItem(title: nil, image: Icons.toteSimple.image, selectedImage: nil)
-        case .QRCode:
-            return UITabBarItem(title: nil, image: UIImage(), selectedImage: nil)
-        case .Branch:
-            return UITabBarItem(title: nil, image: Icons.mapPin.image, selectedImage: nil)
-        case .Profile:
-            return UITabBarItem(title: nil, image: Icons.Registration.user.image, selectedImage: nil)
+        case .Home: return UITabBarItem(title: nil, image: Asset.house.image, selectedImage: nil)
+        case .Basket: return UITabBarItem(title: nil, image: Asset.toteSimple.image, selectedImage: nil)
+        case .QRCode: return UITabBarItem(title: nil, image: UIImage(), selectedImage: nil)
+        case .Branch: return UITabBarItem(title: nil, image: Asset.mapPin.image, selectedImage: nil)
+        case .Profile: return UITabBarItem(title: nil, image: Asset.user.image, selectedImage: nil)
         }
     }
     
     var viewController: UINavigationController {
         var vc = UINavigationController()
         switch self {
-        case .Home:
-            vc = UINavigationController(rootViewController: MainViewController(vm: MainViewModel()))
-        case .Basket:
-            vc = UINavigationController(rootViewController: BasketViewController(vm: BasketViewModel()))
-        case .QRCode:
-            vc = UINavigationController()
-        case .Branch:
-            vc = UINavigationController(rootViewController: BranchViewController(vm: BranchViewModel()))
-        case .Profile:
-            vc = UINavigationController(rootViewController: ProfileViewController(vm: ProfileViewModel()))
+        case .Home: vc = UINavigationController(rootViewController: DIService.shared.getVc(MainViewController.self))
+        case .Basket: vc = UINavigationController(rootViewController: DIService.shared.getVc(BasketViewController.self))
+        case .QRCode: vc = UINavigationController()
+        case .Branch: vc = UINavigationController(rootViewController: DIService.shared.getVc(BranchViewController.self))
+        case .Profile: vc = UINavigationController(rootViewController: DIService.shared.getVc(ProfileViewController.self))
         }
         
         vc.setNavigationBarHidden(false, animated: false)
@@ -52,7 +42,6 @@ enum TabBar: CaseIterable {
 }
 
 class BaseTabViewController: UITabBarController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
@@ -65,8 +54,8 @@ class BaseTabViewController: UITabBarController {
         tabBar.itemPositioning = .centered
         tabBar.backgroundImage = UIImage()
         tabBar.shadowImage = UIImage()
-        tabBar.tintColor = Colors.orange.color
-        tabBar.backgroundColor = Colors.background.color
+        tabBar.tintColor = Asset.clientOrange.color
+        tabBar.backgroundColor = Asset.clientBackround.color
         tabBar.itemWidth = (tabBar.frame.size.width / 5)
     }
     
@@ -77,22 +66,21 @@ class BaseTabViewController: UITabBarController {
         menuButtonFrame.origin.x = view.bounds.width/2 - menuButtonFrame.size.width/2
         menuButton.frame = menuButtonFrame
         
-        menuButton.backgroundColor = Colors.orange.color
+        menuButton.backgroundColor = Asset.clientOrange.color
         menuButton.layer.cornerRadius = menuButtonFrame.height/2
         view.addSubview(menuButton)
         
-        menuButton.setImage(Icons.qrCode.image, for: .normal)
+        menuButton.setImage(Asset.qrCode.image, for: .normal)
         menuButton.tintColor = .white
-        menuButton.addTarget(self, action: #selector(menuButtonAction(sender:)), for: .touchUpInside)
+        menuButton.addTarget(self, action: #selector(menuButtonAction), for: .touchUpInside)
         
         view.layoutIfNeeded()
     }
     
     // MARK: - Actions
-    
     @objc private func menuButtonAction(sender: UIButton) {
-        let QRCodeVC = QRCodeViewController()
-        let controller = SheetViewController(controller: QRCodeVC, sizes: [.percent(0.8)])
+        let qrCodeVC = DIService.shared.getVc(QRCodeViewController.self)
+        let controller = SheetViewController(controller: qrCodeVC, sizes: [.percent(0.8)])
         controller.cornerRadius = 20
         present(controller, animated: true)
     }

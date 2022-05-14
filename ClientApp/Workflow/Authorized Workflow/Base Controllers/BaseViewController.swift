@@ -8,7 +8,6 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
@@ -16,19 +15,9 @@ class BaseViewController: UIViewController {
  
     private func setUp() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
-        navigationController?.navigationBar.backgroundColor = Colors.background.color
-        navigationController?.navigationBar.barTintColor = Colors.background.color
+        navigationController?.navigationBar.backgroundColor = Asset.clientBackround.color
+        navigationController?.navigationBar.barTintColor =  Asset.clientBackround.color
         navigationController?.navigationBar.isTranslucent = false
-        view.backgroundColor = Colors.background.color
-        setUpSubviews()
-        setUpConstaints()
-    }
-    
-    private func setUpSubviews() {
-        
-    }
-    
-    private func setUpConstaints () {
-        
+        view.backgroundColor = Asset.clientBackround.color
     }
 }

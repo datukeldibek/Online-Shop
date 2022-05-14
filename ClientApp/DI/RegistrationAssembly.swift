@@ -15,8 +15,11 @@ class RegistrationAssembly: Assembly {
             .inObjectScope(.transient)
         
         container.register(PhoneRegistrationViewController.self) { r in
-            let vc = PhoneRegistrationViewController(viewModel: r~>)
-            return vc
+            PhoneRegistrationViewController(vm: r~>)
+        }.inObjectScope(.container)
+        
+        container.register(BirthdayViewController.self) { r in
+            BirthdayViewController(vm: r~>)
         }.inObjectScope(.container)
     }
 }

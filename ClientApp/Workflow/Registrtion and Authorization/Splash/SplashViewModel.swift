@@ -15,15 +15,20 @@ protocol SplashViewModelType {
 
 class SplashViewModel: SplashViewModelType {
     
-    private let keyValueStore: KeyValueStoreType = TransientStorageService.shared
-    private let authService: AuthServiceType = AuthService.shared
+    private let keyChaninService: KeyValueStoreType
+    private let authService: AuthServiceType
+    
+    init(authService: AuthServiceType, keyChaninService: KeyValueStoreType) {
+        self.authService = authService
+        self.keyChaninService = keyChaninService
+    }
     
     var isAuthorized: Bool {
         return authService.isAuthorized
     }
     
     var userLoggedIn: Bool {
-        keyValueStore.bool(forKey: .userLoggedIn)
+        keyChaninService.bool(forKey: .userLoggedIn)
     }
     
     func logout() {

@@ -11,7 +11,7 @@ class OrderCell: UICollectionViewCell {
     
     private lazy var orderImageView: UIImageView = {
         let view = UIImageView()
-        view.image = Icons.Registration.calendar.image
+        view.image = Asset.calendar.image
         return view
     }()
     
@@ -34,7 +34,7 @@ class OrderCell: UICollectionViewCell {
     private lazy var sumLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
-        label.textColor = Colors.orange.color
+        label.textColor = Asset.clientOrange.color
         label.text = "0с"
         return label
     }()
@@ -44,7 +44,7 @@ class OrderCell: UICollectionViewCell {
         button.setTitle("-", for: .normal)
         button.layer.cornerRadius = 14
         button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = Colors.gray.color
+        button.backgroundColor = Asset.clientGray.color
         button.tag = 0
         button.addTarget(self, action: #selector(addSubstractItemTapped(_:)), for: .touchUpInside)
         return button
@@ -55,7 +55,7 @@ class OrderCell: UICollectionViewCell {
         button.setTitle("+", for: .normal)
         button.layer.cornerRadius = 14
         button.titleLabel?.textColor = .white
-        button.backgroundColor = Colors.orange.color
+        button.backgroundColor = Asset.clientOrange.color
         button.tag = 1
         button.addTarget(self, action: #selector(addSubstractItemTapped(_:)), for: .touchUpInside)
         return button
@@ -142,7 +142,6 @@ class OrderCell: UICollectionViewCell {
     
     func display(dish: OrderDTO) {
 //        orderLabel.text = dish
-        
     }
     
     @objc

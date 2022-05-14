@@ -14,4 +14,6 @@ struct BranchDTO: Codable {
     let name: String?
     let phoneNumber: String?
     let status: String?
+    var latitude: Double?
+    var longitude: Double?
 }

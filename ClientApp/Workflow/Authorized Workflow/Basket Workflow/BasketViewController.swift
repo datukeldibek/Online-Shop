@@ -8,7 +8,6 @@
 import UIKit
 
 class BasketViewController: BaseViewController {
-
     enum TypeSelected {
         case takeaway
         case intheCafe
@@ -26,7 +25,7 @@ class BasketViewController: BaseViewController {
         let button = UIButton()
         button.setTitle("История", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        button.setTitleColor(Colors.orange.color, for: .normal)
+        button.setTitleColor(Asset.clientOrange.color, for: .normal)
         button.addTarget(self, action: #selector(historyTapped), for: .touchUpInside)
         return button
     }()
@@ -43,16 +42,18 @@ class BasketViewController: BaseViewController {
         view.registerReusable(CellType: OrderCell.self)
         view.registerReusableView(ViewType: BasketHeaderView.self, type: .UICollectionElementKindSectionHeader)
         view.registerReusableView(ViewType: BasketFooterView.self, type: .UICollectionElementKindSectionFooter)
-        view.backgroundColor = Colors.background.color
+        view.backgroundColor = Asset.clientBackround.color
         return view
     }()
     
     private let emptyView: UIImageView = {
         let view = UIImageView()
-        let image = Icons.Basket.animal.image
+        let image = Asset.animal.image
         view.image = image
         return view
     }()
+    
+    private var sum = 0
     
     // MARK: - injection
     private var viewModel: BasketViewModelType
@@ -65,8 +66,6 @@ class BasketViewController: BaseViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private var sum = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,14 +106,10 @@ class BasketViewController: BaseViewController {
             make.bottom.trailing.leading.equalToSuperview()
         }
     }
-    
-    // MARK: - Requests
-    
-    
     // MARK: - OBJC functions
     @objc
     private func historyTapped() {
-        let historyVC = HistoryOrderViewController(vm: HistoryOrderViewModel())
+        let historyVC = DIService.shared.getVc(HistoryOrderViewController.self)
         navigationController?.pushViewController(historyVC, animated: true)
     }
     

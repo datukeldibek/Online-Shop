@@ -31,9 +31,9 @@ class QRCodeViewController: BaseViewController {
     
     private let borderView: UIImageView = {
         let view = UIImageView()
-        view.image = Icons.QRCode.qrCodeBorder.image
+        view.image = Asset.qrCodeBorder.image
         view.backgroundColor = .clear
-        view.tintColor = Colors.orange.color
+        view.tintColor = Asset.clientOrange.color
         return view
     }()
     
@@ -115,8 +115,8 @@ class QRCodeViewController: BaseViewController {
         do {
             let input = try AVCaptureDeviceInput(device: captureDevice)
             session.addInput(input)
-        } catch {
-            print ("ERROR")
+        } catch let error {
+            print("Error at line: \(#line) - \(error.localizedDescription)")
         }
     
         session.addOutput(output)
@@ -133,8 +133,8 @@ class QRCodeViewController: BaseViewController {
     func createScanningIndicator() {
         let height: CGFloat = 15
         let opacity: Float = 0.4
-        let topColor = Colors.orange.color.withAlphaComponent(0)
-        let bottomColor = Colors.orange.color
+        let topColor = Asset.clientOrange.color.withAlphaComponent(0)
+        let bottomColor = Asset.clientOrange.color
 
         let layer = CAGradientLayer()
         layer.colors = [topColor.cgColor, bottomColor.cgColor]

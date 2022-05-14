@@ -1,39 +1,5 @@
-# MARK: - Fonts
-
-#fonts:
-#  inputs: ClientApp/Resources/Fonts
-#  outputs:
-#    templateName: swift5
-#    params:
-#       forceProvidesNamespaces: true
-#       enumName: Fonts
-#    output: ClientApp/Resources/GeneratedFonts.swift
-
-
-# MARK: - Colors
-#
-# xcassets:
-#   inputs: ClientApp/Resources/Colors.xcassets
-#   outputs:
-#     templateName: swift5
-#     params:
-#       forceProvidesNamespaces: true
-#       enumName: Colors
-#     output: ClientApp/Resources/GeneratedColors.swift
-#
-
-# MARK: - Icons
-#
- xcassets:
-    inputs: ClientApp/Resources/Icon.xcassets
-    outputs:
-        templateName: swift5
-        params:
-            forceProvidesNamespaces: true
-            enumName: Icons
-        output: ClientApp/Resources/GeneratedIcons.swift
-
-
-
-# Pods/SwiftGen/bin/swiftgen -- runs the pod
-
+xcassets:
+  inputs: ClientApp/Resources/Assets.xcassets
+  outputs:
+    templateName: swift5
+    output: ClientApp/Resources/Assets.swift

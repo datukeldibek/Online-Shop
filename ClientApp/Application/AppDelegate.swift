@@ -18,10 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        let backImage = Icons.caretLeft.image.withRenderingMode(.alwaysOriginal)
+        let backImage = Asset.caretLeft.image.withRenderingMode(.alwaysOriginal)
         UINavigationBar.appearance().backIndicatorImage = backImage
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
-        window?.rootViewController = UINavigationController(rootViewController: SplashViewController(viewModel: SplashViewModel()))
+        window?.rootViewController = UINavigationController(rootViewController: DIService.shared.getVc(BaseTabViewController.self))
         window?.makeKeyAndVisible()
         
         IQKeyboardManager.shared.enable = true

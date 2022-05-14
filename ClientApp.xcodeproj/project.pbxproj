@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		3D0EB72882937DC528FDECAF /* Pods_ClientApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06368A3AA102C6CDE48F4B7B /* Pods_ClientApp.framework */; };
+		8332D20327CA75D6002674BB /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8332D20227CA75D6002674BB /* ErrorViewController.swift */; };
+		8332D20527CA7629002674BB /* SplashAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8332D20427CA7629002674BB /* SplashAssembly.swift */; };
+		8332D20727CA780C002674BB /* HomePageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8332D20627CA780C002674BB /* HomePageAssembly.swift */; };
+		8332D20927CA78DA002674BB /* BasketAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8332D20827CA78DA002674BB /* BasketAssembly.swift */; };
+		8332D20B27CA7972002674BB /* AuthorizationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8332D20A27CA7972002674BB /* AuthorizationAssembly.swift */; };
+		8332D20D27CA7A59002674BB /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8332D20C27CA7A59002674BB /* ProfileAssembly.swift */; };
+		8332D21127CA7B71002674BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8332D21027CA7B71002674BB /* Assets.xcassets */; };
+		8332D21327CB54BE002674BB /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8332D21227CB54BE002674BB /* Assets.swift */; };
+		83A0541D282D72BA00336418 /* DIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A0541C282D72BA00336418 /* DIService.swift */; };
+		83A0541F2830001E00336418 /* BranchAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A0541E2830001E00336418 /* BranchAssembly.swift */; };
 		F2009EB9274002CF00E9A03C /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2009EB8274002CF00E9A03C /* OrderCell.swift */; };
 		F2009EBB27400C3700E9A03C /* BasketFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2009EBA27400C3700E9A03C /* BasketFooterView.swift */; };
 		F2009EBD2740219D00E9A03C /* HistoryOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2009EBC2740219D00E9A03C /* HistoryOrderViewController.swift */; };
@@ -22,17 +32,13 @@
 		F23FF19E2732D03200434A49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF19D2732D03200434A49 /* AppDelegate.swift */; };
 		F23FF1A02732D03200434A49 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF19F2732D03200434A49 /* SceneDelegate.swift */; };
 		F23FF1A22732D03200434A49 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF1A12732D03200434A49 /* SplashViewController.swift */; };
-		F23FF1A72732D03600434A49 /* Icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F23FF1A62732D03600434A49 /* Icon.xcassets */; };
 		F23FF1AA2732D03600434A49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F23FF1A82732D03600434A49 /* LaunchScreen.storyboard */; };
 		F23FF1B52732D03700434A49 /* ClientAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF1B42732D03700434A49 /* ClientAppTests.swift */; };
 		F23FF1BF2732D03700434A49 /* ClientAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF1BE2732D03700434A49 /* ClientAppUITests.swift */; };
 		F23FF1C12732D03700434A49 /* ClientAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF1C02732D03700434A49 /* ClientAppUITestsLaunchTests.swift */; };
 		F23FF1CE2732D0DA00434A49 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = F23FF1CD2732D0DA00434A49 /* swiftgen.yml */; };
 		F23FF1D92732D50000434A49 /* BaseRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF1D82732D50000434A49 /* BaseRegistrationViewController.swift */; };
-		F23FF1DB2732D54300434A49 /* GeneratedIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF1DA2732D54300434A49 /* GeneratedIcons.swift */; };
 		F23FF1DE2732D63A00434A49 /* RegistrationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF1DD2732D63A00434A49 /* RegistrationButton.swift */; };
-		F23FF1E02732D69700434A49 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F23FF1DF2732D69700434A49 /* Colors.xcassets */; };
-		F23FF1E22732D76A00434A49 /* GeneratedColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF1E12732D76A00434A49 /* GeneratedColors.swift */; };
 		F23FF1E42732DECB00434A49 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF1E32732DECB00434A49 /* SplashViewModel.swift */; };
 		F23FF1E72732DEF100434A49 /* WebApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF1E62732DEF100434A49 /* WebApiService.swift */; };
 		F23FF1E92732DEFA00434A49 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23FF1E82732DEFA00434A49 /* AuthService.swift */; };
@@ -102,6 +108,16 @@
 /* Begin PBXFileReference section */
 		06368A3AA102C6CDE48F4B7B /* Pods_ClientApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClientApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		699104AA5F37FD7F66CE64C8 /* Pods-ClientApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClientApp.debug.xcconfig"; path = "Target Support Files/Pods-ClientApp/Pods-ClientApp.debug.xcconfig"; sourceTree = "<group>"; };
+		8332D20227CA75D6002674BB /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
+		8332D20427CA7629002674BB /* SplashAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashAssembly.swift; sourceTree = "<group>"; };
+		8332D20627CA780C002674BB /* HomePageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageAssembly.swift; sourceTree = "<group>"; };
+		8332D20827CA78DA002674BB /* BasketAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketAssembly.swift; sourceTree = "<group>"; };
+		8332D20A27CA7972002674BB /* AuthorizationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationAssembly.swift; sourceTree = "<group>"; };
+		8332D20C27CA7A59002674BB /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
+		8332D21027CA7B71002674BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8332D21227CB54BE002674BB /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		83A0541C282D72BA00336418 /* DIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIService.swift; sourceTree = "<group>"; };
+		83A0541E2830001E00336418 /* BranchAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchAssembly.swift; sourceTree = "<group>"; };
 		BB91F2AA1745ADB0B3E4B199 /* Pods-ClientApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClientApp.release.xcconfig"; path = "Target Support Files/Pods-ClientApp/Pods-ClientApp.release.xcconfig"; sourceTree = "<group>"; };
 		F2009EB8274002CF00E9A03C /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
 		F2009EBA27400C3700E9A03C /* BasketFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketFooterView.swift; sourceTree = "<group>"; };
@@ -118,7 +134,6 @@
 		F23FF19D2732D03200434A49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F23FF19F2732D03200434A49 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F23FF1A12732D03200434A49 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		F23FF1A62732D03600434A49 /* Icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icon.xcassets; sourceTree = "<group>"; };
 		F23FF1A92732D03600434A49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F23FF1AB2732D03600434A49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F23FF1B02732D03700434A49 /* ClientAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClientAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,10 +143,7 @@
 		F23FF1C02732D03700434A49 /* ClientAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F23FF1CD2732D0DA00434A49 /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		F23FF1D82732D50000434A49 /* BaseRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRegistrationViewController.swift; sourceTree = "<group>"; };
-		F23FF1DA2732D54300434A49 /* GeneratedIcons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedIcons.swift; sourceTree = "<group>"; };
 		F23FF1DD2732D63A00434A49 /* RegistrationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationButton.swift; sourceTree = "<group>"; };
-		F23FF1DF2732D69700434A49 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		F23FF1E12732D76A00434A49 /* GeneratedColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedColors.swift; sourceTree = "<group>"; };
 		F23FF1E32732DECB00434A49 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		F23FF1E62732DEF100434A49 /* WebApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebApiService.swift; sourceTree = "<group>"; };
 		F23FF1E82732DEFA00434A49 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -228,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				F2009EB8274002CF00E9A03C /* OrderCell.swift */,
+				8332D20227CA75D6002674BB /* ErrorViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -237,6 +250,12 @@
 			children = (
 				F2030FE527343AFF00351C52 /* ServiceAssembly.swift */,
 				F2030FE127342FB100351C52 /* RegistrationAssembly.swift */,
+				8332D20A27CA7972002674BB /* AuthorizationAssembly.swift */,
+				8332D20427CA7629002674BB /* SplashAssembly.swift */,
+				8332D20627CA780C002674BB /* HomePageAssembly.swift */,
+				8332D20827CA78DA002674BB /* BasketAssembly.swift */,
+				8332D20C27CA7A59002674BB /* ProfileAssembly.swift */,
+				83A0541E2830001E00336418 /* BranchAssembly.swift */,
 			);
 			path = DI;
 			sourceTree = "<group>";
@@ -298,11 +317,9 @@
 		F23FF1CF2732D0FB00434A49 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F23FF1E12732D76A00434A49 /* GeneratedColors.swift */,
-				F23FF1DA2732D54300434A49 /* GeneratedIcons.swift */,
+				8332D21227CB54BE002674BB /* Assets.swift */,
+				8332D21027CA7B71002674BB /* Assets.xcassets */,
 				F23FF1A82732D03600434A49 /* LaunchScreen.storyboard */,
-				F23FF1A62732D03600434A49 /* Icon.xcassets */,
-				F23FF1DF2732D69700434A49 /* Colors.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -406,6 +423,7 @@
 				F23FF1E62732DEF100434A49 /* WebApiService.swift */,
 				F23FF1E82732DEFA00434A49 /* AuthService.swift */,
 				F2030FE92734472900351C52 /* StorageService.swift */,
+				83A0541C282D72BA00336418 /* DIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -514,16 +532,8 @@
 			children = (
 				F2E2EA1C2738245F00584A8B /* QRCodeViewController.swift */,
 				F2E2EA1E2738246D00584A8B /* QRCodeViewModel.swift */,
-				F2E2EA202738247000584A8B /* Components */,
 			);
 			path = "QRCode Workflow";
-			sourceTree = "<group>";
-		};
-		F2E2EA202738247000584A8B /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		F2E2EA212738247900584A8B /* Branch Workflow */ = {
@@ -576,6 +586,8 @@
 				F23FF1972732D03200434A49 /* Frameworks */,
 				F23FF1982732D03200434A49 /* Resources */,
 				DCE24DC12570F2753B48EE04 /* [CP] Embed Pods Frameworks */,
+				8332D20027CA759D002674BB /* SwiftGen */,
+				8332D20127CA75B5002674BB /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -670,9 +682,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8332D21127CA7B71002674BB /* Assets.xcassets in Resources */,
 				F23FF1AA2732D03600434A49 /* LaunchScreen.storyboard in Resources */,
-				F23FF1E02732D69700434A49 /* Colors.xcassets in Resources */,
-				F23FF1A72732D03600434A49 /* Icon.xcassets in Resources */,
 				F23FF1CE2732D0DA00434A49 /* swiftgen.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -716,6 +727,42 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8332D20027CA759D002674BB /* SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftGen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$PODS_ROOT/SwiftGen/bin/swiftgen\n";
+		};
+		8332D20127CA75B5002674BB /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		DCE24DC12570F2753B48EE04 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -748,19 +795,22 @@
 				F23FF19E2732D03200434A49 /* AppDelegate.swift in Sources */,
 				F274A98C2757EA9F0086B06E /* BasketHeaderView.swift in Sources */,
 				F269AF6D274D3D740081A835 /* PopularItemCell.swift in Sources */,
-				F23FF1DB2732D54300434A49 /* GeneratedIcons.swift in Sources */,
 				F2E2EA1D2738245F00584A8B /* QRCodeViewController.swift in Sources */,
 				F280936D273ADED2003D2D24 /* BranchCell.swift in Sources */,
 				F269AF6F274D3D800081A835 /* HeaderItemView.swift in Sources */,
+				83A0541D282D72BA00336418 /* DIService.swift in Sources */,
 				F23FF1F72732E02400434A49 /* PhoneConfirmationViewController.swift in Sources */,
 				F23FF1F02732DFED00434A49 /* AuthViewController.swift in Sources */,
 				F2030FE227342FB100351C52 /* RegistrationAssembly.swift in Sources */,
 				F2030FEA2734472900351C52 /* StorageService.swift in Sources */,
+				8332D20D27CA7A59002674BB /* ProfileAssembly.swift in Sources */,
 				F274A994275930610086B06E /* CategoryViewController.swift in Sources */,
 				F2E2EA0C27381F7E00584A8B /* MainViewController.swift in Sources */,
 				F23FF2082733A4A400434A49 /* CommonConstants.swift in Sources */,
+				8332D20727CA780C002674BB /* HomePageAssembly.swift in Sources */,
 				F23FF20A2733AA9600434A49 /* PhoneRegistrationViewModel.swift in Sources */,
 				F22861092753CFF1009CDCC6 /* CategoryDTO.swift in Sources */,
+				8332D20527CA7629002674BB /* SplashAssembly.swift in Sources */,
 				F269AF67274D376E0081A835 /* BranchDTO.swift in Sources */,
 				F2030FE627343AFF00351C52 /* ServiceAssembly.swift in Sources */,
 				F2E2EA192738242A00584A8B /* BasketViewModel.swift in Sources */,
@@ -774,6 +824,7 @@
 				F23FF1E72732DEF100434A49 /* WebApiService.swift in Sources */,
 				F274A98A2757E1110086B06E /* UserProfileInfoDTO.swift in Sources */,
 				F23FF1DE2732D63A00434A49 /* RegistrationButton.swift in Sources */,
+				83A0541F2830001E00336418 /* BranchAssembly.swift in Sources */,
 				F2009EB9274002CF00E9A03C /* OrderCell.swift in Sources */,
 				F23FF2022732E1B700434A49 /* UITextField+.swift in Sources */,
 				F2E2EA29273824CA00584A8B /* ProfileViewController.swift in Sources */,
@@ -781,18 +832,20 @@
 				F269AF71274D3E6E0081A835 /* BonusItemCell.swift in Sources */,
 				F22861072753CEA5009CDCC6 /* FullDishDTO.swift in Sources */,
 				F23FF1FD2732E07400434A49 /* ConfirmationCodeViewController.swift in Sources */,
-				F23FF1E22732D76A00434A49 /* GeneratedColors.swift in Sources */,
 				F269AF6B274D3D6A0081A835 /* CategoryItemCell.swift in Sources */,
 				F23FF1E92732DEFA00434A49 /* AuthService.swift in Sources */,
+				8332D21327CB54BE002674BB /* Assets.swift in Sources */,
 				F23FF1A02732D03200434A49 /* SceneDelegate.swift in Sources */,
 				F2809371273B910B003D2D24 /* ProfileOrderCell.swift in Sources */,
 				F23FF1FF2732E15100434A49 /* RegistrationTextField.swift in Sources */,
 				F23FF1FA2732E05300434A49 /* BirthdayViewController.swift in Sources */,
 				F2C004E42759F801009C2DFA /* DetailsDishViewController.swift in Sources */,
 				F2809373273C1BCF003D2D24 /* ProfileEditViewController.swift in Sources */,
+				8332D20927CA78DA002674BB /* BasketAssembly.swift in Sources */,
 				F2030FE82734428200351C52 /* JWT.swift in Sources */,
 				F2E2EA252738249800584A8B /* BranchViewModel.swift in Sources */,
 				F2030FE42734378B00351C52 /* RetryAbility.swift in Sources */,
+				8332D20327CA75D6002674BB /* ErrorViewController.swift in Sources */,
 				F2009EBB27400C3700E9A03C /* BasketFooterView.swift in Sources */,
 				F2E2EA232738248C00584A8B /* BranchViewController.swift in Sources */,
 				F23FF1F22732DFF500434A49 /* AuthViewModel.swift in Sources */,
@@ -802,6 +855,7 @@
 				F23FF2042733A1E100434A49 /* RegistrationDTO.swift in Sources */,
 				F23FF1E42732DECB00434A49 /* SplashViewModel.swift in Sources */,
 				F2E2EA062735C9AB00584A8B /* BirthdayDTO.swift in Sources */,
+				8332D20B27CA7972002674BB /* AuthorizationAssembly.swift in Sources */,
 				F2E2EA042735B63100584A8B /* AuthorizationDTO.swift in Sources */,
 				F2E2EA0E27381F8F00584A8B /* MainViewModel.swift in Sources */,
 				F274A99227591AFB0086B06E /* BasketManager.swift in Sources */,

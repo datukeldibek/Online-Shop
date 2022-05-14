@@ -20,9 +20,9 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
     private lazy var nameTextField: RegistrationTextField = {
         let field = RegistrationTextField()
         field.setPlaceholder(with: "Имя", color: .gray)
-        field.setImage(with: Icons.Registration.user.name)
+        field.setImage(with: Asset.user.name)
         field.setBorderColor(with: .clear)
-        field.setBackgroundColor(with: Colors.gray.color)
+        field.setBackgroundColor(with: Asset.clientGray.color)
         field.setKeyboardType(with: .default)
         field.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return field
@@ -31,9 +31,9 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
     private lazy var phoneTextField: RegistrationTextField = {
         let field = RegistrationTextField()
         field.setPlaceholder(with: "5555555", color: .gray)
-        field.setImage(with: Icons.Registration.phone.name)
+        field.setImage(with: Asset.phone.name)
         field.setBorderColor(with: .clear)
-        field.setBackgroundColor(with: Colors.gray.color)
+        field.setBackgroundColor(with: Asset.clientGray.color)
         field.setKeyboardType(with: .numberPad)
         field.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return field
@@ -53,7 +53,7 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
     private var searchTerm: String?
     private var countryCode = "+996"
     
-    init(viewModel vm: PhoneRegistrationViewModelType) {
+    init(vm: PhoneRegistrationViewModelType) {
         viewModel = vm
         super.init(nibName: nil, bundle: nil)
     }
@@ -134,7 +134,7 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
         
         withRetry(requestCode) { (res) in
             if case .success = res {
-                let confirmationCodeVC = PhoneConfirmationViewController(vm: PhoneRegistrationViewModel())
+                let confirmationCodeVC = DIService.shared.getVc(PhoneConfirmationViewController.self)
                 confirmationCodeVC.phoneNumber = phone
                 self.navigationController?.pushViewController(confirmationCodeVC, animated: true)
             }

@@ -9,19 +9,22 @@ import Foundation
 import Swinject
 import SwinjectAutoregistration
 
-//class ServiceAssembly: Assembly {
-//    
-//    func assemble(container: Container) {
-//        container
-//            .autoregister(WebApiServiceType.self, initializer: WebApiService.init(authService:decoder:))
-//            .inObjectScope(.container)
-//        
-//        container
-//            .autoregister(AuthServiceType.self, initializer: AuthService.init)
-//            .initCompleted { (r, auth) in
-//                if let service = auth as? AuthService {
-//                    service.setNetworkService(r~>)
-//                }
-//        }.inObjectScope(.container)
-//    }
-//}
+class ServiceAssembly: Assembly {
+    func assemble(container: Container) {
+        container.autoregister(WebApiServiceType.self, initializer: WebApiService.init)
+            .inObjectScope(.container)
+        
+        container.autoregister(AuthServiceType.self, initializer: AuthService.init).initCompleted { (r, s) in
+            if let authS = s as? AuthService {
+                authS.setWebService(r~>)
+            }
+        }
+        
+        container.autoregister(KeyValueStoreType.self, initializer: TransientStorageService.init)
+            .inObjectScope(.container)
+        
+        container.autoregister(BasketManagerType.self, initializer: BasketManager.init)
+            .inObjectScope(.container)
+    }
+}
+

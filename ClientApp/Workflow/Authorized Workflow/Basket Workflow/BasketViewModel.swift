@@ -11,11 +11,17 @@ protocol BasketViewModelType {
     var dishes: [OrderDTO] { get }
 }
 
-class BasketViewModel: BasketViewModelType {
- 
-    private let webApi: WebApiServiceType = WebApiService.shared
-    private let basketManager: BasketManagerType = BasketManager.shared
-
+class BasketViewModel: NSObject, BasketViewModelType {
+    var authService: AuthServiceType
+    var webApi: WebApiServiceType
+    var basketManager: BasketManagerType
+    
+    init(webApi: WebApiServiceType, authService: AuthServiceType, basketManager: BasketManagerType) {
+        self.webApi = webApi
+        self.authService = authService
+        self.basketManager = basketManager
+    }
+   
     var dishes: [OrderDTO] {
         basketManager.dishes
     }
