@@ -8,7 +8,7 @@
 import Foundation
 
 protocol BasketViewModelType {
-    var dishes: [OrderDTO] { get }
+    func getDishes() -> [OrderType]
 }
 
 class BasketViewModel: NSObject, BasketViewModelType {
@@ -16,13 +16,17 @@ class BasketViewModel: NSObject, BasketViewModelType {
     var webApi: WebApiServiceType
     var basketManager: BasketManagerType
     
+    private var dishes: [OrderType] = []
+    
     init(webApi: WebApiServiceType, authService: AuthServiceType, basketManager: BasketManagerType) {
         self.webApi = webApi
         self.authService = authService
         self.basketManager = basketManager
     }
-   
-    var dishes: [OrderDTO] {
-        basketManager.dishes
+    
+    func getDishes() -> [OrderType] {
+        let items = basketManager.getDishes()
+        dishes = items
+        return items
     }
 }

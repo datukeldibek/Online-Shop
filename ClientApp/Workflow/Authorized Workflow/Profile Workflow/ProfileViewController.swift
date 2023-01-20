@@ -159,7 +159,7 @@ class ProfileViewController: BaseViewController {
     
     @objc
     private func editProfileTapped() {
-        let profileEditVC = DIService.shared.getVc(ProfileViewController.self)
+        let profileEditVC = DIService.shared.getVc(ProfileEditViewController.self)
         navigationController?.pushViewController(profileEditVC, animated: true)
     }
     

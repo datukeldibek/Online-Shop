@@ -8,9 +8,10 @@
 import UIKit
 
 class OrderCell: UICollectionViewCell {
-    
     private lazy var orderImageView: UIImageView = {
         let view = UIImageView()
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 16
         view.image = Asset.calendar.image
         return view
     }()
@@ -43,7 +44,7 @@ class OrderCell: UICollectionViewCell {
         let button = UIButton()
         button.setTitle("-", for: .normal)
         button.layer.cornerRadius = 14
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Asset.clientGray.color
         button.tag = 0
         button.addTarget(self, action: #selector(addSubstractItemTapped(_:)), for: .touchUpInside)
@@ -111,7 +112,7 @@ class OrderCell: UICollectionViewCell {
     
     private func setUpConstaints () {
         orderImageView.snp.makeConstraints { make in
-            make.top.leading.bottom.equalToSuperview()
+            make.top.leading.bottom.equalToSuperview().offset(8)
             make.width.equalTo(89)
         }
         orderLabel.snp.makeConstraints { make in
@@ -140,19 +141,19 @@ class OrderCell: UICollectionViewCell {
         }
     }
     
-    func display(dish: OrderDTO) {
-//        orderLabel.text = dish
+    func display(dish: OrderType) {
+        orderLabel.text = dish.dishName
+        orderImageView.sd_setImage(with: dish.dishUrl)
+        orderDescriptionLabel.text = dish.description
+        sumLabel.text = "\(Int(dish.dishPrice) * (dish.quanitity ?? 0))"
     }
     
     @objc
     private func addSubstractItemTapped(_ sender: UIButton) {
         switch sender.tag {
         case 0:
-            if count > 0 {
-                count -= 1
-            }
-        case 1:
-            count += 1
+            if count > 0 { count -= 1 }
+        case 1: count += 1
         default:
             fatalError()
         }

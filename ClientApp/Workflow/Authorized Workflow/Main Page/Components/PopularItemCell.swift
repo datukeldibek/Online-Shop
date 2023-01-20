@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 
 protocol PopularItemDelegate: AnyObject {
-    func updateItems(with items: OrderDTO)
+    func updateItems(with items: OrderType)
 }
 
 class PopularItemCell: UICollectionViewCell {
@@ -17,6 +17,7 @@ class PopularItemCell: UICollectionViewCell {
         let image = UIImageView()
         image.layer.cornerRadius = 25
         image.clipsToBounds = true
+        image.backgroundColor = .clear
         return image
     }()
     
@@ -27,7 +28,7 @@ class PopularItemCell: UICollectionViewCell {
     
     public lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.text = "Капучино"
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         label.textColor = .black
@@ -37,7 +38,7 @@ class PopularItemCell: UICollectionViewCell {
     
     public lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .darkGray
         label.text = "Кофейный напиток"
@@ -62,7 +63,7 @@ class PopularItemCell: UICollectionViewCell {
         return stepper
     }()
     
-    var dish: DishDTO?
+    var dish: OrderType?
     
     weak var delegate: PopularItemDelegate?
     
@@ -98,16 +99,16 @@ class PopularItemCell: UICollectionViewCell {
         contentContainer.snp.makeConstraints { make in
             make.leading.equalTo(imageView.snp.trailing).offset(16)
             make.height.equalTo(imageView.snp.height).multipliedBy(0.88)
-            make.centerY.equalToSuperview()
-        }
-        descriptionLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-16)
+            make.centerY.trailing.equalToSuperview()
         }
         nameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
+        }
+        descriptionLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(nameLabel.snp.leading)
+            make.trailing.equalToSuperview().offset(-16)
         }
         stepperControl.snp.makeConstraints { make in
             make.bottom.trailing.equalToSuperview()
@@ -120,26 +121,20 @@ class PopularItemCell: UICollectionViewCell {
         }
     }
     
-    func display(cell: FullCategoryDTO) {
-        nameLabel.text = cell.name
+    func display(cell: OrderType) {
+        dish = cell
+        nameLabel.text = cell.dishName
         descriptionLabel.text = cell.description
-        priceLabel.text = "\(cell.price) c"
-        imageView.sd_setImage(
-            with: cell.imagesUrl,
-            placeholderImage: Asset.house.image,
-            options: []
-        )
+        priceLabel.text = "\(cell.dishPrice) c"
+        imageView.sd_setImage(with: cell.dishUrl)
     }
     
     func display(cell: DishDTO) {
         dish = cell
         nameLabel.text = cell.name
         priceLabel.text = "\(cell.price) c"
-        imageView.sd_setImage(
-            with: cell.imageUrl,
-            placeholderImage: Asset.house.image,
-            options: [.fromLoaderOnly, .transformVectorImage]
-        )
+        descriptionLabel.text = cell.description
+        imageView.sd_setImage(with: cell.imageUrl)
     }
 }
 
@@ -153,16 +148,8 @@ extension PopularItemCell: HidableStepperDelegate {
     }
     
     func updateValue(with count: Int) {
-        let dish = dish?.id ?? 0
-        let date = Date()
-        let listDetails = ListOrderDetails(generalAdditionalId: [0], quantity: count, stockId: dish)
-        let order = OrderDTO(branchId: 0,
-                             listOrderDetailsDto: [listDetails],
-                             orderTime: date,
-                             orderType: "IN",
-                             tableId: 0
-                            )
-       
-        delegate?.updateItems(with: order)
+        guard var dish = dish else { return }
+        dish.quanitity = count
+        delegate?.updateItems(with: dish)
     }
 }

@@ -233,12 +233,12 @@ class WebApiService: NSObject, WebApiServiceType {
     func getBranches(completion: @escaping (Result<[BranchDTO], Error>) -> Void) {
         afSession.request(
             CommonConstants.Branches.getBranches(),
-            method: .get,
-            interceptor: authService
-        )
-       .responseDecodable(of: [BranchDTO].self, decoder: decoder) { [weak self] response in
-        self?.handleResponse(of: [BranchDTO].self, response: response, completion: completion)
-       }
+            method: .post,
+            interceptor: authService)
+        .validate()
+        .responseDecodable(of: [BranchDTO].self, decoder: decoder) { response in
+            self.handleResponse(of: [BranchDTO].self, response: response, completion: completion)
+        }
     }
     
     // MARK: - Orders

@@ -141,7 +141,7 @@ enum CommonConstants {
     // MARK: - Branches
     enum Branches {
         static func getBranches() -> URL {
-            baseUrl.appendingPathComponent("/client/branches/get-all-up-to-date-info")
+            URL(string: "https://neocafe.herokuapp.com/client/branches/get-all-up-to-date-info")!
         }
     }
 }

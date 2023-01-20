@@ -13,8 +13,20 @@ struct DishDTO: Codable {
     let id: Int
     let imageUrl: URL?
     let name: String
-    let price: Int
-    let count: Int?
+    let price: Double
+    var count: Int?
+}
+
+extension DishDTO: OrderType {
+    var dishId: Int { id }
+    var dishName: String { name }
+    var dishPrice: Double { price }
+    var sum: Double? { Double(count ?? 0) * price }
+    var dishUrl: URL? { imageUrl }
+    var quanitity: Int? {
+        get { count }
+        set { _ = count }
+    }
 }
 
 struct GeneralAdditionals: Codable {

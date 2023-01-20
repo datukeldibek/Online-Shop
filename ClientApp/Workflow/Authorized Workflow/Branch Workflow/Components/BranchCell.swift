@@ -14,8 +14,8 @@ protocol BranchCellDelegate: AnyObject {
 class BranchCell: UICollectionViewCell {
     private lazy var branchImageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .black
         view.layer.cornerRadius = 10
+        view.backgroundColor = .brown
         view.layer.masksToBounds = true
         return view
     }()

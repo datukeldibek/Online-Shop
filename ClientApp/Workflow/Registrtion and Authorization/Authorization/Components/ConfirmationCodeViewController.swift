@@ -161,6 +161,8 @@ class ConfirmationCodeViewController: BaseRegistrationViewController {
     }
     
     private func configureTextField() {
+        textLabel.text = "Введите 4-х значный код, отправленный на номер \(phoneNumber)"
+        
         textField1.delegate = self
         textField2.delegate = self
         textField3.delegate = self

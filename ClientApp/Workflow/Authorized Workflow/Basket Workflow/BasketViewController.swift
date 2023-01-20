@@ -71,9 +71,9 @@ class BasketViewController: BaseViewController {
         super.viewDidLoad()
         setUp()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         collectionView.reloadData()
     }
     
@@ -116,18 +116,47 @@ class BasketViewController: BaseViewController {
     private func orderInfo(sum: Int) {
         self.sum = sum
     }
+    
+    // MARK: - Handlers
+    private func handleOrder() {
+        let dish = viewModel.getDishes()
+        
+        let orderDetails = [
+            ListOrderDetailsDto(
+                calcTotal: Int(dish.first?.sum ?? 0.0),
+            chosenGeneralAdditional: nil,
+                id: dish.first?.dishId ?? 0,
+                name: dish.first?.dishName ?? "",
+                price: Int(dish.first?.dishPrice ?? 0.0),
+                quantity: dish.first?.quanitity ?? 0),
+            
+            ListOrderDetailsDto(
+            calcTotal: Int(dish.last?.sum ?? 0.0),
+            chosenGeneralAdditional: nil,
+            id: dish.last?.dishId ?? 0,
+            name: dish.last?.dishName ?? "",
+            price: Int(dish.last?.dishPrice ?? 0.0),
+            quantity: dish.last?.quanitity ?? 0)
+        ]
+        
+        let order = OrderDTO(branchId: 0,
+                             listOrderDetailsDto: orderDetails,
+                             orderTime: Date(),
+                             orderType: "IN",
+                             tableId: 0)
+    }
 }
 
 // MARK: - Datasource Delegate
 extension BasketViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.dishes.count
+        return viewModel.getDishes().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueIdentifiableCell(OrderCell.self, for: indexPath)
         cell.orderCount = orderInfo
-        
+        cell.display(dish: viewModel.getDishes()[indexPath.row])
         return cell
     }
     
@@ -153,11 +182,10 @@ extension BasketViewController: UICollectionViewDelegateFlowLayout, UICollection
 
 extension BasketViewController: BasketFooterViewDelegate {
     func addMoreTap() {
-        let tabbar = BaseTabViewController()
-        tabbar.selectedIndex = 1
+        tabBarController?.selectedIndex = 0
     }
     
     func orderTap() {
-        print("tap")
+        handleOrder()
     }
 }

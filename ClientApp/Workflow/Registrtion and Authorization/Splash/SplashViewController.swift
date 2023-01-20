@@ -65,13 +65,14 @@ class SplashViewController: BaseRegistrationViewController {
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().inset(16)
             make.height.equalTo(56)
-            make.centerY.equalToSuperview().inset(50)
+//            make.centerY.equalToSuperview().inset(50)
         }
         registrationButton.snp.makeConstraints { make in
             make.top.equalTo(authorizationButton.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().inset(16)
             make.height.equalTo(56)
+            make.bottom.equalToSuperview().offset(-70)
         }
     }
     

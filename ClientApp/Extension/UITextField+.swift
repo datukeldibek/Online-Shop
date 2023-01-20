@@ -13,13 +13,13 @@ enum TextFieldImageSide {
 }
 
 extension UITextField {
-    
     func setUpImage(imageName: String, on side: TextFieldImageSide) {
         let imageView = UIImageView(frame: CGRect(x: 10, y: 5, width: 20, height: 20))
         if let imageWithSystemName = UIImage(systemName: imageName) {
             imageView.tintColor = .gray
             imageView.image = imageWithSystemName
         } else {
+            imageView.tintColor = .black
             imageView.image = UIImage(named: imageName)
         }
         

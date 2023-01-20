@@ -22,7 +22,7 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
         field.setPlaceholder(with: "Имя", color: .gray)
         field.setImage(with: Asset.user.name)
         field.setBorderColor(with: .clear)
-        field.setBackgroundColor(with: Asset.clientGray.color)
+        field.setBackgroundColor(with: Asset.clientGray2.color)
         field.setKeyboardType(with: .default)
         field.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return field
@@ -33,7 +33,7 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
         field.setPlaceholder(with: "5555555", color: .gray)
         field.setImage(with: Asset.phone.name)
         field.setBorderColor(with: .clear)
-        field.setBackgroundColor(with: Asset.clientGray.color)
+        field.setBackgroundColor(with: Asset.clientGray2.color)
         field.setKeyboardType(with: .numberPad)
         field.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return field
@@ -46,10 +46,20 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
         return button
     }()
     
+    private lazy var activity: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        view.hidesWhenStopped = true
+        return view
+    }()
+    
+    private var isLoading: Bool = false {
+        didSet {
+            _ = isLoading ? activity.startAnimating() : activity.stopAnimating()
+        }
+    }
+    
     // MARK: - Injection
     public var viewModel: PhoneRegistrationViewModelType
-    
-    var isLoading = false
     private var searchTerm: String?
     private var countryCode = "+996"
     
@@ -125,14 +135,15 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
               name.count > 2 else { return }
         phoneTextField.resignFirstResponder()
         getCodeButton.isLoading = true
-        defer { getCodeButton.isLoading = false }
         let fullPhone = countryCode + phone
         let userInfo = RegistrationDTO(firstName: name, phoneNumber: fullPhone)
         let requestCode = { [unowned self] completion in
             self.viewModel.registerNewUser(user: userInfo, completion: completion)
         }
         
-        withRetry(requestCode) { (res) in
+        withRetry(requestCode) { [weak self] (res) in
+            guard let `self` = self else { return }
+            self.getCodeButton.isLoading = false
             if case .success = res {
                 let confirmationCodeVC = DIService.shared.getVc(PhoneConfirmationViewController.self)
                 confirmationCodeVC.phoneNumber = phone

@@ -28,7 +28,12 @@ class BranchViewController: BaseViewController {
         return view
     }()
     
-    private var branches: [BranchDTO] = [] {
+    private var branches: [BranchDTO] = [
+        BranchDTO(address: "Юнусалиева 230а", id: 0, link2gis: "Космопарк", name: "Космопарк", phoneNumber: "0555-44-44-44", status: "OPEN", latitude: 23, longitude: 42),
+        BranchDTO(address: "Chuy 130а", id: 0, link2gis: "Dordoi Plaza", name: "Dordoi Plaza", phoneNumber: "0555-41-44-44", status: "OPEN", latitude: 23, longitude: 42),
+        BranchDTO(address: "Chuy 1150а", id: 0, link2gis: "Tsum", name: "Tsum", phoneNumber: "0555-44-33-44", status: "OPEN", latitude: 23, longitude: 42),
+        BranchDTO(address: "Manas St 230а", id: 0, link2gis: "Asia Mall", name: "Asia Mall", phoneNumber: "0555-44-44-44", status: "OPEN", latitude: 23, longitude: 42)
+    ] {
         didSet {
             collectionView.reloadData()
         }
@@ -49,10 +54,6 @@ class BranchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         loadDetails()
     }
     
@@ -90,7 +91,7 @@ class BranchViewController: BaseViewController {
     private func resendTapped(with data: BranchDTO) {
         let coordinate = CLLocationCoordinate2DMake(data.latitude ?? 0.0, data.longitude ?? 0.0)
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary: nil))
-        mapItem.name = "Target location"
+        mapItem.name = data.name
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
 }

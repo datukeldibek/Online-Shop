@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1240"
+   LastUpgradeVersion = "1400"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4A79FF52EC64E7BE6F87F1AA87119E0E"
-               BuildableName = "Pods_ClientApp.framework"
-               BlueprintName = "Pods-ClientApp"
+               BlueprintIdentifier = "615C831BCE925ED486B225B87E44926D"
+               BuildableName = "KeychainAccess.framework"
+               BlueprintName = "KeychainAccess"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let backImage = Asset.caretLeft.image.withRenderingMode(.alwaysOriginal)
         UINavigationBar.appearance().backIndicatorImage = backImage
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
-        window?.rootViewController = UINavigationController(rootViewController: DIService.shared.getVc(BaseTabViewController.self))
+        window?.rootViewController = UINavigationController(rootViewController: DIService.shared.getVc(SplashViewController.self))
         window?.makeKeyAndVisible()
         
         IQKeyboardManager.shared.enable = true

@@ -25,7 +25,7 @@ struct HistoryDTO: Codable {
 
 struct ListOrderDetailsDto: Codable {
     let calcTotal: Int
-    let chosenGeneralAdditional: [GeneralAddition]
+    let chosenGeneralAdditional: [GeneralAddition]?
     let id: Int
     let name: String
     let price: Int

@@ -21,9 +21,11 @@ class CategoryViewController: BaseViewController {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let coll = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        coll.showsHorizontalScrollIndicator = false
+        coll.showsVerticalScrollIndicator = false
         coll.delegate = self
         coll.dataSource = self
-        coll.backgroundColor =  Asset.clientBackround.color
+        coll.backgroundColor = Asset.clientBackround.color
         coll.registerReusableView(ViewType: HeaderView.self, type: .UICollectionElementKindSectionHeader)
         coll.registerReusable(CellType: PopularItemCell.self)
         coll.registerReusableView(ViewType: FooterView.self, type: .UICollectionElementKindSectionFooter)
@@ -47,16 +49,16 @@ class CategoryViewController: BaseViewController {
     var categoryIndex = 1 {
         didSet {
             switch categoryIndex {
-            case 2:
+            case 1:
                 categoryType = .coffee
+            case 2:
+                categoryType = .tea
+            case 3:
+                categoryType = .bakery
             case 4:
                 categoryType = .deserts
             case 5:
                 categoryType = .cocktails
-            case 3:
-                categoryType = .bakery
-            case 1:
-                categoryType = .tea
             default:
                 categoryType = .coffee
             }
@@ -134,7 +136,6 @@ extension CategoryViewController: IndicatorInfoProvider {
 }
 
 extension CategoryViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         dishes.count
     }
@@ -175,20 +176,20 @@ extension CategoryViewController: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = DIService.shared.getVc(DetailsDishViewController.self)
+        controller.selectedDish = dishes[indexPath.row]
         navigationController?.pushViewController(controller, animated: true)
     }
 }
 
 extension CategoryViewController: PopularItemDelegate {
-    func updateItems(with items: OrderDTO) {
-        viewModel.dishesInBasket.append(items)
+    func updateItems(with items: OrderType) {
+        viewModel.addNewDish(items)
     }
 }
 
 // MARK: - HeaderView
 extension CategoryViewController {
-    class HeaderView: UICollectionReusableView {
-        
+    class HeaderView: UICollectionReusableView { 
         private lazy var headerTitle: UILabel = {
             let label = UILabel()
             label.font = UIFont.systemFont(ofSize: 28, weight: .semibold)

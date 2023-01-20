@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1240"
+   LastUpgradeVersion = "1400"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1E798429DCFA7906F6625CCFC1088744"
-               BuildableName = "SwiftGen"
-               BlueprintName = "SwiftGen"
+               BlueprintIdentifier = "EBF90A3A56D4C5830C212D000AB67BC1"
+               BuildableName = "XLPagerTabStrip.bundle"
+               BlueprintName = "XLPagerTabStrip-XLPagerTabStrip"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

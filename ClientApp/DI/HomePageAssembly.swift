@@ -29,6 +29,5 @@ class HomePageAssembly: Assembly {
         container.register(MainViewController.self) { r in
             MainViewController(vm: r~>)
         }.inObjectScope(.container)
-        
     }
 }
