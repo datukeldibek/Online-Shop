@@ -52,6 +52,8 @@ internal enum Asset {
   internal static let phone = ImageAsset(name: "Phone")
   internal static let registrationIcon = ImageAsset(name: "RegistrationIcon")
   internal static let user = ImageAsset(name: "User")
+  internal static let igNeocafe = ImageAsset(name: "ig_neoCafe")
+  internal static let branch = ImageAsset(name: "branch")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

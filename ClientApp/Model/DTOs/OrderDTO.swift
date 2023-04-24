@@ -10,7 +10,6 @@ import Foundation
 struct OrderDTO: Codable {
     let branchId: Int
     let listOrderDetailsDto: [ListOrderDetailsDto]?
-    let orderTime: Date
     let orderType: String
     let tableId: Int
 }

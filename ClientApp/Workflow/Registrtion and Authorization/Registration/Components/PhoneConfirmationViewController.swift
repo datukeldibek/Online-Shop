@@ -202,7 +202,7 @@ class PhoneConfirmationViewController: BaseRegistrationViewController {
             withRetry(confirmationCodeCompletion) { [weak self] res in
                 self?.logInButton.isLoading = false 
                 if case .success = res {
-                    let birthdayVC = DIService.shared.getVc(BirthdayViewController.self)
+                    let birthdayVC = InjectionService.resolve(controller: BirthdayViewController.self)
                     self?.navigationController?.pushViewController(birthdayVC, animated: true)
                 }
             }

@@ -7,6 +7,20 @@
 
 import UIKit
 
+protocol Dish {
+    var description: String { get }
+    var id: Int { get }
+    var imageUrl: String? { get }
+    var name: String { get }
+    var price: Double { get }
+}
+
+extension DishDTO: Dish { }
+
+extension FullCategoryDTO: Dish {
+    var imageUrl: String? { imagesUrl }
+}
+
 class DetailsDishViewController: BaseViewController {
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
@@ -51,11 +65,26 @@ class DetailsDishViewController: BaseViewController {
     
     private var popularDishes: [FullCategoryDTO] = [] {
         didSet {
+            products = popularDishes.map { item in
+                return ListOrderDetailsDto(
+                    stockId: item.dishId,
+                    urlImage: item.dishUrl,
+                    generalAdditionalId: nil,
+                    name: item.dishName,
+                    price: Int(item.dishPrice),
+                    quantity: item.count
+                )
+            }
+        }
+    }
+    
+    private var products: [ListOrderDetailsDto] = [] {
+        didSet {
             collectionView.reloadData()
         }
     }
     
-    var selectedDish: DishDTO?
+    var selectedDish: Dish?
     
     // MARK: - Injection
     private var viewModel: MainViewModelType
@@ -74,6 +103,7 @@ class DetailsDishViewController: BaseViewController {
         setUp()
         configureDish()
         getPopularDishes()
+        addObserver()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -129,9 +159,25 @@ class DetailsDishViewController: BaseViewController {
         }
     }
     
+    private func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(getProducts), name: .init("com.ostep.ClientApp.saved"), object: nil)
+    }
+    
+    @objc
+    private func getProducts() {
+        Task {
+            do {
+                let products: [ListOrderDetailsDto] = try await FirestoreManager.shared.fetchAllData(from: .basket)
+                self.products = products
+            } catch {
+                print("Error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     private func configureDish() {
         guard let dish = selectedDish else { return }
-        imageView.sd_setImage(with: dish.dishUrl)
+        imageView.sd_setImage(with: dish.imageUrl?.url)
         titleLabel.text = dish.name
         descriptionLabel.text = dish.description
     }
@@ -153,7 +199,9 @@ extension DetailsDishViewController: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueIdentifiableCell(PopularItemCell.self, for: indexPath)
-        cell.display(cell: popularDishes[indexPath.row])
+        let dish = products[indexPath.row]
+        cell.display(cell: dish)
+        cell.delegate = self
         return cell
     }
     
@@ -167,9 +215,6 @@ extension DetailsDishViewController: UICollectionViewDataSource, UICollectionVie
             let headerView = collectionView.dequeuReusableView(ViewType: HeaderView.self, type: .UICollectionElementKindSectionHeader, for: indexPath)
             headerView.display(with: "Приятное дополнение")
             return headerView
-        case UICollectionView.elementKindSectionFooter:
-            let footerView = collectionView.dequeuReusableView(ViewType: FooterView.self, type: .UICollectionElementKindSectionFooter, for: indexPath)
-            return footerView
         default:
             let footerView = collectionView.dequeuReusableView(ViewType: FooterView.self, type: .UICollectionElementKindSectionFooter, for: indexPath)
             return footerView
@@ -185,6 +230,14 @@ extension DetailsDishViewController: UICollectionViewDataSource, UICollectionVie
     }
     
 }
+
+extension DetailsDishViewController: PopularItemDelegate {
+    func updateItems(with items: ListOrderDetailsDto) {
+        FirestoreManager.shared.saveTo(collection: .basket, id: items.stockId, data: items)
+    }
+}
+
+
 // MARK: - HeaderView
 extension DetailsDishViewController {
     class HeaderView: UICollectionReusableView {
@@ -211,5 +264,11 @@ extension DetailsDishViewController {
         func display(with text: String) {
             headerTitle.text = text
         }
+    }
+}
+
+extension String {
+    var url: URL? {
+        URL(string: self)
     }
 }

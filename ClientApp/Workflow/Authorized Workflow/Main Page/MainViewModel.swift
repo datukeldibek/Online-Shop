@@ -12,7 +12,7 @@ protocol MainViewModelType {
     func getCategoriesDish(completion: @escaping (Result<[CategoryDTO], Error>) -> Void)
     func getBonuses(completion: @escaping(Result<Int, Error>) -> Void)
     func getDishesByCategory(categoryId: Int, completion: @escaping(Result<[DishDTO], Error>) -> Void)
-    func addNewDish(_ dish: OrderType)
+    func addNewDish(_ dish: ListOrderDetailsDto)
 }
 
 class MainViewModel: MainViewModelType {
@@ -40,7 +40,7 @@ class MainViewModel: MainViewModelType {
         webApi.getDishesBy(categoryId: categoryId, completion: completion)
     }
     
-    func addNewDish(_ dish: OrderType) {
+    func addNewDish(_ dish: ListOrderDetailsDto) {
         basketManager.addNewDish(dish)
     }
 }

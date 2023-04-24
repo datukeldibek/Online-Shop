@@ -69,16 +69,16 @@ class CategoryPageMenuController: ButtonBarPagerTabStripViewController {
     }
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        let сoffeeController = DIService.shared.getVc(CategoryViewController.self)
-        сoffeeController.categoryIndex = 1
-        let teaController = DIService.shared.getVc(CategoryViewController.self)
+        let desertsController = InjectionService.resolve(controller: CategoryViewController.self)
+        desertsController.categoryIndex = 1
+        let сoffeeController = InjectionService.resolve(controller: CategoryViewController.self)
+        сoffeeController.categoryIndex = 3
+        let teaController = InjectionService.resolve(controller: CategoryViewController.self)
         teaController.categoryIndex = 2
-        let bakeryController = DIService.shared.getVc(CategoryViewController.self)
-        bakeryController.categoryIndex = 3
-        let desertsController = DIService.shared.getVc(CategoryViewController.self)
-        desertsController.categoryIndex = 4
-        let cocktailsController = DIService.shared.getVc(CategoryViewController.self)
-        cocktailsController.categoryIndex = 5
-        return [сoffeeController, teaController, bakeryController, desertsController, cocktailsController]
+        let cocktailsController = InjectionService.resolve(controller: CategoryViewController.self)
+        cocktailsController.categoryIndex = 4
+        let bakeryController = InjectionService.resolve(controller: CategoryViewController.self)
+        bakeryController.categoryIndex = 5
+        return [desertsController, сoffeeController, teaController, cocktailsController, bakeryController]
     }
 }

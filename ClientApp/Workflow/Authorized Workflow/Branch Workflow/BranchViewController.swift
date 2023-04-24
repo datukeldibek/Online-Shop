@@ -25,17 +25,21 @@ class BranchViewController: BaseViewController {
         view.dataSource = self
         view.registerReusable(CellType: BranchCell.self)
         view.backgroundColor = Asset.clientBackround.color
+        view.refreshControl = refreshControl
         return view
     }()
     
-    private var branches: [BranchDTO] = [
-        BranchDTO(address: "Юнусалиева 230а", id: 0, link2gis: "Космопарк", name: "Космопарк", phoneNumber: "0555-44-44-44", status: "OPEN", latitude: 23, longitude: 42),
-        BranchDTO(address: "Chuy 130а", id: 0, link2gis: "Dordoi Plaza", name: "Dordoi Plaza", phoneNumber: "0555-41-44-44", status: "OPEN", latitude: 23, longitude: 42),
-        BranchDTO(address: "Chuy 1150а", id: 0, link2gis: "Tsum", name: "Tsum", phoneNumber: "0555-44-33-44", status: "OPEN", latitude: 23, longitude: 42),
-        BranchDTO(address: "Manas St 230а", id: 0, link2gis: "Asia Mall", name: "Asia Mall", phoneNumber: "0555-44-44-44", status: "OPEN", latitude: 23, longitude: 42)
-    ] {
+    private lazy var refreshControl: UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(loadDetails), for: .touchUpInside)
+        return control
+    }()
+    
+    private var branches: [BranchDTO] = [] {
         didSet {
-            collectionView.reloadData()
+            DispatchQueue.main.async {            
+                self.collectionView.reloadData()
+            }
         }
     }
     
@@ -54,6 +58,11 @@ class BranchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+        loadDetails()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadDetails()
     }
     
@@ -80,6 +89,7 @@ class BranchViewController: BaseViewController {
         }
     }
     
+    @objc
     private func loadDetails() {
         withRetry(viewModel.getBranches) { [weak self] res in
             if case .success(let result) = res {
@@ -88,11 +98,13 @@ class BranchViewController: BaseViewController {
         }
     }
     
-    private func resendTapped(with data: BranchDTO) {
-        let coordinate = CLLocationCoordinate2DMake(data.latitude ?? 0.0, data.longitude ?? 0.0)
-        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary: nil))
-        mapItem.name = data.name
-        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+    private func resendTapped(with link: String?) {
+        guard
+            let urlString = link,
+            let url = URL(string: urlString) else {
+            return
+        }
+        UIApplication.shared.open(url)
     }
 }
 
@@ -120,7 +132,7 @@ extension BranchViewController: BranchCellDelegate {
                                       message: "Вы сможете быстро сориентироваться и найти быстрый маршрут к нам! Ждем вас!",
                                       preferredStyle: .alert)
         let resendAction = UIAlertAction(title: "Перейти", style: .default) { [weak self] _ in
-            self?.resendTapped(with: data)
+            self?.resendTapped(with: data.link2gis)
         }
         alert.addAction(resendAction)
         alert.addAction(UIAlertAction(title: "Остаться", style: .cancel))

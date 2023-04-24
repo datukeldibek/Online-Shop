@@ -22,7 +22,7 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
         field.setPlaceholder(with: "Имя", color: .gray)
         field.setImage(with: Asset.user.name)
         field.setBorderColor(with: .clear)
-        field.setBackgroundColor(with: Asset.clientGray2.color)
+        field.setBackgroundColor(with: Asset.clientGray.color)
         field.setKeyboardType(with: .default)
         field.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return field
@@ -33,8 +33,9 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
         field.setPlaceholder(with: "5555555", color: .gray)
         field.setImage(with: Asset.phone.name)
         field.setBorderColor(with: .clear)
-        field.setBackgroundColor(with: Asset.clientGray2.color)
+        field.setBackgroundColor(with: Asset.clientGray.color)
         field.setKeyboardType(with: .numberPad)
+        field.delegate = self
         field.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return field
     }()
@@ -88,6 +89,7 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
         view.addSubview(nameTextField)
         view.addSubview(phoneTextField)
         view.addSubview(getCodeButton)
+        getCodeButton.addSubview(activity)
     }
     
     private func setUpConstaints () {
@@ -114,6 +116,10 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().inset(16)
             make.height.equalTo(56)
+        }
+        activity.snp.makeConstraints { make in
+            make.width.height.equalTo(40)
+            make.center.equalToSuperview()
         }
     }
     
@@ -145,7 +151,7 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
             guard let `self` = self else { return }
             self.getCodeButton.isLoading = false
             if case .success = res {
-                let confirmationCodeVC = DIService.shared.getVc(PhoneConfirmationViewController.self)
+                let confirmationCodeVC = InjectionService.resolve(controller: PhoneConfirmationViewController.self)
                 confirmationCodeVC.phoneNumber = phone
                 self.navigationController?.pushViewController(confirmationCodeVC, animated: true)
             }
@@ -153,3 +159,27 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
     }
 }
 
+extension PhoneRegistrationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        requestCode()
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.text?.isEmpty ?? true {
+            textField.text = "+996 "
+        }
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard var text = textField.text else { return }
+        getCodeButton.isEnabled = text.count > 0
+        if text.count > 14 {
+            text.removeLast()
+            textField.text = text
+            phoneTextField.setMistakeLabel(to: "Invalid phone number length")
+        } else {
+            phoneTextField.hideMistakeLabel()
+        }
+    }
+}

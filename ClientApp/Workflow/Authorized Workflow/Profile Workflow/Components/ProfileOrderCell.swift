@@ -89,7 +89,7 @@ class ProfileOrderCell: UICollectionViewCell {
     func display(_ item: HistoryDTO) {
         branchLabel.text = item.branchName
         productsLabel.text = item.listOrderDetailsDto.map({ $0.name }).joined(separator: ", ")
-        dateLabel.text = item.orderTime.toDate().toString(dateFormat: "MMM d, yyyy")
+        dateLabel.text = item.orderTime//.toDate().toString(dateFormat: "MMM d, yyyy")
     }
 }
 

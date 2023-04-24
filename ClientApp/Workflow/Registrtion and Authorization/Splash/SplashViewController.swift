@@ -78,13 +78,13 @@ class SplashViewController: BaseRegistrationViewController {
     
     @objc
     private func registrationTapped() {
-        let registrationVC = DIService.shared.getVc(PhoneRegistrationViewController.self)
+        let registrationVC = InjectionService.resolve(controller: PhoneRegistrationViewController.self)
         navigationController?.pushViewController(registrationVC, animated: true)
     }
     
     @objc
     private func authorizationTapped() {
-        let authVC = DIService.shared.getVc(AuthViewController.self)
+        let authVC = InjectionService.resolve(controller: AuthViewController.self)
         navigationController?.pushViewController(authVC, animated: true)
     }
 }

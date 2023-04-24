@@ -9,13 +9,14 @@ import Foundation
 
 struct FullCategoryDTO: Codable, Hashable, Equatable {
     private enum CodingKeys : String, CodingKey {
-        case category, description, id, imagesUrl, name, price, status
+        case category, description, id, imagesUrl, name, price, status, counter
     }
     
     let category: CategoryDTO
     var description: String
+    let counter: Int
     let id: Int
-    let imagesUrl: URL?
+    let imagesUrl: String?
     let name: String
     let price: Double
     let status: String
@@ -32,12 +33,12 @@ struct FullCategoryDTO: Codable, Hashable, Equatable {
 extension FullCategoryDTO: OrderType {
     var dishId: Int { id }
     var dishPrice: Double { price }
-    var sum: Double? { Double(quanitity ?? 0 * Int(price)) }
+    var sum: Double? { Double(counter * Int(price)) }
     var dishName: String { name }
-    var dishUrl: URL? { imagesUrl }
-    var quanitity: Int? {
-        get { nil }
-        set {  }
+    var dishUrl: String? { imagesUrl }
+    var count: Int {
+        get { counter }
+        set { _ = counter }
     }
 }
 

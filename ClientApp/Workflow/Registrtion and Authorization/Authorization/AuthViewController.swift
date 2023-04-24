@@ -18,10 +18,10 @@ class AuthViewController: BaseRegistrationViewController {
     
     private lazy var phoneTextField: RegistrationTextField = {
         let field = RegistrationTextField()
-        field.setPlaceholder(with: "505-21-11-02", color: .gray)
+        field.setPlaceholder(with: "505-21-11-02", color: .lightGray)
         field.setImage(with: Asset.phone.name)
         field.setBorderColor(with: .clear)
-        field.setBackgroundColor(with: Asset.clientGray2.color)
+        field.setBackgroundColor(with: Asset.clientGray.color)
         field.setKeyboardType(with: .numberPad)
         field.tintColor = .black
         field.delegate = self
@@ -30,7 +30,7 @@ class AuthViewController: BaseRegistrationViewController {
     
     private lazy var getCodeButton: RegistrationButton = {
         let button = RegistrationButton()
-        button.setTitle("Войти")
+        button.setTitle("Получить код")
         button.isEnabled = false
         button.addTarget(self, action: #selector(getCodeButtonTapped), for: .touchUpInside)
         return button
@@ -49,7 +49,6 @@ class AuthViewController: BaseRegistrationViewController {
     }
     // MARK: - Injection
     var viewModel: AuthViewModelType
-    private var searchTerm: String?
     
     init(vm: AuthViewModelType) {
         viewModel = vm
@@ -127,9 +126,9 @@ class AuthViewController: BaseRegistrationViewController {
 
         withRetry(requestCode) { [weak self] res in
             guard let `self` = self else { return }
+            let confirmationCodeVC = InjectionService.resolve(controller: ConfirmationCodeViewController.self)
+            confirmationCodeVC.phoneNumber = fullPhone
             if case .success = res {
-                let confirmationCodeVC = DIService.shared.getVc(ConfirmationCodeViewController.self)
-                confirmationCodeVC.phoneNumber = fullPhone
                 self.navigationController?.pushViewController(confirmationCodeVC, animated: true)
             }
             self.getCodeButton.isLoading = false

@@ -20,11 +20,11 @@ class HomePageAssembly: Assembly {
         
         container.register(CategoryViewController.self) { r in
             CategoryViewController(vm: r~>)
-        }.inObjectScope(.container)
+        }.inObjectScope(.transient)
         
         container.register(DetailsDishViewController.self) { r in
             DetailsDishViewController(vm: r~>)
-        }.inObjectScope(.container)
+        }.inObjectScope(.graph)
         
         container.register(MainViewController.self) { r in
             MainViewController(vm: r~>)

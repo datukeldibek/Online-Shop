@@ -16,7 +16,7 @@ class MainViewController: BaseViewController {
     }
     
     enum Item: Hashable {
-        case popular(FullCategoryDTO)
+        case popular(ListOrderDetailsDto)
         case category(CategoryDTO)
     }
     
@@ -48,7 +48,26 @@ class MainViewController: BaseViewController {
     // MARK: - Injection
     var viewModel: MainViewModelType
     
-    private var popularDishes: [FullCategoryDTO] = []
+    private var popularDishes: [FullCategoryDTO] = [] {
+        didSet {
+            products = popularDishes.map { item in
+                return ListOrderDetailsDto(
+                    stockId: item.dishId,
+                    urlImage: item.dishUrl,
+                    generalAdditionalId: nil,
+                    name: item.dishName,
+                    price: Int(item.dishPrice),
+                    quantity: item.count
+                )
+            }
+        }
+    }
+    
+    private var products: [ListOrderDetailsDto] = [] {
+        didSet {
+            applySnapshot()
+        }
+    }
     private var categories: [CategoryDTO] = []
     private var oldCategories: [CategoryDTO] = []
 
@@ -69,6 +88,7 @@ class MainViewController: BaseViewController {
         reloadMainPage()
         setUp()
         makeDataSource()
+        addObserver()
     }
     
     private func setUp() {
@@ -79,8 +99,18 @@ class MainViewController: BaseViewController {
         var snapshot = Snapshot()
         snapshot.appendSections([.header, .category, .popular])
         snapshot.appendItems(categories.map({ Item.category($0) }), toSection: .category)
-        snapshot.appendItems(popularDishes.map({ Item.popular($0) }), toSection: .popular)
+        snapshot.appendItems(products.map({ Item.popular($0) }), toSection: .popular)
         dataSource.apply(snapshot, animatingDifferences: animatingDifferene)
+    }
+    
+    private func reloadSection(section: [Section]) {
+        var snapshot = Snapshot()
+        if #available(iOS 16.0, *) {
+            if snapshot.sectionIdentifiers.contains(section) {
+                snapshot.reloadSections(section)
+            }
+        } else {}
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     private func makeDataSource() {
@@ -119,6 +149,22 @@ class MainViewController: BaseViewController {
         }
     }
     
+    private func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(getProducts), name: .init("com.ostep.ClientApp.saved"), object: nil)
+    }
+    
+    @objc
+    private func getProducts() {
+        Task {
+            do {
+                let products: [ListOrderDetailsDto] = try await FirestoreManager.shared.fetchAllData(from: .basket)
+                self.products = products
+            } catch {
+                print("Error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     // MARK: - Requests
     private func getPopularDishes() {
         withRetry(viewModel.getPopularDishes) { [weak self] result in
@@ -143,6 +189,7 @@ class MainViewController: BaseViewController {
         viewModel.getBonuses { [weak self] res in
             if case .success(let bonus) = res {
                 self?.bonus = bonus
+                self?.reloadSection(section: [.header])
             }
         }
     }
@@ -164,13 +211,17 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         if indexPath.section == 1 {
             let controller = CategoryPageMenuController()
             switch categories[indexPath.row].name {
-            case "Кофе": controller.categoryIndex = 1
-            case "Чай": controller.categoryIndex = 2
-            case "Выпечка": controller.categoryIndex = 3
-            case "Десерты": controller.categoryIndex = 4
-            case "Коктейли": controller.categoryIndex = 5
+            case "Десерты": controller.categoryIndex = 1
+            case "Кофе": controller.categoryIndex = 2
+            case "Чаи": controller.categoryIndex = 3
+            case "Коктейли": controller.categoryIndex = 4
+            case "Выпечка": controller.categoryIndex = 5
             default: controller.categoryIndex = 1
             }
+            navigationController?.pushViewController(controller, animated: true)
+        } else {
+            let controller = InjectionService.resolve(controller: DetailsDishViewController.self)
+            controller.selectedDish = popularDishes[indexPath.row]
             navigationController?.pushViewController(controller, animated: true)
         }
     }
@@ -349,7 +400,7 @@ extension MainViewController {
 }
 
 extension MainViewController: PopularItemDelegate {
-    func updateItems(with items: OrderType) {
-        viewModel.addNewDish(items)
+    func updateItems(with items: ListOrderDetailsDto) {
+        FirestoreManager.shared.saveTo(collection: .basket, id: items.stockId, data: items)
     }
 }
