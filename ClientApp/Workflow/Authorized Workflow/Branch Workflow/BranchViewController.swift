@@ -35,13 +35,23 @@ class BranchViewController: BaseViewController {
         return control
     }()
     
-    private var branches: [BranchDTO] = [] {
-        didSet {
-            DispatchQueue.main.async {            
-                self.collectionView.reloadData()
-            }
-        }
-    }
+//    private var branches: [BranchDTO] = [] {
+//        didSet {
+//            DispatchQueue.main.async {            
+//                self.collectionView.reloadData()
+//            }
+//        }
+//    }
+    
+    private var branches: [BranchDTO] = [
+        BranchDTO.createDefault(id: 1),
+        BranchDTO.createDefault(id: 2),
+        BranchDTO.createDefault(id: 3),
+        BranchDTO.createDefault(id: 4),
+        BranchDTO.createDefault(id: 5),
+        BranchDTO.createDefault(id: 6),
+        BranchDTO.createDefault(id: 7)
+    ]
     
     // MARK: - Injection
     private let viewModel: BranchViewModelType
@@ -58,12 +68,12 @@ class BranchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-        loadDetails()
+//        loadDetails()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadDetails()
+//        loadDetails()
     }
     
     private func setUp() {

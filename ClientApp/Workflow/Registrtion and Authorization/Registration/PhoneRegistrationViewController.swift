@@ -62,7 +62,7 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
     // MARK: - Injection
     public var viewModel: PhoneRegistrationViewModelType
     private var searchTerm: String?
-    private var countryCode = "+996"
+    private var countryCode = ""
     
     init(vm: PhoneRegistrationViewModelType) {
         viewModel = vm

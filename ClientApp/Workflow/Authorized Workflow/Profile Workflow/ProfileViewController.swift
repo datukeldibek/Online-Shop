@@ -12,7 +12,7 @@ class ProfileViewController: BaseViewController {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
-        label.text = "Ramazan"
+        label.text = "Datu"
         return label
     }()
     

@@ -18,11 +18,18 @@ class BaseViewController: UIViewController {
         backButton.title = ""
         let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
-        navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+//        navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
 //        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.backgroundColor = Asset.clientBackround.color
         navigationController?.navigationBar.barTintColor =  Asset.clientBackround.color
-        navigationController?.navigationBar.isTranslucent = false
+//        navigationController?.navigationBar.isTranslucent = false
+//        navigationItem.title = "hello"
         view.backgroundColor = Asset.clientBackround.color
     }
+    
+//    private func setUp() {
+//        view.backgroundColor = Asset.clientBackround.color
+//        
+//        navigationController?.setNavigationBarHidden(true, animated: true)
+//    }
 }

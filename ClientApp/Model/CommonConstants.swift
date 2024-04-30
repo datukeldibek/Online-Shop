@@ -10,8 +10,8 @@ import Foundation
 enum CommonConstants {
     
     // MARK: - Base
-    static let baseUrl = URL(string: "https://neocafe.herokuapp.com")!
-    
+//    static let baseUrl = URL(string: "https://neocafe.herokuapp.com")!
+    static let baseUrl = URL(string: "http://212.2.227.207:8085/")!
     // MARK: - Registration
     enum Registration {
         static func registerUser() -> URL {

@@ -13,7 +13,8 @@ class BaseRegistrationViewController: UIViewController {
 
     private let registrationIcon: UIImageView = {
         let view = UIImageView()
-        view.image = Asset.igNeocafe.image
+//        view.image = Asset.igNeocafe.image
+        view.image = Asset.logo.image
         view.contentMode = .scaleAspectFill
         return view
     }()

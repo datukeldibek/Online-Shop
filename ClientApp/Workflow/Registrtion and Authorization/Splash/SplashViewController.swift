@@ -78,7 +78,8 @@ class SplashViewController: BaseRegistrationViewController {
     
     @objc
     private func registrationTapped() {
-        let registrationVC = InjectionService.resolve(controller: PhoneRegistrationViewController.self)
+//        let registrationVC = InjectionService.resolve(controller: PhoneRegistrationViewController.self)
+        let registrationVC = InjectionService.resolve(controller: BaseTabViewController.self)
         navigationController?.pushViewController(registrationVC, animated: true)
     }
     

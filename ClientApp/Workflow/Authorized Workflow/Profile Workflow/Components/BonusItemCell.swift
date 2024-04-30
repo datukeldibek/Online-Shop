@@ -76,6 +76,7 @@ class BonusItemCell: UICollectionReusableView {
             make.top.bottom.equalToSuperview()
             make.trailing.equalToSuperview().offset(-16)
             make.leading.equalToSuperview().offset(16)
+            make.height.equalTo(150)
         }
         view.snp.makeConstraints { make in
             make.height.equalTo(image.snp.height).multipliedBy(0.73)

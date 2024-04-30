@@ -104,9 +104,13 @@ class PhoneConfirmationViewController: BaseRegistrationViewController {
         }
     }
     
-    private var countryCode = "+996"
+    private var countryCode = ""
     private var confirmationCode = ""
-    var phoneNumber = ""
+    var phoneNumber = "" {
+        didSet {
+            print("@@@ number = \(phoneNumber)")
+        }
+    }
     
     // MARK: - Injection
     public var viewModel: PhoneRegistrationViewModelType
