@@ -16,18 +16,18 @@ class AuthorizationAssembly: Assembly {
         
         container.register(AuthViewController.self) { r in
             AuthViewController(vm: r~>)
-        }.inObjectScope(.container)
+        }.inObjectScope(.transient)
         
         container.register(ConfirmationCodeViewController.self) { r in
             ConfirmationCodeViewController(vm: r~>)
-        }.inObjectScope(.container)
+        }.inObjectScope(.transient)
         
         container.register(QRCodeViewController.self) { r in
             QRCodeViewController()
-        }.inObjectScope(.container)
+        }.inObjectScope(.transient)
         
         container.register(BaseTabViewController.self) { _ in
             BaseTabViewController()
-        }.inObjectScope(.container)
+        }.inObjectScope(.transient)
     }
 }

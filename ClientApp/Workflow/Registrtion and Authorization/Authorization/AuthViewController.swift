@@ -18,7 +18,7 @@ class AuthViewController: BaseRegistrationViewController {
     
     private lazy var phoneTextField: RegistrationTextField = {
         let field = RegistrationTextField()
-        field.setPlaceholder(with: "505-21-11-02", color: .lightGray)
+        field.setPlaceholder(with: "555-55-55-55", color: .lightGray)
         field.setImage(with: Asset.phone.name)
         field.setBorderColor(with: .clear)
         field.setBackgroundColor(with: Asset.clientGray.color)
@@ -118,7 +118,7 @@ class AuthViewController: BaseRegistrationViewController {
         phoneTextField.resignFirstResponder()
         getCodeButton.isLoading = true
 
-        let fullPhone = phone.replacingOccurrences(of: " ", with: "")
+        let fullPhone = phone.trimmingCharacters(in: .whitespacesAndNewlines)
         let authPayload = AuthorizationDTO(phoneNumber: fullPhone)
         let requestCode = { [unowned self] completion in
             self.viewModel.authorizeUser(user: authPayload, completion: completion)

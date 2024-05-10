@@ -10,7 +10,7 @@ import UIKit
 class PhoneConfirmationViewController: BaseRegistrationViewController {
     private lazy var textLabel: UILabel = {
         let label = UILabel()
-        label.text = "Введите 4-х значный код, отправленный на номер 0552 321 123"
+        label.text = "Введите 4-х значный код, отправленный на введенный номер телефона"
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         label.textAlignment = .center
         label.textColor = .black

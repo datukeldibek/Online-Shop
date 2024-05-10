@@ -946,7 +946,9 @@ PODS:
     - abseil/meta/type_traits
     - abseil/xcprivacy
   - abseil/xcprivacy (1.20240116.2)
-  - Alamofire (5.9.1)
+  - Alamofire (5.4.4)
+  - AlamofireNetworkActivityLogger (3.4.0):
+    - Alamofire (~> 5.4.0)
   - BoringSSL-GRPC (0.0.32):
     - BoringSSL-GRPC/Implementation (= 0.0.32)
     - BoringSSL-GRPC/Interface (= 0.0.32)
@@ -1165,7 +1167,8 @@ PODS:
   - XLPagerTabStrip (9.1.0)
 
 DEPENDENCIES:
-  - Alamofire
+  - Alamofire (~> 5.4.0)
+  - AlamofireNetworkActivityLogger (~> 3.4)
   - Firebase
   - Firebase/Core
   - FirebaseFirestore
@@ -1186,6 +1189,7 @@ SPEC REPOS:
   trunk:
     - abseil
     - Alamofire
+    - AlamofireNetworkActivityLogger
     - BoringSSL-GRPC
     - Firebase
     - FirebaseAnalytics
@@ -1219,7 +1223,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   abseil: d121da9ef7e2ff4cab7666e76c5a3e0915ae08c3
-  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  AlamofireNetworkActivityLogger: 162ab8aee00e6267a4304d7cc134e13ccfe3bcc5
   BoringSSL-GRPC: 1e2348957acdbcad360b80a264a90799984b2ba6
   Firebase: 91fefd38712feb9186ea8996af6cbdef41473442
   FirebaseAnalytics: b5efc493eb0f40ec560b04a472e3e1a15d39ca13
@@ -1251,6 +1256,6 @@ SPEC CHECKSUMS:
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
   XLPagerTabStrip: 27f3bfe23c53b4251c6481b06b1c289458a3fc1d
 
-PODFILE CHECKSUM: 9b4a7133e18de8fd7c752c5716b61c4d88fc5201
+PODFILE CHECKSUM: 64899842a6bdfad69212e29e6a3801964fcfe8bf
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.2
