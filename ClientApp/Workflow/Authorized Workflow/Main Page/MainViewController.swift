@@ -45,86 +45,31 @@ class MainViewController: BaseViewController {
         return collectionView
     }()
     
-//    lazy var collectionView: UICollectionView = {
-//        // Create a UICollectionViewFlowLayout
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
-//        layout.minimumInteritemSpacing = 10
-//        layout.minimumLineSpacing = 10
-//        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//        
-//        // Create the UICollectionView instance with the given layout
-//        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        cv.translatesAutoresizingMaskIntoConstraints = false
-//        cv.backgroundColor = .white
-//        
-//        // Set dataSource and delegate
-////        cv.dataSource = self
-//        cv.delegate = self
-//        
-//        // Register cell class or nib file
-//        cv.register(CategoryItemCell.self, forCellWithReuseIdentifier: "cell")
-//        
-//        return cv
-//    }()
-    
     // MARK: - Injection
     var viewModel: MainViewModelType
     
-//    private var popularDishes: [FullCategoryDTO] = [] {
-//        didSet {
-//            products = popularDishes.map { item in
-//                return ListOrderDetailsDto(
-//                    stockId: item.dishId,
-//                    urlImage: item.dishUrl,
-//                    generalAdditionalId: nil,
-//                    name: item.dishName,
-//                    price: Int(item.dishPrice),
-//                    quantity: item.count
-//                )
-//            }
-//        }
-//    }
+    private var popularDishes: [FullCategoryDTO] = [] {
+        didSet {
+            products = popularDishes.map { item in
+                return ListOrderDetailsDto(
+                    stockId: item.dishId,
+                    urlImage: item.dishUrl,
+                    generalAdditionalId: nil,
+                    name: item.dishName,
+                    price: Int(item.dishPrice),
+                    quantity: item.count
+                )
+            }
+        }
+    }
     
-    private var popularDishes: [FullCategoryDTO] = [
-        FullCategoryDTO(category: CategoryDTO(id: 0, name: "hello wordl", status: "status"), description: "description", counter: 0, id: 1, imagesUrl: "", name: "name", price: 12.0, status: "status"),
-        FullCategoryDTO(category: CategoryDTO(id: 0, name: "hello wordl", status: "status"), description: "description", counter: 0, id: 1, imagesUrl: "", name: "name", price: 12.0, status: "status"),
-        FullCategoryDTO(category: CategoryDTO(id: 0, name: "hello wordl", status: "status"), description: "description", counter: 0, id: 1, imagesUrl: "", name: "name", price: 12.0, status: "status"),
-        FullCategoryDTO(category: CategoryDTO(id: 0, name: "hello wordl", status: "status"), description: "description", counter: 0, id: 1, imagesUrl: "", name: "name", price: 12.0, status: "status")
-    ]
+    private var products: [ListOrderDetailsDto] = [] {
+        didSet {
+            applySnapshot()
+        }
+    }
     
-//    private var products: [ListOrderDetailsDto] = [] {
-//        didSet {
-//            applySnapshot()
-//        }
-//    }
-    
-    private var products: [ListOrderDetailsDto] = [
-        ListOrderDetailsDto(stockId: 0, urlImage: "https://picsum.photos/200/300?random=2", generalAdditionalId: [GeneralAddition(generalAdditionalId: 0)], name: "name1", price: 0, quantity: 0),
-        ListOrderDetailsDto(stockId: 1, urlImage: "https://picsum.photos/200/300?random=3", generalAdditionalId: [GeneralAddition(generalAdditionalId: 1)], name: "name2", price: 10, quantity: 0),
-        ListOrderDetailsDto(stockId: 2, urlImage: "https://picsum.photos/200/300?random=4", generalAdditionalId: [GeneralAddition(generalAdditionalId: 2)], name: "name3", price: 20, quantity: 0),
-        ListOrderDetailsDto(stockId: 3, urlImage: "https://picsum.photos/200/300?random=5", generalAdditionalId: [GeneralAddition(generalAdditionalId: 3)], name: "name4", price: 30, quantity: 0),
-        ListOrderDetailsDto(stockId: 4, urlImage: "https://picsum.photos/200/300?random=6", generalAdditionalId: [GeneralAddition(generalAdditionalId: 4)], name: "name5", price: 40, quantity: 0)
-    ]
-    
-    private var categories: [CategoryDTO] = [
-        CategoryDTO(id: 0, name: "Кофе", status: "status"),
-        CategoryDTO(id: 1, name: "Десерты", status: "status"),
-        CategoryDTO(id: 2, name: "Коктейли", status: "status"),
-        CategoryDTO(id: 3, name: "Выпечка", status: "status"),
-        CategoryDTO(id: 4, name: "Чаи", status: "status")
-    ]
-    
-//    private var oldCategories: [CategoryDTO] = []
-    
-    private var oldCategories: [CategoryDTO] = [
-        CategoryDTO(id: 0, name: "Кофе", status: "status"),
-        CategoryDTO(id: 1, name: "Десерты", status: "status"),
-        CategoryDTO(id: 2, name: "Коктейли", status: "status"),
-        CategoryDTO(id: 3, name: "Выпечка", status: "status"),
-        CategoryDTO(id: 4, name: "Чаи", status: "status")
-    ]
-    
+    private var categories: [CategoryDTO] = []
 
     private var bonus: Int = 0
     private var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
@@ -143,7 +88,6 @@ class MainViewController: BaseViewController {
         reloadMainPage()
         setUp()
         makeDataSource()
-//        addObserver()
     }
     
     private func setUp() {
@@ -211,22 +155,6 @@ class MainViewController: BaseViewController {
         }
     }
     
-    private func addObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(getProducts), name: .init("com.ostep.ClientApp.saved"), object: nil)
-    }
-    
-    @objc
-    private func getProducts() {
-        Task {
-            do {
-                let products: [ListOrderDetailsDto] = try await FirestoreManager.shared.fetchAllData(from: .basket)
-                self.products = products
-            } catch {
-                print("Error: \(error.localizedDescription)")
-            }
-        }
-    }
-    
     // MARK: - Requests
     private func getPopularDishes() {
         withRetry(viewModel.getPopularDishes) { [weak self] result in
@@ -242,7 +170,6 @@ class MainViewController: BaseViewController {
         withRetry(viewModel.getCategoriesDish) { [weak self] result in
             if case .success(let res) = result {
                 self?.categories = res
-                self?.oldCategories = res
                 self?.applySnapshot(animatingDifferene: false)
             }
             self?.applySnapshot(animatingDifferene: false)
@@ -268,29 +195,6 @@ class MainViewController: BaseViewController {
         }
     }
 }
-
-//extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//            // Return the number of items in your data array
-//        return categories.count
-//        }
-//        
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CategoryItemCell
-//        // Configure the cell
-//        cell.display(cell: categories[indexPath.row])
-//        cell.backgroundColor = .green // Just for demonstration
-//        return cell
-//    }
-//        
-//    // MARK: - UICollectionViewDelegateFlowLayout
-//        
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        // Return the size for each cell
-//        let cellWidth = (collectionView.bounds.width - 30) / 2 // Adjust as per your requirement
-//        return CGSize(width: cellWidth, height: cellWidth)
-//    }
-//}
 
 // MARK: - Delegate Datasource
 extension MainViewController: UICollectionViewDelegateFlowLayout {

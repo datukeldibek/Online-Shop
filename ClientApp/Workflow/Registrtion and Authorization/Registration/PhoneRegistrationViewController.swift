@@ -30,7 +30,7 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
     
     private lazy var phoneTextField: RegistrationTextField = {
         let field = RegistrationTextField()
-        field.setPlaceholder(with: "5555555", color: .gray)
+        field.setPlaceholder(with: "555-55-55-55", color: .gray)
         field.setImage(with: Asset.phone.name)
         field.setBorderColor(with: .clear)
         field.setBackgroundColor(with: Asset.clientGray.color)
@@ -141,7 +141,7 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
               name.count > 2 else { return }
         phoneTextField.resignFirstResponder()
         getCodeButton.isLoading = true
-        let fullPhone = countryCode + phone
+        let fullPhone = phone.trimmingCharacters(in: .whitespaces)
         let userInfo = RegistrationDTO(firstName: name, phoneNumber: fullPhone)
         let requestCode = { [unowned self] completion in
             self.viewModel.registerNewUser(user: userInfo, completion: completion)

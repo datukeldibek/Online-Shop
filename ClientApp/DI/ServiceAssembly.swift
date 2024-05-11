@@ -18,7 +18,8 @@ class ServiceAssembly: Assembly {
             if let authS = s as? AuthService {
                 authS.setWebService(r~>)
             }
-        }
+        }.inObjectScope(.container)
+
         
         container.autoregister(KeyValueStoreType.self, initializer: TransientStorageService.init)
             .inObjectScope(.container)

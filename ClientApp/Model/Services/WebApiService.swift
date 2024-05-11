@@ -54,8 +54,7 @@ class WebApiService: NSObject, WebApiServiceType {
         configuration.httpAdditionalHeaders = [:]
         configuration.httpAdditionalHeaders?["Accept"] = "application/json"
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
-        configuration.timeoutIntervalForRequest = 20
-        
+        configuration.timeoutIntervalForRequest = 30
         return configuration
     }
     
@@ -108,10 +107,10 @@ class WebApiService: NSObject, WebApiServiceType {
             parameters: RegistrationDTO(firstName: user.firstName, phoneNumber: user.phoneNumber),
             encoder: JSONParameterEncoder.default
         )
-            .validate()
-            .response { [weak self] (response) in
-                self?.handleEmptyResponse(response: response, completion: completion)
-            }
+        .validate()
+        .response { [weak self] (response) in
+            self?.handleEmptyResponse(response: response, completion: completion)
+        }
     }
     
     func sendConfirmation(for phoneNumber: String, confirmationCode: String, completion: @escaping (Result<JwtInfo, Error>) -> Void) {
@@ -138,10 +137,10 @@ class WebApiService: NSObject, WebApiServiceType {
             parameters: AuthorizationDTO(phoneNumber: number.phoneNumber),
             encoder: JSONParameterEncoder.default
         )
-            .validate()
-            .response { [weak self] (response) in
-                self?.handleEmptyResponse(response: response, completion: completion)
-            }
+        .validate()
+        .response { [weak self] (response) in
+            self?.handleEmptyResponse(response: response, completion: completion)
+        }
     }
     
     func confirmAuthCode(for phoneNumber: String, confirmationCode: String, completion: @escaping (Result<JwtInfo, Error>) -> Void) {
@@ -154,10 +153,10 @@ class WebApiService: NSObject, WebApiServiceType {
             ],
             encoder: JSONParameterEncoder.default
         )
-            .validate()
-            .responseDecodable { [weak self] (response) in
-                self?.handleResponse(of: JwtInfo.self, response: response, completion: completion)
-            }
+        .validate()
+        .responseDecodable { [weak self] (response) in
+            self?.handleResponse(of: JwtInfo.self, response: response, completion: completion)
+        }
     }
     
     // MARK: - Profile Editing

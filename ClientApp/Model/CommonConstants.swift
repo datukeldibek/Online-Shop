@@ -11,26 +11,26 @@ enum CommonConstants {
     
     // MARK: - Base
 //    static let baseUrl = URL(string: "https://neocafe.herokuapp.com")!
-    static let baseUrl = URL(string: "http://212.2.227.207:8085/")!
+    static let baseUrl = URL(string: "http://212.2.227.207:8085")!
     // MARK: - Registration
     enum Registration {
         static func registerUser() -> URL {
-            baseUrl.appendingPathComponent("client/registration")
+            baseUrl.appendingPathComponent("/client/registration")
         }
         
         static func confirmCode() -> URL {
-            baseUrl.appendingPathComponent("client/activate")
+            baseUrl.appendingPathComponent("/client/activate")
         }
     }
     
     // MARK: - Authorization
     enum Authorization {
         static func authorizeUser() -> URL {
-            baseUrl.appendingPathComponent("client/auth")
+            baseUrl.appendingPathComponent("/client/auth")
         }
         
         static func confirmAuthorizationCode() -> URL {
-            baseUrl.appendingPathComponent("client/login")
+            baseUrl.appendingPathComponent("/client/login")
         }
     }
     

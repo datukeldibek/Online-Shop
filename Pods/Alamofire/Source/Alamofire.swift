@@ -28,16 +28,8 @@ import Foundation
 @_exported import FoundationNetworking
 #endif
 
-// Enforce minimum Swift version for all platforms and build systems.
-#if swift(<5.7.1)
-#error("Alamofire doesn't support Swift versions below 5.7.1.")
-#endif
-
 /// Reference to `Session.default` for quick bootstrapping and examples.
 public let AF = Session.default
 
-/// Namespace for informational Alamofire values.
-public enum AFInfo {
-    /// Current Alamofire version.
-    public static let version = "5.9.1"
-}
+/// Current Alamofire version. Necessary since SPM doesn't use dynamic libraries. Plus this will be more accurate.
+let version = "5.4.4"

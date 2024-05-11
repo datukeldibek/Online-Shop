@@ -21,15 +21,8 @@ protocol BasketManagerType {
 }
 
 class BasketManager: BasketManagerType {
-    private let authService: AuthServiceType
-    private let webApi: WebApiServiceType
-    private let firestoreManager = FirestoreManager.shared
-    private var dishesInCart: [ListOrderDetailsDto] = []
     
-    init(webApi: WebApiServiceType, authService: AuthServiceType) {
-        self.webApi = webApi
-        self.authService = authService
-    }
+    private var dishesInCart: [ListOrderDetailsDto] = []
     
     func addNewDish(_ dish: ListOrderDetailsDto) {
         if let dishIndex = dishesInCart.firstIndex(where: { $0.stockId == dish.stockId }) {
@@ -39,11 +32,15 @@ class BasketManager: BasketManagerType {
             dish.quantity = 1
             dishesInCart.append(dish)
         }
-        NotificationCenter.default.post(name: .init("com.ostep.addedToBasket"), object: nil)
+        
     }
     
-    func getDishes() async throws -> [ListOrderDetailsDto] {
-        return try await firestoreManager.fetchAllData(from: .basket)
+    func getDishes() -> [ListOrderDetailsDto] {
+        return dishesInCart
+    }
+    
+    func clear() {
+        dishesInCart.removeAll()
     }
 }
 

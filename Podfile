@@ -9,7 +9,7 @@ pod 'SwiftGen'
 pod 'IQKeyboardManagerSwift'
 pod 'SwipeCellKit'
 pod 'FittedSheets'
-pod 'Alamofire'
+pod 'Alamofire', '~> 5.4.0'
 pod 'Swinject', '~> 2.6.1'
 pod 'SwinjectStoryboard'
 pod 'SwinjectAutoregistration', '~> 2.6.1'
@@ -20,6 +20,7 @@ pod 'FirebaseFirestore'
 pod 'FirebaseFirestoreSwift'
 pod 'Firebase'
 pod 'Firebase/Core'
+pod 'AlamofireNetworkActivityLogger', '~> 3.4'
 
 end
 
