@@ -193,9 +193,7 @@ class StepperView: UIControl {
             withDuration: animationDuration,
             delay: 0.0,
             options: [.curveEaseIn],
-            animations: {
-                self.hiddableView.layer.position.x -= self.hiddableView.frame.width
-            })
+            animations: {})
         isHiddableViewRevealead = true
     }
     

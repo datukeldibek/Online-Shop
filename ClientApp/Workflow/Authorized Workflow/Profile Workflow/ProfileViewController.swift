@@ -11,8 +11,9 @@ class ProfileViewController: BaseViewController {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
+        label.text = userName
         label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
-        label.text = "Datu"
+        
         return label
     }()
     
@@ -38,10 +39,12 @@ class ProfileViewController: BaseViewController {
         return view
     }()
     
+    var userName: String = "Datu"
+    
     // MARK: - Injection
     var viewModel: ProfileViewModelType!
     
-    private var bonus = 0
+    private var bonus = 20
     private var currentOrders: [HistoryDTO] = [] {
         didSet {
             collectionView.reloadData()
@@ -64,6 +67,7 @@ class ProfileViewController: BaseViewController {
         getCurrentOrders()
         getComletedOrders()
         getBonuses()
+        getUserInfo()
     }
     
     init(vm: ProfileViewModelType) {
@@ -137,6 +141,15 @@ class ProfileViewController: BaseViewController {
         withRetry(viewModel.getCompletedOrders) { [weak self] res in
             if case .success(let items) = res {
                 self?.completedOrders = items
+            }
+        }
+    }
+    
+    private func getUserInfo() {
+        viewModel.getUserInfo { [weak self] res in
+            if case .success(let info) = res {
+                self?.userName = info.name
+                print("### \(self?.userName)")
             }
         }
     }

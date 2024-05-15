@@ -62,6 +62,8 @@ class CategoryViewController: BaseViewController {
         }
     }
     
+    var categoryName: String = ""
+    
     var categoryIndex = 1 {
         didSet {
             switch categoryIndex {
@@ -121,14 +123,14 @@ class CategoryViewController: BaseViewController {
     
     @objc
     private func getProducts() {
-        Task {
-            do {
-                let products: [ListOrderDetailsDto] = try await FirestoreManager.shared.fetchAllData(from: .basket)
-                self.products = products
-            } catch {
-                print("Error: \(error.localizedDescription)")
-            }
-        }
+//        Task {
+//            do {
+//                let products: [ListOrderDetailsDto] = try await FirestoreManager.shared.fetchAllData(from: .basket)
+//                self.products = products
+//            } catch {
+//                print("Error: \(error.localizedDescription)")
+//            }
+//        }
     }
     
     // MARK: - Requests
@@ -143,18 +145,20 @@ class CategoryViewController: BaseViewController {
 
 extension CategoryViewController: IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        switch categoryType {
-        case .coffee:
-            return IndicatorInfo(title: "Кофе")
-        case .deserts:
-            return IndicatorInfo(title: "Десерты")
-        case .bakery:
-            return IndicatorInfo(title: "Выпечка")
-        case .cocktails:
-            return IndicatorInfo(title: "Коктейли")
-        case .tea:
-            return IndicatorInfo(title: "Чаи")
-        }
+//        switch categoryType {
+//        case .coffee:
+//            return IndicatorInfo(title: "Кофе")
+//        case .deserts:
+//            return IndicatorInfo(title: "Десерты")
+//        case .bakery:
+//            return IndicatorInfo(title: "Выпечка")
+//        case .cocktails:
+//            return IndicatorInfo(title: "Коктейли")
+//        case .tea:
+//            return IndicatorInfo(title: "Чаи")
+//        }
+        
+        return IndicatorInfo(title: categoryName)
     }
 }
 
@@ -179,7 +183,7 @@ extension CategoryViewController: UICollectionViewDataSource, UICollectionViewDe
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeuReusableView(ViewType: HeaderView.self, type: .UICollectionElementKindSectionHeader, for: indexPath)
-            headerView.display(with: categoryType.rawValue)
+            headerView.display(with: categoryName)
             return headerView
         case UICollectionView.elementKindSectionFooter:
             let footerView = collectionView.dequeuReusableView(ViewType: FooterView.self, type: .UICollectionElementKindSectionFooter, for: indexPath)

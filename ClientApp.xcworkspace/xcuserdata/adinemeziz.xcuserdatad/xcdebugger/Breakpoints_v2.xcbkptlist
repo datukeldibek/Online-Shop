@@ -135,16 +135,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E2050519-5411-472A-B0A8-B82F0C1BBD9E"
-            shouldBeEnabled = "No"
+            uuid = "7C1785E2-76D6-47D4-B48A-96619FD99E3E"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ClientApp/Workflow/Registrtion and Authorization/Registration/PhoneRegistrationViewController.swift"
+            filePath = "ClientApp/Workflow/Authorized Workflow/Profile Workflow/ProfileViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "requestCode()"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "getBonuses()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A7F8FA53-569E-4AA4-9664-8C79F827760E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClientApp/Workflow/Authorized Workflow/Profile Workflow/ProfileViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "getBonuses()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "79EC0BF4-28B4-4657-8790-AC89B1EC94BE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/AlamofireNetworkActivityLogger/Source/NetworkActivityLogger.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "requestDidFinish(notification:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
