@@ -53,6 +53,7 @@ class CategoryPageMenuController: ButtonBarPagerTabStripViewController {
     }
     
     var categoryIndex = 0
+    var categories: [CategoryDTO] = []
     
     private func configurePageController() {
         navigationController?.navigationBar.isTranslucent = false
@@ -69,16 +70,27 @@ class CategoryPageMenuController: ButtonBarPagerTabStripViewController {
     }
     
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        let desertsController = InjectionService.resolve(controller: CategoryViewController.self)
-        desertsController.categoryIndex = 1
-        let сoffeeController = InjectionService.resolve(controller: CategoryViewController.self)
-        сoffeeController.categoryIndex = 3
-        let teaController = InjectionService.resolve(controller: CategoryViewController.self)
-        teaController.categoryIndex = 2
-        let cocktailsController = InjectionService.resolve(controller: CategoryViewController.self)
-        cocktailsController.categoryIndex = 4
-        let bakeryController = InjectionService.resolve(controller: CategoryViewController.self)
-        bakeryController.categoryIndex = 5
-        return [desertsController, сoffeeController, teaController, cocktailsController, bakeryController]
+        var controllers: [UIViewController] = []
+        
+        for i in categories {
+            let controller = InjectionService.resolve(controller: CategoryViewController.self)
+            controller.categoryIndex = i.id
+            controller.categoryName = i.name
+            
+            controllers.append(controller)
+        }
+//        let desertsController = InjectionService.resolve(controller: CategoryViewController.self)
+//        desertsController.categoryIndex = 1
+//        let сoffeeController = InjectionService.resolve(controller: CategoryViewController.self)
+//        сoffeeController.categoryIndex = 3
+//        let teaController = InjectionService.resolve(controller: CategoryViewController.self)
+//        teaController.categoryIndex = 2
+//        let cocktailsController = InjectionService.resolve(controller: CategoryViewController.self)
+//        cocktailsController.categoryIndex = 4
+//        let bakeryController = InjectionService.resolve(controller: CategoryViewController.self)
+//        bakeryController.categoryIndex = 5
+//        return [desertsController, сoffeeController, teaController, cocktailsController, bakeryController]
+        
+        return controllers
     }
 }

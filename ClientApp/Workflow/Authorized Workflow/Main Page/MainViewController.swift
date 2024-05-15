@@ -201,14 +201,18 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             let controller = CategoryPageMenuController()
-            switch categories[indexPath.row].name {
-            case "Десерты": controller.categoryIndex = 1
-            case "Кофе": controller.categoryIndex = 2
-            case "Чаи": controller.categoryIndex = 3
-            case "Коктейли": controller.categoryIndex = 4
-            case "Выпечка": controller.categoryIndex = 5
-            default: controller.categoryIndex = 1
-            }
+//            switch categories[indexPath.row].name {
+//            case "Десерты": controller.categoryIndex = 1
+//            case "Кофе": controller.categoryIndex = 2
+//            case "Чаи": controller.categoryIndex = 3
+//            case "Коктейли": controller.categoryIndex = 4
+//            case "Выпечка": controller.categoryIndex = 5
+//            default: controller.categoryIndex = 1
+//            }
+            
+            controller.categoryIndex = categories[indexPath.row].id
+            controller.categories = categories
+            
             navigationController?.pushViewController(controller, animated: true)
         } else {
             let controller = InjectionService.resolve(controller: DetailsDishViewController.self)
