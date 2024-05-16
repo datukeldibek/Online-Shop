@@ -145,13 +145,24 @@ class ProfileViewController: BaseViewController {
         }
     }
     
+//    private func getUserInfo() {
+//        viewModel.getUserInfo { [weak self] res in
+//            if case .success(let info) = res {
+//                self?.userName = info.name
+//                print("### \(self?.userName)")
+//            }
+//        }
+//    }
     private func getUserInfo() {
-        viewModel.getUserInfo { [weak self] res in
+        withRetry(viewModel.getUserInfo) { [weak self] res in
             if case .success(let info) = res {
-                self?.userName = info.name
-                print("### \(self?.userName)")
+                self?.setUserInfo(user: info)
             }
         }
+    }
+    
+    private func setUserInfo(user: UserProfileDTO) {
+        titleLabel.text = user.name
     }
     
     // MARK: - OBJC functions

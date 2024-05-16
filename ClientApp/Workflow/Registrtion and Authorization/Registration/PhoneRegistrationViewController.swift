@@ -141,7 +141,8 @@ class PhoneRegistrationViewController: BaseRegistrationViewController {
               name.count > 2 else { return }
         phoneTextField.resignFirstResponder()
         getCodeButton.isLoading = true
-        let fullPhone = phone.trimmingCharacters(in: .whitespaces)
+        let fullPhone = phone.trimmingCharacters(in: .whitespacesAndNewlines)
+//        let fullPhone = phone.trimmingCharacters(in: .whitespaces)
         let userInfo = RegistrationDTO(firstName: name, phoneNumber: fullPhone)
         let requestCode = { [unowned self] completion in
             self.viewModel.registerNewUser(user: userInfo, completion: completion)
