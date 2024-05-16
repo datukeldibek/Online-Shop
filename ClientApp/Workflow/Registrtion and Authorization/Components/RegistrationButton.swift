@@ -34,7 +34,7 @@ class RegistrationButton: UIButton {
         self.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         self.layer.cornerRadius = 25
 //        self.backgroundColor = Asset.clientOrange.color
-        self.backgroundColor = .systemRed
+        self.backgroundColor = UIColor.init(hexString: "30539f")
         setUp()
     }
     

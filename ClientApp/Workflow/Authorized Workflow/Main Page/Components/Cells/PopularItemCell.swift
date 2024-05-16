@@ -104,6 +104,7 @@ class PopularItemCell: UICollectionViewCell {
         nameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-5)
         }
         descriptionLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()

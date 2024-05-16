@@ -11,10 +11,12 @@ class CategoryItemCell: UICollectionViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
+//        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.adjustsFontForContentSizeCategory = true
         label.textColor = .black
         label.textAlignment = .center
+        label.numberOfLines = 2
         label.layer.masksToBounds = false
         return label
     }()
@@ -36,6 +38,8 @@ class CategoryItemCell: UICollectionViewCell {
         
         return view
     }()
+    
+    var containerWidth: Double = 0
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -60,12 +64,18 @@ class CategoryItemCell: UICollectionViewCell {
         imageView.backgroundColor = UIColor(red: 1, green: 0.88, blue: 0.454, alpha: 1)
         imageView.layer.cornerRadius = 20
        
+//        contentContainer.backgroundColor = .orange
+        
         setupConstraint()
+        containerWidth = contentContainer.frame.size.width
+        print("width = \(containerWidth)")
+       
     }
     
     func setupConstraint() {
         contentContainer.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+            make.width.equalTo(120)
         }
         imageView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
@@ -77,27 +87,35 @@ class CategoryItemCell: UICollectionViewCell {
             make.centerX.centerY.equalToSuperview()
         }
         titleLabel.snp.makeConstraints { make in
+            if Double(contentContainer.bounds.width) > 100.0 {
+                make.top.equalTo(imageView.snp.bottom)
+            } else {
+                make.top.equalTo(imageView.snp.bottom).offset(-10)
+            }
+            
             make.bottom.equalToSuperview()
+            make.width.equalTo(contentContainer.snp.width)
             make.centerX.equalToSuperview()
+            
         }
     }
     
     func display(cell: CategoryDTO) {
         titleLabel.text = cell.name
         
-        switch cell.name {
-        case "Кофе":
-            featuredPhotoView.image = Asset.coffee.image
-        case "Десерты":
-            featuredPhotoView.image = Asset.desserts.image
-        case "Коктейли":
-            featuredPhotoView.image = Asset.cocktails.image
-        case "Выпечка":
-            featuredPhotoView.image = Asset.bakery.image
-        case "Чаи":
-            featuredPhotoView.image = Asset.tea.image
+        switch cell.id {
+        case 1:
+            featuredPhotoView.image = Asset.skincare.image
+        case 2:
+            featuredPhotoView.image = Asset.makeup.image
+        case 3:
+            featuredPhotoView.image = Asset.hair.image
+        case 4:
+            featuredPhotoView.image = Asset.parfume.image
+        case 5:
+            featuredPhotoView.image = Asset.spf.image
         default:
-            featuredPhotoView.image = Asset.coffee.image
+            featuredPhotoView.image = Asset.spf.image
         }
     }
 }

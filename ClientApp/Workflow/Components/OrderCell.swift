@@ -80,7 +80,7 @@ class OrderCell: UICollectionViewCell {
         return stack
     }()
     
-    private var count = 0 {
+    var count = 0 {
         didSet {
             sumLabel.text = "\(count * Int(orderInfo?.price ?? 0))с"
             countLabel.text = "\(count)"

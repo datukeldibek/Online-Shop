@@ -69,6 +69,18 @@ class MainViewController: BaseViewController {
         }
     }
     
+    private var selectedProducts: [ListOrderDetailsDto] = [] {
+        didSet {
+            do {
+                let encoder = JSONEncoder()
+                let data = try encoder.encode(selectedProducts)
+                UserDefaults.standard.set(data, forKey: "1")
+            } catch {
+                print("Unable to Encode Note (\(error))")
+            }
+        }
+    }
+    
     private var categories: [CategoryDTO] = []
 
     private var bonus: Int = 0
@@ -410,16 +422,29 @@ extension MainViewController {
 }
 
 extension MainViewController: PopularItemDelegate {
-    func updateItems(with items: ListOrderDetailsDto) {
+    func updateItems(with item: ListOrderDetailsDto) {
         //FirestoreManager.shared.saveTo(collection: .basket, id: items.stockId, data: items)
-
-        do {
-            let encoder = JSONEncoder()
-            let data = try encoder.encode(items)
-            UserDefaults.standard.set(data, forKey: "1")
-        } catch {
-            print("Unable to Encode Note (\(error))")
+        if !selectedProducts.contains(item) {
+            selectedProducts.append(item)
+        } else {
+            if item.quantity == 0 {
+                var index = 0
+                for (i, j) in selectedProducts.enumerated() {
+                    if j.name == item.name {
+                        index = i
+                    }
+                }
+                selectedProducts.remove(at: index)
+                collectionView.reloadData()
+            }
         }
+//        do {
+//            let encoder = JSONEncoder()
+//            let data = try encoder.encode(items)
+//            UserDefaults.standard.set(data, forKey: "1")
+//        } catch {
+//            print("Unable to Encode Note (\(error))")
+//        }
         
 //        if let data = UserDefaults.standard.data(forKey: "1") {
 //            do {

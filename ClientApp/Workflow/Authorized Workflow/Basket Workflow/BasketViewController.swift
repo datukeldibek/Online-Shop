@@ -81,22 +81,17 @@ class BasketViewController: BaseViewController {
         if let data = UserDefaults.standard.data(forKey: "1") {
             do {
                 let decoder = JSONDecoder()
-                let items = try decoder.decode(ListOrderDetailsDto.self, from: data)
-                dishesInBasket.append(items)
-//                emptyView.isHidden = !dishesInBasket.isEmpty
-//                collectionView.isHidden = dishesInBasket.isEmpty
+                let items = try decoder.decode([ListOrderDetailsDto].self, from: data)
+                dishesInBasket = items
+                collectionView.reloadData()
+                
+                emptyView.isHidden = !dishesInBasket.isEmpty
+                collectionView.isHidden = dishesInBasket.isEmpty
             } catch {
                 print("Unable to Decode Note (\(error))")
             }
         }
-        
-//        Task {
-//            let dishesInBasket = try! await viewModel.getDishes()
-//            self.dishesInBasket = dishesInBasket
-//            emptyView.isHidden = !dishesInBasket.isEmpty
-//            collectionView.isHidden = dishesInBasket.isEmpty
-//        }
-//
+    
         emptyView.isHidden = !dishesInBasket.isEmpty
         collectionView.isHidden = dishesInBasket.isEmpty
         
@@ -249,7 +244,7 @@ extension BasketViewController: OrderButtonsViewDelegate {
     
     func orderTap() {
         showBonusAlert()
-//        handleOrder()
+        handleOrder()
         print("Order tapp")
     }
     

@@ -135,54 +135,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "86A8894E-BACA-4803-BAAF-267B855338D0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "viewDidAppear(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "86A8894E-BACA-4803-BAAF-267B855338D0 - d1225aca577337be"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ClientApp.BasketViewController.viewDidAppear(Swift.Bool) -&gt; ()"
-                  moduleName = "ClientApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "85"
-                  endingLineNumber = "85"
-                  offsetFromSymbolStart = "836">
-               </Location>
-               <Location
-                  uuid = "86A8894E-BACA-4803-BAAF-267B855338D0 - d1225aca577337be"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ClientApp.BasketViewController.viewDidAppear(Swift.Bool) -&gt; ()"
-                  moduleName = "ClientApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "85"
-                  endingLineNumber = "85"
-                  offsetFromSymbolStart = "780">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "A58C6CEC-3DF4-4AA3-9089-083700A5E5DA"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -190,8 +142,8 @@
             filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "handleOrder()"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,10 +158,57 @@
             filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "handleOrder()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "75E0C0AF-8203-4383-BEFC-E9F03BE80B2A - 35647e8f65e4523d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientApp.BasketViewController.handleOrder() -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "194"
+                  endingLineNumber = "194"
+                  offsetFromSymbolStart = "260">
+               </Location>
+               <Location
+                  uuid = "75E0C0AF-8203-4383-BEFC-E9F03BE80B2A - eb82afe0c9d4e1a1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 ((Swift.Result&lt;ClientApp.OrderDTO, Swift.Error&gt;) -&gt; ()) -&gt; () in ClientApp.BasketViewController.handleOrder() -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "194"
+                  endingLineNumber = "194"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "75E0C0AF-8203-4383-BEFC-E9F03BE80B2A - fb9a58c63fd7659a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Result&lt;ClientApp.OrderDTO, Swift.Error&gt;) -&gt; () in ClientApp.BasketViewController.handleOrder() -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "193"
+                  endingLineNumber = "193"
+                  offsetFromSymbolStart = "1112">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -222,8 +221,8 @@
             filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
             landmarkName = "handleOrder()"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,13 +237,13 @@
             filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "handleOrder()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "E6BE59FA-3F53-4CB9-A3AE-98FA92F9546C - 35647e8f65e45273"
+                  uuid = "E6BE59FA-3F53-4CB9-A3AE-98FA92F9546C - 35647e8f65e45396"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -254,12 +253,27 @@
                   urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "192"
-                  endingLineNumber = "192"
+                  startingLineNumber = "189"
+                  endingLineNumber = "189"
+                  offsetFromSymbolStart = "168">
+               </Location>
+               <Location
+                  uuid = "E6BE59FA-3F53-4CB9-A3AE-98FA92F9546C - 35647e8f65e453d4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientApp.BasketViewController.handleOrder() -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "187"
+                  endingLineNumber = "187"
                   offsetFromSymbolStart = "260">
                </Location>
                <Location
-                  uuid = "E6BE59FA-3F53-4CB9-A3AE-98FA92F9546C - eb82afe0c9d4e1ef"
+                  uuid = "E6BE59FA-3F53-4CB9-A3AE-98FA92F9546C - eb82afe0c9d4e048"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -269,8 +283,8 @@
                   urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "192"
-                  endingLineNumber = "192"
+                  startingLineNumber = "187"
+                  endingLineNumber = "187"
                   offsetFromSymbolStart = "52">
                </Location>
             </Locations>
@@ -286,10 +300,42 @@
             filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "addSubstractBonuses(amount:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "209AFEF9-39A7-44E2-A5B3-F29D4DCEE2A7 - 698d9b3a4d5a6058"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (SnapKit.ConstraintMaker) -&gt; () in ClientApp.BasketViewController.setUpConstaints() -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "136"
+                  endingLineNumber = "136"
+                  offsetFromSymbolStart = "460">
+               </Location>
+               <Location
+                  uuid = "209AFEF9-39A7-44E2-A5B3-F29D4DCEE2A7 - 7e9633f1771f12c3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientApp.BasketViewController.addSubstractBonuses(amount: Swift.Int) -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "136"
+                  endingLineNumber = "136"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -302,13 +348,28 @@
             filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "addSubstractBonuses(amount:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "C976944C-5E3C-4C41-87B9-F173C6E9C059 - 7e9633f1771f1599"
+                  uuid = "C976944C-5E3C-4C41-87B9-F173C6E9C059 - 698d9b3a4d5a67b9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (SnapKit.ConstraintMaker) -&gt; () in ClientApp.BasketViewController.setUpConstaints() -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "137"
+                  endingLineNumber = "137"
+                  offsetFromSymbolStart = "592">
+               </Location>
+               <Location
+                  uuid = "C976944C-5E3C-4C41-87B9-F173C6E9C059 - 7e9633f1771f1522"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -318,12 +379,12 @@
                   urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "142"
-                  endingLineNumber = "142"
+                  startingLineNumber = "137"
+                  endingLineNumber = "137"
                   offsetFromSymbolStart = "64">
                </Location>
                <Location
-                  uuid = "C976944C-5E3C-4C41-87B9-F173C6E9C059 - 2c0fa8855a4b88b"
+                  uuid = "C976944C-5E3C-4C41-87B9-F173C6E9C059 - 2c0fa8855a4b830"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -333,8 +394,8 @@
                   urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "142"
-                  endingLineNumber = "142"
+                  startingLineNumber = "137"
+                  endingLineNumber = "137"
                   offsetFromSymbolStart = "72">
                </Location>
             </Locations>
@@ -350,10 +411,42 @@
             filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "addSubstractBonuses(amount:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BEB7F78B-6508-4D50-8F4B-B45EDBA0DD05 - 819422a74419a9ab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #4 (SnapKit.ConstraintMaker) -&gt; () in ClientApp.BasketViewController.setUpConstaints() -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "140"
+                  endingLineNumber = "140"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  uuid = "BEB7F78B-6508-4D50-8F4B-B45EDBA0DD05 - 2c0fa8855a4b84d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Swift.Int, Swift.Error&gt;) -&gt; () in ClientApp.BasketViewController.addSubstractBonuses(amount: Swift.Int) -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "140"
+                  endingLineNumber = "140"
+                  offsetFromSymbolStart = "412">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -366,17 +459,49 @@
             filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
             landmarkName = "orderTypeTap(type:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D6873919-6FAE-4D88-8941-0CBDA28041E2 - e6841eaa255ddfd9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientApp.BasketViewController.orderTap() -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "252"
+                  endingLineNumber = "252"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "D6873919-6FAE-4D88-8941-0CBDA28041E2 - b826919fc9d770f5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientApp.BasketViewController.orderTypeTap(type: ClientApp.OrderButtonsView.OrderType) -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "252"
+                  endingLineNumber = "252"
+                  offsetFromSymbolStart = "72">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "2961EC12-40BB-4141-B14B-AE414D95C703"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClientApp/Workflow/Authorized Workflow/Main Page/MainViewModel.swift"
@@ -386,6 +511,54 @@
             endingLineNumber = "32"
             landmarkName = "getCategoriesDish(completion:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C7D0F9D4-5A3D-40E4-8918-C149EDA88B73"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "historyTapped()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C7D0F9D4-5A3D-40E4-8918-C149EDA88B73 - 405cfc461cfc5aa8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientApp.BasketViewController.reloadBasketView() -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "158"
+                  endingLineNumber = "158"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  uuid = "C7D0F9D4-5A3D-40E4-8918-C149EDA88B73 - 99c739fa1ec23fab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ClientApp.BasketViewController.historyTapped() -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "158"
+                  endingLineNumber = "158"
+                  offsetFromSymbolStart = "92">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
