@@ -77,12 +77,28 @@ class BasketViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         getBonuses()
-        Task {
-            let dishesInBasket = try! await viewModel.getDishes()
-            self.dishesInBasket = dishesInBasket
-            emptyView.isHidden = !dishesInBasket.isEmpty
-            collectionView.isHidden = dishesInBasket.isEmpty
+        
+        if let data = UserDefaults.standard.data(forKey: "1") {
+            do {
+                let decoder = JSONDecoder()
+                let items = try decoder.decode(ListOrderDetailsDto.self, from: data)
+                dishesInBasket.append(items)
+//                emptyView.isHidden = !dishesInBasket.isEmpty
+//                collectionView.isHidden = dishesInBasket.isEmpty
+            } catch {
+                print("Unable to Decode Note (\(error))")
+            }
         }
+        
+//        Task {
+//            let dishesInBasket = try! await viewModel.getDishes()
+//            self.dishesInBasket = dishesInBasket
+//            emptyView.isHidden = !dishesInBasket.isEmpty
+//            collectionView.isHidden = dishesInBasket.isEmpty
+//        }
+//
+        emptyView.isHidden = !dishesInBasket.isEmpty
+        collectionView.isHidden = dishesInBasket.isEmpty
         
         collectionView.reloadData()
     }
@@ -173,9 +189,29 @@ class BasketViewController: BaseViewController {
             tableId: 0
         )
         
-        viewModel.addOrder(with: order) { _ in
-            print("feawsfa")
+        let completion = { [unowned self] completion in
+            viewModel.addOrder(with: order, completion: completion)
         }
+        withRetry(completion) { [weak self] response in
+            print("@@@@ = \(response)")
+            if case .success = response {
+                let alert = UIAlertController(
+                    title: "Заказ успешно оформлен",
+                    message: "Ваш заказ принят, пожалуйста ожидайте",
+                    preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "Хорошо", style: .cancel))
+                self?.present(alert, animated: true)
+            } else if case .failure(let err) = response {
+                print(err.localizedDescription)
+            }
+        }
+        
+//        viewModel.addOrder(with: order) { res in
+//            if case .success(let success) = res {
+//                print("feawsfa")
+//            }
+//        }
     }
 }
 
@@ -213,6 +249,7 @@ extension BasketViewController: OrderButtonsViewDelegate {
     
     func orderTap() {
         showBonusAlert()
+//        handleOrder()
         print("Order tapp")
     }
     

@@ -132,7 +132,8 @@ class BirthdayViewController: BaseRegistrationViewController {
         let baseVC = BaseTabViewController()
         withRetry(birthdayCompletion) { [weak self] res in
             if case .success = res {
-                self?.present(baseVC, animated: true)
+                self?.navigationController?.popToRootViewController(animated: false)
+//                self?.present(baseVC, animated: true)
             }
         }
     }

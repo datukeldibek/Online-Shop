@@ -88,7 +88,22 @@ class MainViewController: BaseViewController {
         reloadMainPage()
         setUp()
         makeDataSource()
+        UserDefaults.standard.removeObject(forKey: "1")
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        if let data = UserDefaults.standard.data(forKey: "1") {
+//            do {
+//                let decoder = JSONDecoder()
+//                let item = try decoder.decode(ListOrderDetailsDto.self, from: data)
+//                
+//
+//                
+//            } catch {
+//                print("Unable to Decode Note (\(error))")
+//            }
+//        }
+//    }
     
     private func setUp() {
         view.addSubview(collectionView)
@@ -396,6 +411,23 @@ extension MainViewController {
 
 extension MainViewController: PopularItemDelegate {
     func updateItems(with items: ListOrderDetailsDto) {
-        FirestoreManager.shared.saveTo(collection: .basket, id: items.stockId, data: items)
+        //FirestoreManager.shared.saveTo(collection: .basket, id: items.stockId, data: items)
+
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(items)
+            UserDefaults.standard.set(data, forKey: "1")
+        } catch {
+            print("Unable to Encode Note (\(error))")
+        }
+        
+//        if let data = UserDefaults.standard.data(forKey: "1") {
+//            do {
+//                let decoder = JSONDecoder()
+//                let items = try decoder.decode(ListOrderDetailsDto.self, from: data)
+//            } catch {
+//                print("Unable to Decode Note (\(error))")
+//            }
+//        }
     }
 }

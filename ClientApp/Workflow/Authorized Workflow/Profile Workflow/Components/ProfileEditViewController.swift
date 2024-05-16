@@ -18,7 +18,7 @@ class ProfileEditViewController: BaseViewController {
     
     private lazy var nameTextField: RegistrationTextField = {
         let field = RegistrationTextField()
-        field.setPlaceholder(with: "Ramazan", color: .gray)
+        field.setPlaceholder(with: "Имя", color: .gray)
         field.setImage(with: Asset.user.name)
         field.setBorderColor(with: .clear)
         field.setBackgroundColor(with: Asset.clientGray.color)
@@ -29,18 +29,19 @@ class ProfileEditViewController: BaseViewController {
     private lazy var phoneTextField: RegistrationTextField = {
         let field = RegistrationTextField()
         field.isUserInteractionEnabled = false
-        field.setPlaceholder(with: "5555555", color: .gray)
+        field.setPlaceholder(with: "Номер телефона", color: .gray)
         field.setImage(with: Asset.phone.name)
         field.setBorderColor(with: .clear)
         field.setBackgroundColor(with: Asset.clientGray.color)
         field.setKeyboardType(with: .numberPad)
         field.tintColor = .darkGray
+        field.text = "+996 559009814"
         return field
     }()
     
     private lazy var birthdayTextField: RegistrationTextField = {
         let field = RegistrationTextField()
-        field.setPlaceholder(with: "21.12.12", color: .gray)
+        field.setPlaceholder(with: "12.12.12", color: .gray)
         field.setImage(with: Asset.calendar.name)
         field.setBorderColor(with: .clear)
         field.setBackgroundColor(with: Asset.clientGray.color)
@@ -151,7 +152,8 @@ class ProfileEditViewController: BaseViewController {
     
     @objc
     private func saveProfileInfo() {
-        suggestChanges()
+        editProfile()
+//        suggestChanges()
     }
     
     @objc
@@ -169,6 +171,7 @@ class ProfileEditViewController: BaseViewController {
         withRetry(viewModel.getUserInfo) { [weak self] res in
             if case .success(let info) = res {
                 self?.setUserInfo(user: info)
+                print("user info == \(info)")
             }
         }
     }
