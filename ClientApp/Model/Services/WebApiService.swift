@@ -43,7 +43,7 @@ protocol WebApiServiceType {
     func getPopularDishes(completion: @escaping (Result<[FullCategoryDTO], Error>) -> Void)
     func getDishDetails(id: Int, completion: @escaping (Result<DishDTO, Error>) -> Void)
     
-    func addOrder(with orderInfo: OrderDTO, completion: @escaping (Result<OrderDTO, Error>) -> Void)
+    func addOrder(with orderInfo: OrderDTO2, completion: @escaping (Result<OrderDTO2, Error>) -> Void)
 }
 
 class WebApiService: NSObject, WebApiServiceType {
@@ -369,7 +369,7 @@ class WebApiService: NSObject, WebApiServiceType {
         }
     }
     
-    func addOrder(with orderInfo: OrderDTO, completion: @escaping (Result<OrderDTO, Error>) -> Void) {
+    func addOrder(with orderInfo: OrderDTO2, completion: @escaping (Result<OrderDTO2, Error>) -> Void) {
         afSession.request(
             CommonConstants.Orders.addNewOrder(),
             method: .post,
@@ -379,7 +379,7 @@ class WebApiService: NSObject, WebApiServiceType {
         )
         .validate()
         .responseDecodable { [weak self] response in
-            self?.handleResponse(of: OrderDTO.self, response: response, completion: completion)
+            self?.handleResponse(of: OrderDTO2.self, response: response, completion: completion)
         }
     }
 }

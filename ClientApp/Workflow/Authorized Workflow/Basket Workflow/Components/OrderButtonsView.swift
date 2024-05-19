@@ -25,13 +25,13 @@ class OrderButtonsView: UICollectionReusableView {
         label.textColor = .black
         label.attributedText = buildSumLabelAttributeText("520 c")
         return label
-    }()
+    }()  //итого
     
     private lazy var addMoreButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(Asset.clientOrange.color, for: .normal)
+        button.setTitleColor(UIColor.init(hexString: "30539f"), for: .normal)
         button.backgroundColor = Asset.clientBackround.color
-        button.layer.borderColor = Asset.clientOrange.color.cgColor
+        button.layer.borderColor = UIColor.init(hexString: "30539f").cgColor
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 10
         button.setTitle("Добавить еще", for: .normal)
@@ -42,7 +42,7 @@ class OrderButtonsView: UICollectionReusableView {
     private lazy var orderButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = Asset.clientOrange.color
+        button.backgroundColor = UIColor.init(hexString: "30539f")
         button.layer.cornerRadius = 10
         button.setTitle("Заказать", for: .normal)
         button.addTarget(self, action: #selector(orderTapped), for: .touchUpInside)
@@ -153,7 +153,7 @@ class OrderButtonsView: UICollectionReusableView {
     private func buildSumLabelAttributeText(_ item: String) -> NSMutableAttributedString {
         let attrs1 = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: .semibold),
-            NSAttributedString.Key.foregroundColor: Asset.clientOrange.color
+            NSAttributedString.Key.foregroundColor: UIColor.init(hexString: "30539f")
         ]
         let attrs2 = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .semibold),
@@ -171,7 +171,7 @@ class OrderButtonsView: UICollectionReusableView {
             switch type {
             case .takeAway:
                 takeawayButton.layer.cornerRadius = 25
-                takeawayButton.backgroundColor = Asset.clientOrange.color
+                takeawayButton.backgroundColor = UIColor.init(hexString: "30539f")
                 takeawayButton.setTitleColor(.white, for: .normal)
                 
                 inTheCafeButton.setTitleColor(.black, for: .normal)
@@ -179,7 +179,7 @@ class OrderButtonsView: UICollectionReusableView {
                 inTheCafeButton.backgroundColor = Asset.clientGray.color
             default:
                 inTheCafeButton.layer.cornerRadius = 25
-                inTheCafeButton.backgroundColor = Asset.clientOrange.color
+                inTheCafeButton.backgroundColor = UIColor.init(hexString: "30539f")
                 inTheCafeButton.setTitleColor(.white, for: .normal)
                 
                 takeawayButton.setTitleColor(.black, for: .normal)

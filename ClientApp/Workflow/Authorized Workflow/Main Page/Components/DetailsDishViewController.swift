@@ -63,18 +63,11 @@ class DetailsDishViewController: BaseViewController {
         return coll
     }()
     
+    private var selectedProducts: [ListOrderDetailsDto] = BasketManager.shared.getCart()
+    
     private var popularDishes: [FullCategoryDTO] = [] {
         didSet {
-            products = popularDishes.map { item in
-                return ListOrderDetailsDto(
-                    stockId: item.dishId,
-                    urlImage: item.dishUrl,
-                    generalAdditionalId: nil,
-                    name: item.dishName,
-                    price: Int(item.dishPrice),
-                    quantity: item.count
-                )
-            }
+            setCounter()
         }
     }
     
@@ -103,11 +96,13 @@ class DetailsDishViewController: BaseViewController {
         setUp()
         configureDish()
         getPopularDishes()
-        addObserver()
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        selectedProducts = BasketManager.shared.getCart()
+        setCounter()
+        collectionView.reloadData()
         tabBarController?.tabBar.isHidden = true
     }
     
@@ -119,6 +114,25 @@ class DetailsDishViewController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         contentView.roundCorners(corners: [.topLeft, .topRight], radius: 20)
+    }
+    
+    func setCounter() {
+        products = popularDishes.map { item in
+            var count = 0
+            for i in selectedProducts {
+                if i.stockId == item.id {
+                    count = i.quantity
+                }
+            }
+            return ListOrderDetailsDto(
+                stockId: item.dishId,
+                urlImage: item.dishUrl,
+                generalAdditionalId: nil,
+                name: item.dishName,
+                price: Int(item.dishPrice),
+                quantity: count
+            )
+        }
     }
     
     private func setUp() {
@@ -156,22 +170,6 @@ class DetailsDishViewController: BaseViewController {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(descriptionLabel.snp.bottom).offset(30)
             make.bottom.leading.trailing.equalToSuperview()
-        }
-    }
-    
-    private func addObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(getProducts), name: .init("com.ostep.ClientApp.saved"), object: nil)
-    }
-    
-    @objc
-    private func getProducts() {
-        Task {
-            do {
-                let products: [ListOrderDetailsDto] = try await FirestoreManager.shared.fetchAllData(from: .basket)
-                self.products = products
-            } catch {
-                print("Error: \(error.localizedDescription)")
-            }
         }
     }
     
@@ -232,8 +230,8 @@ extension DetailsDishViewController: UICollectionViewDataSource, UICollectionVie
 }
 
 extension DetailsDishViewController: PopularItemDelegate {
-    func updateItems(with items: ListOrderDetailsDto) {
-        FirestoreManager.shared.saveTo(collection: .basket, id: items.stockId, data: items)
+    func updateItems(with item: ListOrderDetailsDto) {
+        item.quantity > 0 ? BasketManager.shared.addToCart(item) : BasketManager.shared.removeFromCart(product: item)
     }
 }
 

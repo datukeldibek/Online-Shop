@@ -21,7 +21,7 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
-  internal static let animal = ImageAsset(name: "Animal")
+  internal static let animal = ImageAsset(name: "empty_cart_placeholder")
   internal static let clientBackround = ColorAsset(name: "clientBackround")
   internal static let clientDarkBackround = ColorAsset(name: "clientDarkBackround")
   internal static let clientGray = ColorAsset(name: "clientGray")
@@ -59,9 +59,10 @@ internal enum Asset {
     
     internal static let makeup = ImageAsset(name: "category_makeup")
     internal static let skincare = ImageAsset(name: "category_skincare")
-    internal static let hair = ImageAsset(name: "category_hair")
+    internal static let hair = ImageAsset(name: "category_haircare")
     internal static let parfume = ImageAsset(name: "category_parfume")
     internal static let spf = ImageAsset(name: "category_spf")
+    internal static let placeholderCategory = ImageAsset(name: "category_placeholder")
     
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

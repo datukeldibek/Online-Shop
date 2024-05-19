@@ -89,6 +89,8 @@ class ProductCell: UICollectionViewCell {
         contentContainer.addSubview(nameLabel)
         contentContainer.addSubview(descriptionLabel)
         contentContainer.addSubview(priceLabel)
+        
+        contentContainer.backgroundColor = .orange
     }
     
     private func setUpConstaints() {

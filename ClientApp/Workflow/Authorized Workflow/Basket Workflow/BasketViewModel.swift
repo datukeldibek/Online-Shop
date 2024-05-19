@@ -14,7 +14,7 @@ protocol BasketViewModelType {
     func setOrderType(_ type: OrderButtonsView.OrderType)
     func getOrderType() -> OrderButtonsView.OrderType
     func getBonuses(completion: @escaping(Result<Int, Error>) -> Void)
-    func addOrder(with orderInfo: OrderDTO, completion: @escaping (Result<OrderDTO, Error>) -> Void)
+    func addOrder(with orderInfo: OrderDTO2, completion: @escaping (Result<OrderDTO2, Error>) -> Void)
     
     func addSubstractBonuses(amount: Int, completion: @escaping (Result<Int, Error>) -> Void)
     var bonuses: Int { get set }
@@ -26,7 +26,11 @@ class BasketViewModel: NSObject, BasketViewModelType {
     var basketManager: BasketManagerType
     var bonuses: Int = 0
     
-    private var dishes: [ListOrderDetailsDto] = []
+    private var dishes: [ListOrderDetailsDto] {
+        get { Products.all }
+        set { Products.all }
+    }
+    
     private var sum = Int.zero
     private var orderType = OrderButtonsView.OrderType.atTheVenue
     
@@ -37,7 +41,7 @@ class BasketViewModel: NSObject, BasketViewModelType {
     }
     
     func getDishes() async throws -> [ListOrderDetailsDto] {
-        let items = try await basketManager.getDishes()
+        let items = try await basketManager.getCart()
         dishes = items
         return items
     }
@@ -69,7 +73,7 @@ class BasketViewModel: NSObject, BasketViewModelType {
         webApi.getBonuses(completion: completion)
     }
     
-    func addOrder(with orderInfo: OrderDTO, completion: @escaping (Result<OrderDTO, Error>) -> Void) {
+    func addOrder(with orderInfo: OrderDTO2, completion: @escaping (Result<OrderDTO2, Error>) -> Void) {
         webApi.addOrder(with: orderInfo, completion: completion)
     }
     

@@ -9,7 +9,7 @@ import Foundation
 
 protocol BranchViewModelType {
     func getBranches(completion: @escaping (Result<[BranchDTO], Error>) -> Void)
-    func addOrder(with orderInfo: OrderDTO, completion: @escaping (Result<OrderDTO, Error>) -> Void)
+//    func addOrder(with orderInfo: OrderDTO, completion: @escaping (Result<OrderDTO, Error>) -> Void)
 }
 
 class BranchViewModel: NSObject, BranchViewModelType {
@@ -24,7 +24,7 @@ class BranchViewModel: NSObject, BranchViewModelType {
         webApi.getBranches(completion: completion)
     }
     
-    func addOrder(with orderInfo: OrderDTO, completion: @escaping (Result<OrderDTO, Error>) -> Void) {
-        webApi.addOrder(with: orderInfo, completion: completion)
-    }
+//    func addOrder(with orderInfo: OrderDTO, completion: @escaping (Result<OrderDTO, Error>) -> Void) {
+//        webApi.addOrder(with: orderInfo, completion: completion)
+//    }
 }

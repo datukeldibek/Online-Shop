@@ -41,6 +41,6 @@ class MainViewModel: MainViewModelType {
     }
     
     func addNewDish(_ dish: ListOrderDetailsDto) {
-        basketManager.addNewDish(dish)
+        basketManager.addToCart(dish)
     }
 }

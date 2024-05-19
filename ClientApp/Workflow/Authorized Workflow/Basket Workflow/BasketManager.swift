@@ -16,31 +16,56 @@ protocol OrderType {
 }
 
 protocol BasketManagerType {
-    func addNewDish(_ dish: ListOrderDetailsDto)
-    func getDishes() async throws -> [ListOrderDetailsDto]
+    func addToCart(_ dish: ListOrderDetailsDto)
+    func getCart() async throws -> [ListOrderDetailsDto]
 }
 
 class BasketManager: BasketManagerType {
+    static let shared = BasketManager()
     
-    private var dishesInCart: [ListOrderDetailsDto] = []
+    private let userDefaults = UserDefaults.standard
+    private let cartKey = "basket"
     
-    func addNewDish(_ dish: ListOrderDetailsDto) {
-        if let dishIndex = dishesInCart.firstIndex(where: { $0.stockId == dish.stockId }) {
-            dishesInCart[dishIndex].quantity += 1
-        } else {
-            var dish = dish
-            dish.quantity = 1
-            dishesInCart.append(dish)
+    private var cart: [ListOrderDetailsDto] {
+        get {
+            if let data = userDefaults.data(forKey: cartKey),
+               let decodedCart = try? JSONDecoder().decode([ListOrderDetailsDto].self, from: data) {
+                return decodedCart
+            }
+            return []
         }
-        
+        set {
+            if let encodedCart = try? JSONEncoder().encode(newValue) {
+                userDefaults.set(encodedCart, forKey: cartKey)
+            }
+        }
     }
     
-    func getDishes() -> [ListOrderDetailsDto] {
-        return dishesInCart
+    
+    func addToCart(_ product: ListOrderDetailsDto) {
+        var currentCart = cart
+        if !currentCart.contains(product) {
+            currentCart.append(product)
+        }else {
+            for (index, j) in currentCart.enumerated() {
+                if j.stockId == product.stockId {
+                    currentCart[index] = product
+                }
+            }
+        }
+        cart = currentCart
     }
     
-    func clear() {
-        dishesInCart.removeAll()
+    func removeFromCart(product: ListOrderDetailsDto) {
+        var currentCart = cart
+        if let index = currentCart.firstIndex(where: { $0.stockId == product.stockId }) {
+            currentCart.remove(at: index)
+            cart = currentCart
+        }
+    }
+    
+    func getCart() -> [ListOrderDetailsDto] {
+        return cart
     }
 }
 

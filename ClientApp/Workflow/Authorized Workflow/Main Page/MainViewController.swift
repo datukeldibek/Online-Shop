@@ -48,18 +48,21 @@ class MainViewController: BaseViewController {
     // MARK: - Injection
     var viewModel: MainViewModelType
     
+    private var selectedProducts: [ListOrderDetailsDto] = BasketManager.shared.getCart()
+    
     private var popularDishes: [FullCategoryDTO] = [] {
         didSet {
-            products = popularDishes.map { item in
-                return ListOrderDetailsDto(
-                    stockId: item.dishId,
-                    urlImage: item.dishUrl,
-                    generalAdditionalId: nil,
-                    name: item.dishName,
-                    price: Int(item.dishPrice),
-                    quantity: item.count
-                )
-            }
+            setCounter()
+//            products = popularDishes.map { item in
+//                return ListOrderDetailsDto(
+//                    stockId: item.dishId,
+//                    urlImage: item.dishUrl,
+//                    generalAdditionalId: nil,
+//                    name: item.dishName,
+//                    price: Int(item.dishPrice),
+//                    quantity: item.count
+//                )
+//            }
         }
     }
     
@@ -69,21 +72,9 @@ class MainViewController: BaseViewController {
         }
     }
     
-    private var selectedProducts: [ListOrderDetailsDto] = [] {
-        didSet {
-            do {
-                let encoder = JSONEncoder()
-                let data = try encoder.encode(selectedProducts)
-                UserDefaults.standard.set(data, forKey: "1")
-            } catch {
-                print("Unable to Encode Note (\(error))")
-            }
-        }
-    }
-    
     private var categories: [CategoryDTO] = []
 
-    private var bonus: Int = 0
+    private var bonus: Int = 30
     private var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
     init(vm: MainViewModelType) {
@@ -100,22 +91,35 @@ class MainViewController: BaseViewController {
         reloadMainPage()
         setUp()
         makeDataSource()
-        UserDefaults.standard.removeObject(forKey: "1")
+        
+//        UserDefaults.standard.removeObject(forKey: "basket")
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        if let data = UserDefaults.standard.data(forKey: "1") {
-//            do {
-//                let decoder = JSONDecoder()
-//                let item = try decoder.decode(ListOrderDetailsDto.self, from: data)
-//                
-//
-//                
-//            } catch {
-//                print("Unable to Decode Note (\(error))")
-//            }
-//        }
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        selectedProducts = BasketManager.shared.getCart()
+        setCounter()
+        
+        collectionView.reloadData()
+    }
+    
+    func setCounter() {
+        products = popularDishes.map { item in
+            var count = 0
+            for i in selectedProducts {
+                if i.stockId == item.id {
+                    count = i.quantity
+                }
+            }
+            return ListOrderDetailsDto(
+                stockId: item.dishId,
+                urlImage: item.dishUrl,
+                generalAdditionalId: nil,
+                name: item.dishName,
+                price: Int(item.dishPrice),
+                quantity: count
+            )
+        }
+    }
     
     private func setUp() {
         view.addSubview(collectionView)
@@ -228,15 +232,6 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             let controller = CategoryPageMenuController()
-//            switch categories[indexPath.row].name {
-//            case "Десерты": controller.categoryIndex = 1
-//            case "Кофе": controller.categoryIndex = 2
-//            case "Чаи": controller.categoryIndex = 3
-//            case "Коктейли": controller.categoryIndex = 4
-//            case "Выпечка": controller.categoryIndex = 5
-//            default: controller.categoryIndex = 1
-//            }
-            
             controller.categoryIndex = categories[indexPath.row].id
             controller.categories = categories
             
@@ -423,36 +418,6 @@ extension MainViewController {
 
 extension MainViewController: PopularItemDelegate {
     func updateItems(with item: ListOrderDetailsDto) {
-        //FirestoreManager.shared.saveTo(collection: .basket, id: items.stockId, data: items)
-        if !selectedProducts.contains(item) {
-            selectedProducts.append(item)
-        } else {
-            if item.quantity == 0 {
-                var index = 0
-                for (i, j) in selectedProducts.enumerated() {
-                    if j.name == item.name {
-                        index = i
-                    }
-                }
-                selectedProducts.remove(at: index)
-                collectionView.reloadData()
-            }
-        }
-//        do {
-//            let encoder = JSONEncoder()
-//            let data = try encoder.encode(items)
-//            UserDefaults.standard.set(data, forKey: "1")
-//        } catch {
-//            print("Unable to Encode Note (\(error))")
-//        }
-        
-//        if let data = UserDefaults.standard.data(forKey: "1") {
-//            do {
-//                let decoder = JSONDecoder()
-//                let items = try decoder.decode(ListOrderDetailsDto.self, from: data)
-//            } catch {
-//                print("Unable to Decode Note (\(error))")
-//            }
-//        }
+        item.quantity > 0 ? BasketManager.shared.addToCart(item) : BasketManager.shared.removeFromCart(product: item)
     }
 }

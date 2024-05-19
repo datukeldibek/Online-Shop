@@ -11,12 +11,12 @@ class CategoryItemCell: UICollectionViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-//        label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.adjustsFontForContentSizeCategory = true
         label.textColor = .black
         label.textAlignment = .center
-        label.numberOfLines = 2
+        label.sizeToFit()
+        label.numberOfLines = 10
         label.layer.masksToBounds = false
         return label
     }()
@@ -38,8 +38,6 @@ class CategoryItemCell: UICollectionViewCell {
         
         return view
     }()
-    
-    var containerWidth: Double = 0
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -63,36 +61,25 @@ class CategoryItemCell: UICollectionViewCell {
         
         imageView.backgroundColor = UIColor(red: 1, green: 0.88, blue: 0.454, alpha: 1)
         imageView.layer.cornerRadius = 20
-       
-//        contentContainer.backgroundColor = .orange
-        
+
         setupConstraint()
-        containerWidth = contentContainer.frame.size.width
-        print("width = \(containerWidth)")
-       
     }
     
     func setupConstraint() {
         contentContainer.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.width.equalTo(120)
         }
         imageView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().inset(26)
+            make.bottom.equalToSuperview().inset(32)
         }
         featuredPhotoView.snp.makeConstraints { make in
-            make.height.equalTo(imageView.snp.height).multipliedBy(0.65)
+            make.height.equalTo(imageView.snp.height).multipliedBy(0.75)
             make.width.equalTo(featuredPhotoView.snp.height)
             make.centerX.centerY.equalToSuperview()
         }
         titleLabel.snp.makeConstraints { make in
-            if Double(contentContainer.bounds.width) > 100.0 {
-                make.top.equalTo(imageView.snp.bottom)
-            } else {
-                make.top.equalTo(imageView.snp.bottom).offset(-10)
-            }
-            
+//            make.top.equalTo(imageView.snp.bottom)
             make.bottom.equalToSuperview()
             make.width.equalTo(contentContainer.snp.width)
             make.centerX.equalToSuperview()
@@ -115,7 +102,7 @@ class CategoryItemCell: UICollectionViewCell {
         case 5:
             featuredPhotoView.image = Asset.spf.image
         default:
-            featuredPhotoView.image = Asset.spf.image
+            featuredPhotoView.image = Asset.placeholderCategory.image
         }
     }
 }
