@@ -11,10 +11,12 @@ class CategoryItemCell: UICollectionViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.adjustsFontForContentSizeCategory = true
         label.textColor = .black
         label.textAlignment = .center
+        label.sizeToFit()
+        label.numberOfLines = 10
         label.layer.masksToBounds = false
         return label
     }()
@@ -59,7 +61,7 @@ class CategoryItemCell: UICollectionViewCell {
         
         imageView.backgroundColor = UIColor(red: 1, green: 0.88, blue: 0.454, alpha: 1)
         imageView.layer.cornerRadius = 20
-       
+
         setupConstraint()
     }
     
@@ -69,35 +71,38 @@ class CategoryItemCell: UICollectionViewCell {
         }
         imageView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().inset(26)
+            make.bottom.equalToSuperview().inset(32)
         }
         featuredPhotoView.snp.makeConstraints { make in
-            make.height.equalTo(imageView.snp.height).multipliedBy(0.65)
+            make.height.equalTo(imageView.snp.height).multipliedBy(0.75)
             make.width.equalTo(featuredPhotoView.snp.height)
             make.centerX.centerY.equalToSuperview()
         }
         titleLabel.snp.makeConstraints { make in
+//            make.top.equalTo(imageView.snp.bottom)
             make.bottom.equalToSuperview()
+            make.width.equalTo(contentContainer.snp.width)
             make.centerX.equalToSuperview()
+            
         }
     }
     
     func display(cell: CategoryDTO) {
         titleLabel.text = cell.name
         
-        switch cell.name {
-        case "Кофе":
-            featuredPhotoView.image = Asset.coffee.image
-        case "Десерты":
-            featuredPhotoView.image = Asset.desserts.image
-        case "Коктейли":
-            featuredPhotoView.image = Asset.cocktails.image
-        case "Выпечка":
-            featuredPhotoView.image = Asset.bakery.image
-        case "Чаи":
-            featuredPhotoView.image = Asset.tea.image
+        switch cell.id {
+        case 1:
+            featuredPhotoView.image = Asset.skincare.image
+        case 2:
+            featuredPhotoView.image = Asset.makeup.image
+        case 3:
+            featuredPhotoView.image = Asset.hair.image
+        case 4:
+            featuredPhotoView.image = Asset.parfume.image
+        case 5:
+            featuredPhotoView.image = Asset.spf.image
         default:
-            featuredPhotoView.image = Asset.coffee.image
+            featuredPhotoView.image = Asset.placeholderCategory.image
         }
     }
 }

@@ -34,8 +34,7 @@ class OrderCell: UICollectionViewCell {
     private lazy var sumLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
-        label.textColor = Asset.clientOrange.color
-        label.text = "0с"
+        label.textColor = UIColor.init(hexString: "30539f")
         return label
     }()
     
@@ -55,7 +54,7 @@ class OrderCell: UICollectionViewCell {
         button.setTitle("+", for: .normal)
         button.layer.cornerRadius = 14
         button.titleLabel?.textColor = .white
-        button.backgroundColor = Asset.clientOrange.color
+        button.backgroundColor = UIColor.init(hexString: "30539f")
         button.tag = 1
         button.addTarget(self, action: #selector(addSubstractItemTapped(_:)), for: .touchUpInside)
         return button
@@ -80,7 +79,7 @@ class OrderCell: UICollectionViewCell {
         return stack
     }()
     
-    private var count = 0 {
+    var count = 0 {
         didSet {
             sumLabel.text = "\(count * Int(orderInfo?.price ?? 0))с"
             countLabel.text = "\(count)"
@@ -92,9 +91,9 @@ class OrderCell: UICollectionViewCell {
         }
     }
     
-    private var orderInfo: ListOrderDetailsDto?
+    private var orderInfo: ListOrderDetailsDto?  //чтобы использовать внутри ячейки
     
-    public var orderCount: ((ListOrderDetailsDto) -> Void)?
+    public var orderCount: ((ListOrderDetailsDto) -> Void)?  //передаем в родительский vc
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -133,13 +132,12 @@ class OrderCell: UICollectionViewCell {
             make.width.equalTo(150)
         }
         sumLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(32)
-            make.trailing.equalToSuperview().offset(-28)
-            make.leading.equalTo(orderDescriptionLabel.snp.trailing).offset(8)
+            make.top.equalTo(orderDescriptionLabel.snp.bottom).offset(8)
+            make.leading.equalTo(orderLabel)
             make.height.equalTo(15)
         }
         stackView.snp.makeConstraints { make in
-            make.top.equalTo(sumLabel.snp.bottom).offset(8)
+            make.bottom.equalTo(sumLabel)
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(30)
             make.width.equalTo(100)
@@ -170,7 +168,7 @@ class OrderCell: UICollectionViewCell {
         }
         switch sender.tag {
         case 0:
-            if order.quantity > 0 {
+            if order.quantity >= 0 {
                 order.quantity -= 1
             }
         case 1:

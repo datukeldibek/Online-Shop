@@ -15,6 +15,8 @@ class BaseRegistrationViewController: UIViewController {
         let view = UIImageView()
 //        view.image = Asset.igNeocafe.image
         view.image = Asset.logo.image
+        view.layer.cornerRadius = 90
+        view.layer.masksToBounds = true
         view.contentMode = .scaleAspectFill
         return view
     }()
@@ -41,7 +43,7 @@ class BaseRegistrationViewController: UIViewController {
         registrationIcon.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(60)
             make.centerX.equalToSuperview()
-            make.height.equalTo(100)
+            make.height.equalTo(180)
             make.width.equalTo(180)
         }
     }

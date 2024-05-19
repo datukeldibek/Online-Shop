@@ -14,7 +14,7 @@ struct FullCategoryDTO: Codable, Hashable, Equatable {
     
     let category: CategoryDTO
     var description: String
-    let counter: Int
+    let counter: Int = 0
     let id: Int
     let imagesUrl: String?
     let name: String

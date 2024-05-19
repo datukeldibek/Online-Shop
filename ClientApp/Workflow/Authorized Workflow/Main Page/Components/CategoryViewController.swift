@@ -9,15 +9,6 @@ import UIKit
 import XLPagerTabStrip
 
 class CategoryViewController: BaseViewController {
-    
-    enum CategoryType: String, CaseIterable {
-        case coffee = "Кофе"
-        case deserts = "Десерты"
-        case bakery = "Выпечка"
-        case cocktails = "Коктейли"
-        case tea = "Чаи"
-    }
-    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let coll = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -34,19 +25,11 @@ class CategoryViewController: BaseViewController {
     // MARK: - Injection
     private var viewModel: MainViewModelType!
     
+    private var selectedProducts: [ListOrderDetailsDto] = BasketManager.shared.getCart()
+    
     private var dishes: [DishDTO] = [] {
         didSet {
-            products = dishes.map { items in
-                let generalAdditionalIds = items.generalAdditionals?.map { GeneralAddition(generalAdditionalId: $0.id) }
-                return ListOrderDetailsDto(
-                    stockId: items.dishId,
-                    urlImage: items.dishUrl,
-                    generalAdditionalId: generalAdditionalIds,
-                    name: items.dishName,
-                    price: Int(items.dishPrice),
-                    quantity: 0
-                )
-            }
+            setCounter()
         }
     }
     
@@ -56,32 +39,9 @@ class CategoryViewController: BaseViewController {
         }
     }
     
-    private var categoryType: CategoryType = .coffee {
-        didSet {
-            getDishesByCategory(categoryId: categoryIndex)
-        }
-    }
-    
     var categoryName: String = ""
     
-    var categoryIndex = 1 {
-        didSet {
-            switch categoryIndex {
-            case 1:
-                categoryType = .deserts
-            case 2:
-                categoryType = .tea
-            case 3:
-                categoryType = .coffee
-            case 4:
-                categoryType = .cocktails
-            case 5:
-                categoryType = .bakery
-            default:
-                categoryType = .deserts
-            }
-        }
-    }
+    var categoryIndex = 1 
     
     init(vm: MainViewModelType) {
         viewModel = vm
@@ -96,7 +56,31 @@ class CategoryViewController: BaseViewController {
         super.viewDidLoad()
         getDishesByCategory(categoryId: categoryIndex)
         setUp()
-        addObserver()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        selectedProducts = BasketManager.shared.getCart()
+        setCounter()
+        collectionView.reloadData()
+    }
+    
+    func setCounter(gen: Bool = false) {
+        products = dishes.map { item in
+            let generalAdditionalIds = item.generalAdditionals?.map { GeneralAddition(generalAdditionalId: $0.id) }
+            var count = 0
+            for i in selectedProducts {
+                if i.stockId == item.id {
+                    count = i.quantity
+                }
+            }
+            return ListOrderDetailsDto(
+                stockId: item.dishId,
+                urlImage: item.dishUrl,
+                generalAdditionalId: gen ? generalAdditionalIds : nil,
+                name: item.dishName,
+                price: Int(item.dishPrice),
+                quantity: count
+            )
+        }
     }
     
     private func setUp() {
@@ -117,22 +101,6 @@ class CategoryViewController: BaseViewController {
         }
     }
     
-    private func addObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(getProducts), name: .init("com.ostep.ClientApp.saved"), object: nil)
-    }
-    
-    @objc
-    private func getProducts() {
-//        Task {
-//            do {
-//                let products: [ListOrderDetailsDto] = try await FirestoreManager.shared.fetchAllData(from: .basket)
-//                self.products = products
-//            } catch {
-//                print("Error: \(error.localizedDescription)")
-//            }
-//        }
-    }
-    
     // MARK: - Requests
     private func getDishesByCategory(categoryId: Int) {
         viewModel.getDishesByCategory(categoryId: categoryId) { [weak self] res in
@@ -145,19 +113,6 @@ class CategoryViewController: BaseViewController {
 
 extension CategoryViewController: IndicatorInfoProvider {
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-//        switch categoryType {
-//        case .coffee:
-//            return IndicatorInfo(title: "Кофе")
-//        case .deserts:
-//            return IndicatorInfo(title: "Десерты")
-//        case .bakery:
-//            return IndicatorInfo(title: "Выпечка")
-//        case .cocktails:
-//            return IndicatorInfo(title: "Коктейли")
-//        case .tea:
-//            return IndicatorInfo(title: "Чаи")
-//        }
-        
         return IndicatorInfo(title: categoryName)
     }
 }
@@ -210,8 +165,8 @@ extension CategoryViewController: UICollectionViewDataSource, UICollectionViewDe
 }
 
 extension CategoryViewController: PopularItemDelegate {
-    func updateItems(with items: ListOrderDetailsDto) {
-        FirestoreManager.shared.saveTo(collection: .basket, id: items.stockId, data: items)
+    func updateItems(with item: ListOrderDetailsDto) {
+        item.quantity > 0 ? BasketManager.shared.addToCart(item) : BasketManager.shared.removeFromCart(product: item)
     }
 }
 

@@ -50,14 +50,14 @@ class PopularItemCell: UICollectionViewCell {
         label.textAlignment = .center
         label.text = "190 с"
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        label.textColor = Asset.clientOrange.color
+        label.textColor = UIColor.init(hexString: "30539f")
         return label
     }()
     
     private lazy var stepperControl: StepperView = {
         var stepper = StepperView()
         stepper.minimumNumberOfItems = 0
-        stepper.additionButtonColor = Asset.clientOrange.color
+        stepper.additionButtonColor = UIColor.init(hexString: "30539f")
         stepper.decreaseButtonColor = Asset.clientMain.color
         stepper.delegate = self
         return stepper
@@ -104,6 +104,7 @@ class PopularItemCell: UICollectionViewCell {
         nameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-5)
         }
         descriptionLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -129,14 +130,6 @@ class PopularItemCell: UICollectionViewCell {
         imageView.sd_setImage(with: cell.urlImage?.url)
         stepperControl.quantityOfItems = cell.quantity
     }
-    
-//    func display(cell: DishDTO) {
-//        dish = cell
-//        nameLabel.text = cell.name
-//        priceLabel.text = "\(cell.price) c"
-//        descriptionLabel.text = cell.description
-//        imageView.sd_setImage(with: cell.imageUrl)
-//    }
 }
 
 extension PopularItemCell: HidableStepperDelegate {

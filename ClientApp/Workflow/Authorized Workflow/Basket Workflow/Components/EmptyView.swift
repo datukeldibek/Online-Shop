@@ -28,7 +28,7 @@ class EmptyView: UIView {
     private lazy var menuButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = Asset.clientOrange.color
+        button.backgroundColor = UIColor.init(hexString: "30539f")//Asset.clientOrange.color
         button.layer.cornerRadius = 10
         button.setTitle("В меню", for: .normal)
         button.addTarget(self, action: #selector(menuTap), for: .touchUpInside)
@@ -59,10 +59,9 @@ class EmptyView: UIView {
     
     private func setUpConstaints() {
         imageView.snp.makeConstraints { make in
-            make.center.equalToSuperview().offset(-90)
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.height.equalTo(250)
+            make.centerY.equalToSuperview().offset(-90)
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(300)
         }
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(14)

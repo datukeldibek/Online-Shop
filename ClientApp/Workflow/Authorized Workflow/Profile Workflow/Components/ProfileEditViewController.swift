@@ -52,7 +52,7 @@ class ProfileEditViewController: BaseViewController {
     private lazy var saveButton: UIButton = {
         let button = UIButton()
         button.setTitle("Сохранить", for: .normal)
-        button.backgroundColor = Asset.clientOrange.color
+        button.backgroundColor = UIColor.init(hexString: "30539f")
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(saveProfileInfo), for: .touchUpInside)

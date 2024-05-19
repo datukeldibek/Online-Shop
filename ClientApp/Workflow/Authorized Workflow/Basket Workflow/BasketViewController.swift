@@ -52,11 +52,23 @@ class BasketViewController: BaseViewController {
     private var bonusTextField = UITextField()
     
     private var sum = 0
+    
+//    private var dishesInBasket: [ListOrderDetailsDto] {
+//        get { Products.all }
+//        set {
+//            Products.all = newValue
+//            collectionView.reloadData()
+//        }
+//    }
+    
     private var dishesInBasket: [ListOrderDetailsDto] = [] {
         didSet {
+            dishesInBasket = dishesInBasket.filter { $0.quantity > 0 }
+            updateSum()
             collectionView.reloadData()
         }
     }
+    
     // MARK: - injection
     private var viewModel: BasketViewModelType
     
@@ -74,29 +86,16 @@ class BasketViewController: BaseViewController {
         setUp()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         getBonuses()
         
-        if let data = UserDefaults.standard.data(forKey: "1") {
-            do {
-                let decoder = JSONDecoder()
-                let items = try decoder.decode(ListOrderDetailsDto.self, from: data)
-                dishesInBasket.append(items)
-//                emptyView.isHidden = !dishesInBasket.isEmpty
-//                collectionView.isHidden = dishesInBasket.isEmpty
-            } catch {
-                print("Unable to Decode Note (\(error))")
-            }
-        }
-        
-//        Task {
-//            let dishesInBasket = try! await viewModel.getDishes()
-//            self.dishesInBasket = dishesInBasket
-//            emptyView.isHidden = !dishesInBasket.isEmpty
-//            collectionView.isHidden = dishesInBasket.isEmpty
-//        }
-//
+        dishesInBasket = BasketManager.shared.getCart()
+    
+        reloadPage()
+    }
+    
+    func reloadPage() {
         emptyView.isHidden = !dishesInBasket.isEmpty
         collectionView.isHidden = dishesInBasket.isEmpty
         
@@ -111,7 +110,7 @@ class BasketViewController: BaseViewController {
     
     private func setUpSubviews() {
         view.addSubview(titleLabel)
-        view.addSubview(historyOfOrdersButton)
+//        view.addSubview(historyOfOrdersButton)
         view.addSubview(collectionView)
         view.addSubview(emptyView)
     }
@@ -123,12 +122,12 @@ class BasketViewController: BaseViewController {
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(35)
         }
-        historyOfOrdersButton.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel).offset(14)
-            make.trailing.equalToSuperview().offset(-16)
-            make.height.equalTo(20)
-            make.width.equalTo(85)
-        }
+//        historyOfOrdersButton.snp.makeConstraints { make in
+//            make.top.equalTo(titleLabel).offset(14)
+//            make.trailing.equalToSuperview().offset(-16)
+//            make.height.equalTo(20)
+//            make.width.equalTo(85)
+//        }
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.bottom.trailing.leading.equalToSuperview()
@@ -167,8 +166,8 @@ class BasketViewController: BaseViewController {
         tabBarController?.selectedIndex = 0
     }
     
-    private func orderInfo(sum: Int) {
-        viewModel.setSum(sum)
+    private func updateSum() {
+        sum = dishesInBasket .map { Int($0.price) * $0.quantity }.reduce(0, +)
     }
     
     private func getBonuses() {
@@ -182,11 +181,28 @@ class BasketViewController: BaseViewController {
     private func handleOrder() {
         let dishes = dishesInBasket
         let orderType = viewModel.getOrderType()
-        let order = OrderDTO(
+        let dish = dishes.map { i in
+            return ListOrderDetailsDTO(stockId: i.stockId, quantity: i.quantity)
+        }
+        
+//        let order = OrderDTO(
+//            branchId: 0,
+//            listOrderDetailsDto: dishes,
+//            orderType: orderType.rawValue,
+//            tableId: 0
+//        )
+        let order = OrderDTO2(
+            orderType: "IN",
             branchId: 0,
-            listOrderDetailsDto: dishes,
-            orderType: orderType.rawValue,
-            tableId: 0
+            listOrderDetailsDto: dish,
+            address: AddressInfoDTO(
+                city: "1",
+                street: "2",
+                numberOfHouse: "3",
+                numberOFentrance: "4",
+                numberOfApartment: "5",
+                comment: "6"
+            )
         )
         
         let completion = { [unowned self] completion in
@@ -225,7 +241,9 @@ extension BasketViewController: UICollectionViewDelegateFlowLayout, UICollection
         let cell = collectionView.dequeueIdentifiableCell(OrderCell.self, for: indexPath)
         cell.display(dish: dishesInBasket[indexPath.row])
         cell.orderCount = { [weak self] order in
-            FirestoreManager.shared.saveTo(collection: .basket, id: order.stockId, data: order)
+            BasketManager.shared.addToCart(order)
+            self?.dishesInBasket = BasketManager.shared.getCart()
+            self?.reloadPage()
         }
         return cell
     }
@@ -233,7 +251,7 @@ extension BasketViewController: UICollectionViewDelegateFlowLayout, UICollection
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let view = collectionView.dequeuReusableView(ViewType: OrderButtonsView.self, type: .UICollectionElementKindSectionFooter, for: indexPath)
         view.delegate = self
-        view.display(item: viewModel.getSum())
+        view.display(item: String(self.sum) ?? "0")
         return view
     }
     
@@ -248,8 +266,8 @@ extension BasketViewController: OrderButtonsViewDelegate {
     }
     
     func orderTap() {
-        showBonusAlert()
-//        handleOrder()
+//        showBonusAlert()
+        handleOrder()
         print("Order tapp")
     }
     

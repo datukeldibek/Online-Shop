@@ -12,6 +12,10 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         setUp()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
  
     private func setUp() {
         let backButton = UIBarButtonItem()
