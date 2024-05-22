@@ -13,6 +13,9 @@ protocol OrderButtonsViewDelegate: AnyObject {
     func orderTypeTap(type: OrderButtonsView.OrderType)
 }
 
+typealias ButtonAction = () -> Void
+
+
 class OrderButtonsView: UICollectionReusableView {
     enum OrderType: String {
         case takeAway = "IN"
@@ -51,7 +54,7 @@ class OrderButtonsView: UICollectionReusableView {
     
     private lazy var takeawayButton: RegistrationButton = {
         let button = RegistrationButton()
-        button.setTitle("Возьму с собой")
+        button.setTitle("С доставкой")
         button.isInvert()
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = Asset.clientGray.color
@@ -61,7 +64,7 @@ class OrderButtonsView: UICollectionReusableView {
     
     private lazy var inTheCafeButton: RegistrationButton = {
         let button = RegistrationButton()
-        button.setTitle("В заведении")
+        button.setTitle("Самовывоз")
         button.addTarget(self, action: #selector(inTheCafeTapped), for: .touchUpInside)
         return button
     }()
@@ -77,6 +80,8 @@ class OrderButtonsView: UICollectionReusableView {
         return view
     }()
     
+    var buttonAction: ButtonAction?
+
     weak var delegate: OrderButtonsViewDelegate?
     private var orderType: OrderType = .atTheVenue {
         didSet {
@@ -89,8 +94,9 @@ class OrderButtonsView: UICollectionReusableView {
         setUp()
     }
     
-    public func display(item: String) {
+    public func display(item: String, type: Int) {
         sumLabel.attributedText = buildSumLabelAttributeText(item)
+        self.orderType = type == 0 ? .takeAway : .atTheVenue
     }
     
     private func setUp() {
@@ -142,6 +148,8 @@ class OrderButtonsView: UICollectionReusableView {
     private func takeawayTapped() {
         delegate?.orderTypeTap(type: .takeAway)
         orderType = .takeAway
+
+        buttonAction?()
     }
     
     @objc

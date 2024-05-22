@@ -109,6 +109,10 @@ enum CommonConstants {
         static func getPopularDishes() -> URL {
             baseUrl.appendingPathComponent("/client/menu/get-popular")
         }
+        
+        static func getOrdersAll() -> URL {
+            baseUrl.appendingPathComponent("/client/orders/get-all")
+        }
     }
     
     // MARK: - Bonuses

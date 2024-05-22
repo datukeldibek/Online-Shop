@@ -128,9 +128,9 @@ extension HistoryOrderViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueIdentifiableCell(ProfileOrderCell.self, for: indexPath)
         if indexPath.section == 0 {
-            cell.display(currentOrders[indexPath.row])
+//            cell.display(activeOrders[indexPath.row])
         } else {
-            cell.display(completedOrders[indexPath.row])
+//            cell.display(completedOrders[indexPath.row])
         }
         return cell
     }

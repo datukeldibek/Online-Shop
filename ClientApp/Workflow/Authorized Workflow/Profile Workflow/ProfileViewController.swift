@@ -45,14 +45,36 @@ class ProfileViewController: BaseViewController {
     var viewModel: ProfileViewModelType!
     
     private var bonus = 20
-    private var currentOrders: [HistoryDTO] = [] {
+//    private var currentOrders: [HistoryDTO] = [] {
+//        didSet {
+//            collectionView.reloadData()
+//        }
+//    }
+//
+//    
+//    private var completedOrders: [HistoryDTO] = []{
+//        didSet {
+//            collectionView.reloadData()
+//        }
+//    }
+    
+    private var completedOrders: [FullCategoryDTOElement] = [] {
         didSet {
             collectionView.reloadData()
         }
     }
-    private var completedOrders: [HistoryDTO] = []{
+    
+    private var activeOrders: [FullCategoryDTOElement] = [] {
         didSet {
             collectionView.reloadData()
+        }
+    }
+
+    private var allOrders: [FullCategoryDTOElement] = [] {
+        didSet {
+            completedOrders = allOrders.filter { $0.orderStatus == "CANCELED" && $0.orderStatus == "CLOSED"}
+            
+            activeOrders = allOrders.filter { $0.orderStatus != "CANCELED" && $0.orderStatus != "CLOSED"}
         }
     }
     
@@ -64,10 +86,11 @@ class ProfileViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getCurrentOrders()
-        getComletedOrders()
+//        getCurrentOrders()
+//        getComletedOrders()
         getBonuses()
         getUserInfo()
+        getOrdersAll()
     }
     
     init(vm: ProfileViewModelType) {
@@ -121,6 +144,14 @@ class ProfileViewController: BaseViewController {
     }
     
     // MARK: - Requests
+    private func getOrdersAll() {
+        withRetry(viewModel.getOrdersAll) { [weak self] res in
+            if case .success(let items) = res {
+                self?.allOrders = items
+            }
+        }
+    }
+    
     private func getBonuses() {
         viewModel.getBonuses { [weak self] res in
             if case .success(let bonus) = res {
@@ -132,7 +163,6 @@ class ProfileViewController: BaseViewController {
     private func getCurrentOrders() {
         withRetry(viewModel.getCurrentOrders) { [weak self] res in
             if case .success(let items) = res {
-                self?.currentOrders = items
             }
         }
     }
@@ -140,19 +170,10 @@ class ProfileViewController: BaseViewController {
     private func getComletedOrders() {
         withRetry(viewModel.getCompletedOrders) { [weak self] res in
             if case .success(let items) = res {
-                self?.completedOrders = items
             }
         }
     }
-    
-//    private func getUserInfo() {
-//        viewModel.getUserInfo { [weak self] res in
-//            if case .success(let info) = res {
-//                self?.userName = info.name
-//                print("### \(self?.userName)")
-//            }
-//        }
-//    }
+
     private func getUserInfo() {
         withRetry(viewModel.getUserInfo) { [weak self] res in
             if case .success(let info) = res {
@@ -198,7 +219,7 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout, UICollectio
         if section == 0 {
             return 0
         } else if section == 1 {
-            return currentOrders.count
+            return activeOrders.count
         }
         return completedOrders.count
     }
@@ -209,7 +230,7 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout, UICollectio
             let cell = UICollectionViewCell()
             return cell
         } else if indexPath.section == 1 {
-            cell.display(currentOrders[indexPath.row])
+            cell.display(activeOrders[indexPath.row])
             return cell
         } else {
             cell.display(completedOrders[indexPath.row])
