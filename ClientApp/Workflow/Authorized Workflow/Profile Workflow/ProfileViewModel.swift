@@ -17,6 +17,7 @@ protocol ProfileViewModelType {
     // MARK: - Get orders history
     func getCurrentOrders(completion: @escaping (Result<[HistoryDTO], Error>) -> Void)
     func getCompletedOrders(completion: @escaping (Result<[HistoryDTO], Error>) -> Void)
+    func getOrdersAll(completion: @escaping (Result<[FullCategoryDTOElement], Error>) -> Void)
 }
 
 class ProfileViewModel: ProfileViewModelType {
@@ -52,5 +53,9 @@ class ProfileViewModel: ProfileViewModelType {
     
     func getCompletedOrders(completion: @escaping (Result<[HistoryDTO], Error>) -> Void) {
         webApi.getCompletedOrders(completion: completion)
+    }
+    
+    func getOrdersAll(completion: @escaping (Result<[FullCategoryDTOElement], Error>) -> Void) {
+        webApi.getOrdersAll(completion: completion)
     }
 }

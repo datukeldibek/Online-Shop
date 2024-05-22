@@ -7,79 +7,47 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "174273FD-F834-4A6B-A0A5-F637666F4EB0"
-            shouldBeEnabled = "No"
+            uuid = "283E58EB-FECB-4C34-AE07-63DD72F9BC8B"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ClientApp/Workflow/Registrtion and Authorization/Registration/PhoneRegistrationViewModel.swift"
+            filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "registerNewUser(user:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AF55E9FF-FB21-4222-8504-E395A59DF654"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ClientApp/Workflow/Registrtion and Authorization/Registration/PhoneRegistrationViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "sendConfirmation(for:confirmationCode:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "822BC92F-7574-4E7A-AE8F-5459B53BD578"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ClientApp/Model/Services/AuthService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "sendConfirmation(for:confirmationCode:completion:)"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "822BC92F-7574-4E7A-AE8F-5459B53BD578 - 6b90ff2aba3fa2a0"
+                  uuid = "283E58EB-FECB-4C34-AE07-63DD72F9BC8B - f95efcea36961cf1"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "ClientApp.AuthService.sendConfirmation(for: Swift.String, confirmationCode: Swift.String, completion: (Swift.Result&lt;ClientApp.JwtInfo, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  symbolName = "ClientApp.BasketViewController.viewWillAppear(Swift.Bool) -&gt; ()"
                   moduleName = "ClientApp"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Model/Services/AuthService.swift"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "82"
-                  endingLineNumber = "82"
-                  offsetFromSymbolStart = "156">
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "756">
                </Location>
                <Location
-                  uuid = "822BC92F-7574-4E7A-AE8F-5459B53BD578 - 46659de3941a2ec9"
+                  uuid = "283E58EB-FECB-4C34-AE07-63DD72F9BC8B - f95efcea36961cf1"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;ClientApp.JwtInfo, Swift.Error&gt;) -&gt; () in ClientApp.AuthService.sendConfirmation(for: Swift.String, confirmationCode: Swift.String, completion: (Swift.Result&lt;ClientApp.JwtInfo, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  symbolName = "ClientApp.BasketViewController.viewWillAppear(Swift.Bool) -&gt; ()"
                   moduleName = "ClientApp"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Model/Services/AuthService.swift"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Authorized%20Workflow/Basket%20Workflow/BasketViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "82"
-                  endingLineNumber = "82"
-                  offsetFromSymbolStart = "48">
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "720">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -87,79 +55,31 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E1AF21CA-B438-4027-AA18-7F823248D90D"
+            uuid = "5E5C73C9-1DC3-4DC1-9189-4E6387EA5BF1"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ClientApp/Workflow/Registrtion and Authorization/Registration/PhoneRegistrationViewModel.swift"
+            filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "isAuthorized"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8204DE61-F13A-4796-9E6B-EFCF09A4011F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ClientApp/Workflow/Registrtion and Authorization/Registration/PhoneRegistrationViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "userLoggedIn"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "79EC0BF4-28B4-4657-8790-AC89B1EC94BE"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/AlamofireNetworkActivityLogger/Source/NetworkActivityLogger.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
-            landmarkName = "requestDidFinish(notification:)"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "orderTap()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "23354212-850F-4F3C-BA9A-E093DD397E51"
+            uuid = "D7F717DD-EE89-47FF-A050-E42D81C1E9CE"
             shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ClientApp/Workflow/Authorized Workflow/Main Page/MainViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "popularDishes"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "249C58C1-36DF-4876-B099-24C5C0D13CCF"
-            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
             landmarkName = "handleOrder()"
             landmarkType = "7">
          </BreakpointContent>
@@ -167,48 +87,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "92852E5C-9C5A-418B-8896-B84D83428ED5"
+            uuid = "13514319-A4F5-49BC-92A3-1E8418C23D34"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
+            filePath = "ClientApp/Workflow/Registrtion and Authorization/Registration/Components/PhoneConfirmationViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
-            landmarkName = "handleOrder()"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "checkCode()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "13514319-A4F5-49BC-92A3-1E8418C23D34 - 90757c10dac71d2d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 ((Swift.Result&lt;ClientApp.JwtInfo, Swift.Error&gt;) -&gt; ()) -&gt; () in ClientApp.PhoneConfirmationViewController.checkCode() -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Registrtion%20and%20Authorization/Registration/Components/PhoneConfirmationViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "203"
+                  endingLineNumber = "203"
+                  offsetFromSymbolStart = "100">
+               </Location>
+               <Location
+                  uuid = "13514319-A4F5-49BC-92A3-1E8418C23D34 - 90757c10dac71d2d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 ((Swift.Result&lt;ClientApp.JwtInfo, Swift.Error&gt;) -&gt; ()) -&gt; () in ClientApp.PhoneConfirmationViewController.checkCode() -&gt; ()"
+                  moduleName = "ClientApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adinemeziz/Desktop/Neocafe-CRM/ClientApp/Workflow/Registrtion%20and%20Authorization/Registration/Components/PhoneConfirmationViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "203"
+                  endingLineNumber = "203"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3B95F4E9-E0B7-4E05-8187-0413784D9BCD"
+            uuid = "C0B6611C-F28E-4602-BE9B-787A19E20298"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
+            filePath = "ClientApp/Workflow/Registrtion and Authorization/Registration/Components/PhoneConfirmationViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
-            landmarkName = "handleOrder()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "507FBB1F-CC9B-497B-9B31-46B199920C97"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ClientApp/Workflow/Authorized Workflow/Basket Workflow/BasketViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
-            landmarkName = "handleOrder()"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "checkCode()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

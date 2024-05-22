@@ -198,7 +198,7 @@ class PhoneConfirmationViewController: BaseRegistrationViewController {
     private func checkCode() {
         if phoneNumber.count > 8,
            confirmationCode.count > 3 {
-            let fullPhone = countryCode + phoneNumber
+            let fullPhone = phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines)
             let confirmationCodeCompletion = { [unowned self] completion in
                 self.viewModel.sendConfirmation(for: fullPhone, confirmationCode: self.confirmationCode, completion: completion)
             }

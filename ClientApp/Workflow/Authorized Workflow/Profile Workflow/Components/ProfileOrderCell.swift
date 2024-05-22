@@ -86,10 +86,10 @@ class ProfileOrderCell: UICollectionViewCell {
         }
     }
     
-    func display(_ item: HistoryDTO) {
+    func display(_ item: FullCategoryDTOElement) {
         branchLabel.text = item.branchName
-        productsLabel.text = item.listOrderDetailsDto.map({ $0.name }).joined(separator: ", ")
-        dateLabel.text = item.orderTime//.toDate().toString(dateFormat: "MMM d, yyyy")
+        productsLabel.text = item.orderDetails.map({ $0.name }).joined(separator: ", ")
+        dateLabel.text = item.orderStatus//.toDate().toString(dateFormat: "MMM d, yyyy")
     }
 }
 

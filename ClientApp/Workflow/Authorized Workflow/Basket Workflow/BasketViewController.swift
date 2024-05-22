@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class BasketViewController: BaseViewController {
     enum TypeSelected {
@@ -69,6 +70,8 @@ class BasketViewController: BaseViewController {
         }
     }
     
+    var orderType = 1
+    
     // MARK: - injection
     private var viewModel: BasketViewModelType
     
@@ -84,6 +87,8 @@ class BasketViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+        
+        UserDefaults.standard.removeObject(forKey: "address")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -91,6 +96,11 @@ class BasketViewController: BaseViewController {
         getBonuses()
         
         dishesInBasket = BasketManager.shared.getCart()
+        
+        if let data = UserDefaults.standard.data(forKey: "address") {
+           let decodedCart = try? JSONDecoder().decode([AddressInfoDTO].self, from: data)
+            orderType = 0
+        }
     
         reloadPage()
     }
@@ -182,52 +192,26 @@ class BasketViewController: BaseViewController {
         let dishes = dishesInBasket
         let orderType = viewModel.getOrderType()
         let dish = dishes.map { i in
-            return ListOrderDetailsDTO(stockId: i.stockId, quantity: i.quantity)
+            return OrderDetailDTO(menuId: i.stockId, quantity: i.quantity)
         }
+
+        let addressDTO = AddressInfoDTO(city: "string", street: "string", numberOfHouse: "string", numberOFentrance: "string", numberOfApartment: "string", comment: "string")
         
-//        let order = OrderDTO(
-//            branchId: 0,
-//            listOrderDetailsDto: dishes,
-//            orderType: orderType.rawValue,
-//            tableId: 0
-//        )
         let order = OrderDTO2(
-            orderType: "IN",
-            branchId: 0,
+            orderType: "OUT",
+            branchId: 2,
             listOrderDetailsDto: dish,
-            address: AddressInfoDTO(
-                city: "1",
-                street: "2",
-                numberOfHouse: "3",
-                numberOFentrance: "4",
-                numberOfApartment: "5",
-                comment: "6"
-            )
+            address: addressDTO
         )
         
-        let completion = { [unowned self] completion in
-            viewModel.addOrder(with: order, completion: completion)
-        }
-        withRetry(completion) { [weak self] response in
-            print("@@@@ = \(response)")
-            if case .success = response {
-                let alert = UIAlertController(
-                    title: "Заказ успешно оформлен",
-                    message: "Ваш заказ принят, пожалуйста ожидайте",
-                    preferredStyle: .alert)
-                
-                alert.addAction(UIAlertAction(title: "Хорошо", style: .cancel))
-                self?.present(alert, animated: true)
-            } else if case .failure(let err) = response {
-                print(err.localizedDescription)
+        viewModel.addOrder(with: order) { response in
+            switch response {
+            case .success(let value) :
+                print("is success \(value)")
+            case .failure(let error):
+                print("Ошибка при выполнении запроса: \(error)")
             }
         }
-        
-//        viewModel.addOrder(with: order) { res in
-//            if case .success(let success) = res {
-//                print("feawsfa")
-//            }
-//        }
     }
 }
 
@@ -251,7 +235,12 @@ extension BasketViewController: UICollectionViewDelegateFlowLayout, UICollection
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let view = collectionView.dequeuReusableView(ViewType: OrderButtonsView.self, type: .UICollectionElementKindSectionFooter, for: indexPath)
         view.delegate = self
-        view.display(item: String(self.sum) ?? "0")
+        view.display(item: String(self.sum) ?? "0", type: orderType)
+        view.buttonAction = {
+            let addressVC = InjectionService.resolve(controller: AddressViewController.self)
+            self.navigationController?.pushViewController(addressVC, animated: true)
+        }
+        
         return view
     }
     
@@ -268,7 +257,6 @@ extension BasketViewController: OrderButtonsViewDelegate {
     func orderTap() {
 //        showBonusAlert()
         handleOrder()
-        print("Order tapp")
     }
     
     func orderTypeTap(type: OrderButtonsView.OrderType) {
@@ -289,7 +277,7 @@ extension BasketViewController: OrderButtonsViewDelegate {
                 bonus <= self.viewModel.bonuses else {
                 return
             }
-            self.handleOrder()
+//            self.handleOrder()
             self.addSubstractBonuses(amount: bonus)
         })
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))

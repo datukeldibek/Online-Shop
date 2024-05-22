@@ -44,6 +44,8 @@ protocol WebApiServiceType {
     func getDishDetails(id: Int, completion: @escaping (Result<DishDTO, Error>) -> Void)
     
     func addOrder(with orderInfo: OrderDTO2, completion: @escaping (Result<OrderDTO2, Error>) -> Void)
+    
+    func getOrdersAll(completion: @escaping (Result<[FullCategoryDTOElement], Error>) -> Void)
 }
 
 class WebApiService: NSObject, WebApiServiceType {
@@ -382,4 +384,17 @@ class WebApiService: NSObject, WebApiServiceType {
             self?.handleResponse(of: OrderDTO2.self, response: response, completion: completion)
         }
     }
+    
+    func getOrdersAll(completion: @escaping (Result<[FullCategoryDTOElement], Error>) -> Void) {
+        afSession.request(
+            CommonConstants.Orders.getOrdersAll(),
+            method: .get,
+            interceptor: authService
+        )
+        .validate()
+        .responseDecodable { [weak self] response in
+            self?.handleResponse(of: [FullCategoryDTOElement].self, response: response, completion: completion)
+        }
+    }
+
 }

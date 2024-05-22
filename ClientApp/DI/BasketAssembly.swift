@@ -24,5 +24,9 @@ class BasketAssembly: Assembly {
         container.register(HistoryOrderViewController.self) { r in
             HistoryOrderViewController(vm: r~>)
         }.inObjectScope(.container)
+        
+        container.register(AddressViewController.self) { r in
+            AddressViewController(vm: r~>)
+        }.inObjectScope(.container)
     }
 }
